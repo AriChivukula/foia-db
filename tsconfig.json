@@ -36,7 +36,7 @@
     "inlineSourceMap": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "outDir": "bin",
+    "outDir": "build",
     "removeComments": true,
     "strict": true,
     "target": "ES3"
