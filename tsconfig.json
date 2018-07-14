@@ -40,8 +40,5 @@
     "removeComments": true,
     "strict": true,
     "target": "ES3"
-  },
-  "include": [
-    "source/*.ts"
-  ]
+  }
 }
