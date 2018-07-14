@@ -1,7 +1,6 @@
 node_modules
-src
-gen
-bin/__tests__
+source
+test
 .gitignore
 .npmignore
 .travis.yml
