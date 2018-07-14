@@ -2,3 +2,4 @@
 --require source-map-support/register
 --full-trace
 --bail
+test/*
