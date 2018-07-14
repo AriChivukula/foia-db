@@ -42,6 +42,6 @@
     "target": "ES3"
   },
   "include": [
-    "source/*"
+    "source/*.ts"
   ]
 }
