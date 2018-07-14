@@ -2,15 +2,15 @@
   "name": "foia-db",
   "version": "0.0.0",
   "description": "Freedom Oriented Information Automation DB",
-  "main": "bin/index.js",
-  "types": "bin/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "repository": "https://github.com/AriChivukula/foia-db.git",
   "author": "Ari Chivukula <ari@chivuku.la>",
   "license": "MIT",
   "nyc": {
     "all": true,
     "include": [
-      "source/*"
+      "source/*.ts"
     ],
     "instrument": true,
     "extension": [
