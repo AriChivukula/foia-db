@@ -1,0 +1,34 @@
+language: node_js
+node_js:
+- node
+cache: yarn
+install:
+- npm install --global --upgrade yarn
+- yarn install
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+jobs:
+  include:
+  - stage: Test
+    if: type = push
+    script:
+    - yarn outdated
+    - yarn tsc
+    - ./cc-test-reporter before-build
+    - yarn nyc mocha
+    - yarn nyc report
+    - ./cc-test-reporter after-build
+  - stage: Deploy
+    if: tag IS present
+    script:
+    - yarn tsc
+    - if [[ "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+-UNSTABLE$" ]] ; then export NPM_TAG="next" ; fi
+    - if [[ "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+-STABLE$" ]] ; then export NPM_TAG="latest" ; fi
+    deploy:
+      - provider: npm
+        email: $EMAIL
+        api_key: $API_KEY
+        skip_cleanup: true
+        tag: $NPM_TAG
+        on:
+          tags: true
