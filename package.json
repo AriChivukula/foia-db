@@ -10,7 +10,7 @@
   "nyc": {
     "all": true,
     "include": [
-      "src/*"
+      "source/*"
     ],
     "instrument": true,
     "extension": [
