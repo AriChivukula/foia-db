@@ -7,6 +7,23 @@
   "repository": "https://github.com/AriChivukula/foia-db.git",
   "author": "Ari Chivukula <ari@chivuku.la>",
   "license": "MIT",
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/*"
+    ],
+    "instrument": true,
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "sourceMap": true
+  },
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.53",
   },
