@@ -1,0 +1,11 @@
+node_modules
+src
+gen
+bin/__tests__
+.gitignore
+.npmignore
+.travis.yml
+LICENSE
+README.md
+tsconfig.json
+yarn.lock
