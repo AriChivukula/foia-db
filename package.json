@@ -10,7 +10,7 @@
   "nyc": {
     "all": true,
     "include": [
-      "source/*.ts"
+      "source/*"
     ],
     "instrument": true,
     "require": [
@@ -34,5 +34,8 @@
     "source-map-support": "0.5.6",
     "ts-node": "7.0.0",
     "typescript": "2.9.2"
-  }
+  },
+  "include": [
+    "source/*"
+  ]
 }
