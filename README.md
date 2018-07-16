@@ -38,7 +38,7 @@ Set lint rules by describing the data format expected.
 $> /.foia-db
 
 {
-  "tables": {
+  "folders": {
     "project": {
       "key": {
         "type": "number",
@@ -66,6 +66,26 @@ $> /.foia-db
 ## FOIA DB (Server)
 
 Enforce lint rules and generate releases containing the compiled DB.
+
+```
+$> /.travis.yml
+
+env:
+- GITHUB_USER=<...>
+- GITHUB_TOKEN=<...>
+language: node_js
+node_js:
+- node
+install: npm install foia-db
+jobs:
+  include:
+  - stage: Lint
+    if: ( type = push ) AND ( branch != master )
+    script: npx run foia-db --lint
+  - stage: Release
+    if: ( type = push ) AND ( branch = master )
+    script: npx run foia-db --release
+```
 
 ## FOIA DB (Client)
 
