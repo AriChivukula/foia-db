@@ -81,10 +81,10 @@ jobs:
   include:
   - stage: Lint
     if: ( type = push ) AND ( branch != master )
-    script: npx run foia-db --lint
+    script: npx foia-db --lint
   - stage: Release
     if: ( type = push ) AND ( branch = master )
-    script: npx run foia-db --release
+    script: npx foia-db --release
 ```
 
 ## FOIA DB (Client)
