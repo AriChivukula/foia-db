@@ -7,7 +7,7 @@ The code, test cases, and the below examples are intended to provide sufficient 
 Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 
 ```
-$> /project/0
+<DB_REPO>/project/0
 
 {
   "description": "My First Project"
@@ -15,7 +15,7 @@ $> /project/0
 ```
 
 ```
-$> /project/1
+<DB_REPO>/project/1
 
 {
   "description": "My First Project++"
@@ -23,7 +23,7 @@ $> /project/1
 ```
 
 ```
-$> /user/ari
+<DB_REPO>/user/ari
 
 {
   "gender": 1E+2
@@ -35,7 +35,7 @@ $> /user/ari
 Set lint rules by describing the data format expected.
 
 ```
-$> /.foia-db
+<DB_REPO>/.foia-db
 
 {
   "folders": {
@@ -68,7 +68,7 @@ $> /.foia-db
 Enforce lint rules and generate releases containing the compiled DB.
 
 ```
-$> /.travis.yml
+<DB_REPO>/.travis.yml
 
 env:
 - GITHUB_USER=<...>
@@ -90,3 +90,16 @@ jobs:
 ## FOIA DB (Client)
 
 Downloads the DB, provides an API to access it.
+
+```
+<WEB_REPO>/test.js
+
+import { Client } from "foia-db";
+
+async function example() {
+  const client = await Client.new(<GITHUB_USER>, <GITHUB_TOKEN>, "<DB_REPO>");
+  client.raw.project.forEach((document, key) => {
+    console.log(document.description);
+  });
+}
+```
