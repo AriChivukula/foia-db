@@ -33,7 +33,6 @@
       "ESNext.AsyncIterable",
       "ESNext.Array"
     ],
-    "inlineSourceMap": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "outDir": "build",
