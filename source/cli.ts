@@ -13,7 +13,7 @@ if (require.main === module) {
           "compile",
           {
             boolean: true,
-            describe: "Expect No Changes",
+            describe: "Write out db",
           },
         ),
       (argv: yargs.Arguments): void => {
