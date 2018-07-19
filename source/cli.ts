@@ -35,7 +35,7 @@ function validateConfig(
   lint: boolean,
   release: boolean,
 ): void {
-  const config: string = JSON.parse(readFileSync(".foia-db", "ascii"));
+  const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder) => {
     validateFolder(lint, release, config, folder);
   });
