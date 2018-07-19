@@ -35,7 +35,7 @@ function validateConfig(
   lint: boolean,
   release: boolean,
 ): void {
-  const config: string = JSON.parse(readFileSync(".foia-db").toString());
+  const config: string = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config).forEach((table) => {
     validateTable(lint, release, config, table);
   });
@@ -62,6 +62,6 @@ function validateDocument(
   table: string,
   document_path: string,
 ): void {
-  const document: string = JSON.parse(readFileSync("data/" + config[table].name + "/" + document_path).toString());
+  const document: string = JSON.parse(readFileSync("data/" + config[table].name + "/" + document_path, "ascii"));
   // ...
 }
