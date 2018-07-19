@@ -15,8 +15,8 @@
         "type": "string"
       },
       "document": {
-        "description": {
-          "gender": "number"
+        "gender": {
+          "type": "number"
         }
       }
     }
