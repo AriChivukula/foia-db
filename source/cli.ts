@@ -65,7 +65,7 @@ function validateDocument(
     default:
       throw new Error("Unsupported data type " + key_type);
   }
-  const doc: string = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
+  const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
   const documentConfig: any = config.folders[folder_name].document;
   Object.keys(documentConfig).forEach((value_name: string) => {
     const value: string = doc[value_name];
