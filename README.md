@@ -41,24 +41,24 @@ Set lint rules by describing the data format expected.
   "folders": {
     "project": {
       "key": {
-        "type": "number",
+        "type": "number"
       },
       "document": {
         "description": {
-          "type": "string",
+          "type": "string"
         }
       }
     },
     "user": {
       "key": {
-        "type": "string",
+        "type": "string"
       },
       "document": {
         "description": {
-          "gender": "number",
+          "gender": "number"
         }
       }
-    },
+    }
   }
 }
 ```
