@@ -28,7 +28,7 @@ function validateConfig(
   compile: boolean,
 ): void {
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  Object.keys(config.folders).forEach((folder_name) => {
+  Object.keys(config.folders).forEach((folder_name: string) => {
     validateFolder(config, folder_name);
   });
 }
@@ -40,7 +40,7 @@ function validateFolder(
   if (!existsSync("data/" + folder_name + "/")) {
     throw new Error("Missing data for " + folder_name);
   }
-  readdirSync("data/" + folder_name + "/").forEach((document_name) => {
+  readdirSync("data/" + folder_name + "/").forEach((document_name: string) => {
     validateDocument(config, folder_name, document_name);
   });
 }
@@ -67,7 +67,7 @@ function validateDocument(
   }
   const doc: string = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
   const documentConfig: any = config.folders[folder_name].document;
-  Object.keys(documentConfig).forEach((value_name) => {
+  Object.keys(documentConfig).forEach((value_name: string) => {
     const value: string = doc[value_name];
     const value_type: string = documentConfig[value_name].type;
     switch(value_type) {
