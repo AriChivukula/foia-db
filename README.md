@@ -54,8 +54,8 @@ Set lint rules by describing the data format expected.
         "type": "string"
       },
       "document": {
-        "description": {
-          "gender": "number"
+        "gender": {
+          "type": "number"
         }
       }
     }
