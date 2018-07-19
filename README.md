@@ -70,9 +70,6 @@ Enforce lint rules and generate releases containing the compiled DB.
 ```
 <DB_REPO>/.travis.yml
 
-env:
-- GITHUB_USER=<...>
-- GITHUB_TOKEN=<...>
 language: node_js
 node_js:
 - node
