@@ -37,30 +37,31 @@ function validateConfig(
 ): void {
   const config: string = JSON.parse(readFileSync(".foia-db").toString());
   Object.keys(config).forEach((table) => {
-    // @ts-ignore
-    validateTable(lint, release, config[table]);
+    validateTable(lint, release, config, table);
   });
 }
 
 function validateTable(
   lint: boolean,
   release: boolean,
-  table: any,
+  config: any,
+  table: string,
 ): void {
-  if (!existsSync("data/" + table.name + "/")) {
-    throw new Error("Missing data for " + table.name);
+  if (!existsSync("data/" + config[table].name + "/")) {
+    throw new Error("Missing data for " + config[table].name);
   }
-  readdirSync("data/" + table.name + "/").forEach((document_path) => {
-    validateDocument(lint, release, table, document_path);
+  readdirSync("data/" + config[table].name + "/").forEach((document_path) => {
+    validateDocument(lint, release, config, table, document_path);
   });
 }
 
 function validateDocument(
   lint: boolean,
   release: boolean,
-  table: any,
+  config: any,
+  table: string,
   document_path: string,
 ): void {
-  const document: string = JSON.parse(readFileSync("data/" + table.name + "/" + document_path).toString());
+  const document: string = JSON.parse(readFileSync("data/" + config[table].name + "/" + document_path).toString());
   // ...
 }
