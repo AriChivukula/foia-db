@@ -18,7 +18,7 @@ jobs:
     script:
     - yarn ts-node source/cli.ts --release
     - git remote add target "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
-    - git add .foia-db.json
+    - git add -A
     - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}"
     - git push target HEAD:$TRAVIS_BRANCH
   - stage: Deploy
