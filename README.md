@@ -2,7 +2,7 @@
 
 The code, test cases, and the below examples are intended to provide sufficient documentation. Since this is my design I'm sure I overestimate how intuitive this is to others; please open an issue against me if you have a question :heart:
 
-## Content Creators
+## Creation
 
 Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 
@@ -30,7 +30,7 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 }
 ```
 
-## Data Managers
+## Cleaning
 
 Set lint rules by describing the data format expected.
 
@@ -63,16 +63,13 @@ Set lint rules by describing the data format expected.
 }
 ```
 
-## FOIA DB (Server)
+## Compilation
 
 Enforce lint rules and generate releases containing the compiled DB.
 
 ```
 <DB_REPO>/.travis.yml
 
-env:
-- GITHUB_USER=<...>
-- GITHUB_TOKEN=<...>
 language: node_js
 node_js:
 - node
@@ -81,25 +78,8 @@ jobs:
   include:
   - stage: Lint
     if: ( type = push ) AND ( branch != master )
-    script: npx foia-db --lint
+    script: npx foia-db
   - stage: Release
     if: ( type = push ) AND ( branch = master )
-    script: npx foia-db --release
-```
-
-## FOIA DB (Client)
-
-Downloads the DB, provides an API to access it.
-
-```
-<WEB_REPO>/test.js
-
-import { Client } from "foia-db";
-
-async function example() {
-  const client = await Client.new(<GITHUB_USER>, <GITHUB_TOKEN>, "<DB_REPO>");
-  client.raw.project.forEach((document, key) => {
-    console.log(document.description);
-  });
-}
+    script: npx foia-db --compile
 ```
