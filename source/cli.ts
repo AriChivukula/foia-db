@@ -47,10 +47,10 @@ function validateTable(
   config: any,
   table: string,
 ): void {
-  if (!existsSync("data/" + config[table].name + "/")) {
-    throw new Error("Missing data for " + config[table].name);
+  if (!existsSync("data/" +table + "/")) {
+    throw new Error("Missing data for " + table);
   }
-  readdirSync("data/" + config[table].name + "/").forEach((document_path) => {
+  readdirSync("data/" + table + "/").forEach((document_path) => {
     validateDocument(lint, release, config, table, document_path);
   });
 }
@@ -62,6 +62,6 @@ function validateDocument(
   table: string,
   document_path: string,
 ): void {
-  const document: string = JSON.parse(readFileSync("data/" + config[table].name + "/" + document_path, "ascii"));
+  const document: string = JSON.parse(readFileSync("data/" + table + "/" + document_path, "ascii"));
   // ...
 }
