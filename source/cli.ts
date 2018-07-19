@@ -33,7 +33,7 @@ function validateConfig(
     final_db[folder_name] = validateFolder(config, folder_name);
   });
   if (compile) {
-    // ...
+    writeFileSync(".foia-db.json", JSON.stringify(final_db));
   }
 }
 
