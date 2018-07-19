@@ -17,5 +17,8 @@
   },
   "include": [
     "source/*"
-  ]
+  ],
+  "bin": {
+    "foia-db": "build/cli.js"
+  }
 }
