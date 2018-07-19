@@ -27,7 +27,7 @@ if (require.main === module) {
 function validateConfig(
   compile: boolean,
 ): void {
-  const final_db: object = {};
+  const final_db: any = {};
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder_name: string) => {
     final_db[folder_name] = validateFolder(config, folder_name);
@@ -41,7 +41,7 @@ function validateFolder(
   config: any,
   folder_name: string,
 ): any {
-  const final_folder: object = {};
+  const final_folder: any = {};
   if (!existsSync("data/" + folder_name + "/")) {
     throw new Error("Missing data for " + folder_name);
   }
@@ -56,7 +56,7 @@ function validateDocument(
   folder_name: string,
   document_name: string,
 ): any {
-  const final_document: object = {};
+  const final_document: any = {};
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -86,21 +86,21 @@ function validateValue(
 ): any {
   const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
-  const value: string = doc[value_name];
+  const final_value: any = doc[value_name];
   const value_type: string = documentConfig[value_name].type;
   switch(value_type) {
     case "string":
-      if (typeof value !== "string") {
-        throw new Error("This is not a proper string " + value)
+      if (typeof final_value !== "string") {
+        throw new Error("This is not a proper string " + final_value)
       }
       break;
     case "number":
-      if (typeof value !== "number") {
-        throw new Error("This is not a proper number " + value)
+      if (typeof final_value !== "number") {
+        throw new Error("This is not a proper number " + final_value)
       }
       break;
     default:
       throw new Error("Unsupported data type " + value_type);
   }
-  return value;
+  return final_value;
 }
