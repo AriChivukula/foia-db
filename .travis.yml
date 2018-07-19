@@ -12,6 +12,8 @@ jobs:
     script:
     - yarn outdated
     - yarn tsc
+    - yarn ts-node src/cli.ts --lint
+    - yarn ts-node src/cli.ts --release
   - stage: Deploy
     if: tag IS present
     script:
