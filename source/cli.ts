@@ -65,24 +65,33 @@ function validateDocument(
     default:
       throw new Error("Unsupported data type " + key_type);
   }
-  const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
   const documentConfig: any = config.folders[folder_name].document;
   Object.keys(documentConfig).forEach((value_name: string) => {
-    const value: string = doc[value_name];
-    const value_type: string = documentConfig[value_name].type;
-    switch(value_type) {
-      case "string":
-        if (typeof value !== "string") {
-          throw new Error("This is not a proper string " + value)
-        }
-        break;
-      case "number":
-        if (typeof value !== "number") {
-          throw new Error("This is not a proper number " + value)
-        }
-        break;
-      default:
-        throw new Error("Unsupported data type " + value_type);
-    }
+    validateValue(config, folder_name, document_name, value_name);
   });
+}
+
+function validateValue(
+  config: any,
+  folder_name: string,
+  document_name: string,
+  value_name: string,
+): void {
+  const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
+  const value: string = doc[value_name];
+  const value_type: string = documentConfig[value_name].type;
+  switch(value_type) {
+    case "string":
+      if (typeof value !== "string") {
+        throw new Error("This is not a proper string " + value)
+      }
+      break;
+    case "number":
+      if (typeof value !== "number") {
+        throw new Error("This is not a proper number " + value)
+      }
+      break;
+    default:
+      throw new Error("Unsupported data type " + value_type);
+  }
 }
