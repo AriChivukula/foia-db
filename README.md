@@ -63,7 +63,7 @@ Set lint rules by describing the data format expected.
 }
 ```
 
-## FOIA DB (Server)
+## FOIA DB
 
 Enforce lint rules and generate releases containing the compiled DB.
 
@@ -78,25 +78,8 @@ jobs:
   include:
   - stage: Lint
     if: ( type = push ) AND ( branch != master )
-    script: npx foia-db --lint
+    script: npx foia-db
   - stage: Release
     if: ( type = push ) AND ( branch = master )
-    script: npx foia-db --release
-```
-
-## FOIA DB (Client)
-
-Downloads the DB, provides an API to access it.
-
-```
-<WEB_REPO>/test.js
-
-import { Client } from "foia-db";
-
-async function example() {
-  const client = await Client.new(<GITHUB_USER>, <GITHUB_TOKEN>, "<DB_REPO>");
-  client.raw.project.forEach((document, key) => {
-    console.log(document.description);
-  });
-}
+    script: npx foia-db --compile
 ```
