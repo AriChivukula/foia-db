@@ -1,0 +1,24 @@
+{
+  "folders": {
+    "project": {
+      "key": {
+        "type": "number"
+      },
+      "document": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "user": {
+      "key": {
+        "type": "string"
+      },
+      "document": {
+        "description": {
+          "gender": "number"
+        }
+      }
+    }
+  }
+}

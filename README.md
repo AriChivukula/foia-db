@@ -7,7 +7,7 @@ The code, test cases, and the below examples are intended to provide sufficient 
 Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 
 ```
-<DB_REPO>/project/0
+<DB_REPO>/data/project/0
 
 {
   "description": "My First Project"
@@ -15,7 +15,7 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 ```
 
 ```
-<DB_REPO>/project/1
+<DB_REPO>/data/project/1
 
 {
   "description": "My First Project++"
@@ -23,7 +23,7 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 ```
 
 ```
-<DB_REPO>/user/ari
+<DB_REPO>/data/user/ari
 
 {
   "gender": 1E+2
@@ -41,24 +41,24 @@ Set lint rules by describing the data format expected.
   "folders": {
     "project": {
       "key": {
-        "type": "number",
+        "type": "number"
       },
       "document": {
         "description": {
-          "type": "string",
+          "type": "string"
         }
       }
     },
     "user": {
       "key": {
-        "type": "string",
+        "type": "string"
       },
       "document": {
         "description": {
-          "gender": "number",
+          "gender": "number"
         }
       }
-    },
+    }
   }
 }
 ```
