@@ -7,13 +7,20 @@ install:
 - yarn install
 jobs:
   include:
-  - stage: Test
+  - stage: Lint
     if: type = push
     script:
     - yarn outdated
     - yarn tsc
     - yarn ts-node src/cli.ts --lint
+  - stage: Release
+    if: type = api
+    script:
     - yarn ts-node src/cli.ts --release
+    - git remote add target "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
+    - git add -A
+    - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}"
+    - git push target HEAD:$TRAVIS_BRANCH
   - stage: Deploy
     if: tag IS present
     script:
