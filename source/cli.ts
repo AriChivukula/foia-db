@@ -65,8 +65,7 @@ function validateDocument(
     default:
       throw new Error("Unsupported data type " + key_type);
   }
-  const documentConfig: any = config.folders[folder_name].document;
-  Object.keys(documentConfig).forEach((value_name: string) => {
+  Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
     validateValue(config, folder_name, document_name, value_name);
   });
 }
@@ -77,6 +76,7 @@ function validateValue(
   document_name: string,
   value_name: string,
 ): void {
+  const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
   const value: string = doc[value_name];
   const value_type: string = documentConfig[value_name].type;
