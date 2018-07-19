@@ -10,21 +10,14 @@ if (require.main === module) {
       "FOIA DB",
       (y: yargs.Argv): yargs.Argv => y
         .option(
-          "lint",
-          {
-            boolean: true,
-            describe: "Expect No Changes",
-          },
-        )
-        .option(
-          "release",
+          "compile",
           {
             boolean: true,
             describe: "Expect No Changes",
           },
         ),
       (argv: yargs.Arguments): void => {
-        validateConfig(argv.release, argv.lint);
+        validateConfig(argv.compile);
       },
     )
     .help()
@@ -32,18 +25,15 @@ if (require.main === module) {
 }
 
 function validateConfig(
-  lint: boolean,
-  release: boolean,
+  compile: boolean,
 ): void {
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder_name) => {
-    validateFolder(lint, release, config, folder_name);
+    validateFolder(config, folder_name);
   });
 }
 
 function validateFolder(
-  lint: boolean,
-  release: boolean,
   config: any,
   folder_name: string,
 ): void {
@@ -51,13 +41,11 @@ function validateFolder(
     throw new Error("Missing data for " + folder_name);
   }
   readdirSync("data/" + folder_name + "/").forEach((document_name) => {
-    validateDocument(lint, release, config, folder_name, document_name);
+    validateDocument(config, folder_name, document_name);
   });
 }
 
 function validateDocument(
-  lint: boolean,
-  release: boolean,
   config: any,
   folder_name: string,
   document_name: string,
