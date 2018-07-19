@@ -27,29 +27,36 @@ if (require.main === module) {
 function validateConfig(
   compile: boolean,
 ): void {
+  const final_db: object = {};
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name);
+    final_db[folder_name] = validateFolder(config, folder_name);
   });
+  if (compile) {
+    // ...
+  }
 }
 
 function validateFolder(
   config: any,
   folder_name: string,
-): void {
+): any {
+  const final_folder: object = {};
   if (!existsSync("data/" + folder_name + "/")) {
     throw new Error("Missing data for " + folder_name);
   }
   readdirSync("data/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name);
+    final_folder[document_name] = validateDocument(config, folder_name, document_name);
   });
+  return final_folder;
 }
 
 function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-): void {
+): any {
+  const final_document: object = {};
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -66,8 +73,9 @@ function validateDocument(
       throw new Error("Unsupported data type " + key_type);
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    validateValue(config, folder_name, document_name, value_name);
+    final_document[value_name] = validateValue(config, folder_name, document_name, value_name);
   });
+  return final_document;
 }
 
 function validateValue(
@@ -75,7 +83,7 @@ function validateValue(
   folder_name: string,
   document_name: string,
   value_name: string,
-): void {
+): any {
   const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
   const value: string = doc[value_name];
@@ -94,4 +102,5 @@ function validateValue(
     default:
       throw new Error("Unsupported data type " + value_type);
   }
+  return value;
 }
