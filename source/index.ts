@@ -1,3 +1,3 @@
 import "@babel/polyfill";
 
-export const TEST: int = 0;
+export const TEST: number = 0;
