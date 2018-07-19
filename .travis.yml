@@ -13,7 +13,7 @@ jobs:
     if: type = push
     script:
     - yarn outdated
-    - yarn jsonlint data/**/*
+    - yarn jsonlint-tree data/**/*
     - yarn tsc
     - ./cc-test-reporter before-build
     - yarn nyc mocha
