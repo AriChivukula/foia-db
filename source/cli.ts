@@ -37,6 +37,7 @@ function validateConfig(
 ): void {
   const config: string = JSON.parse(readFileSync(".foia-db").toString());
   Object.keys(config).forEach((table) => {
+    // @ts-ignore
     validateTable(lint, release, config[table]);
   });
 }
