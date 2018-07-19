@@ -72,12 +72,12 @@ function validateDocument(
     const value_type: string = documentConfig[value_name].type;
     switch(value_type) {
       case "string":
-        if (value.trim() !== value) {
+        if (typeof value !== "string") {
           throw new Error("This is not a proper string " + value)
         }
         break;
       case "number":
-        if (parseInt(value, 10).toString() !== value) {
+        if (typeof value !== "number") {
           throw new Error("This is not a proper number " + value)
         }
         break;
