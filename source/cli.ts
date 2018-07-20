@@ -13,7 +13,7 @@ if (require.main === module) {
           "compile",
           {
             boolean: true,
-            describe: "Expect No Changes",
+            describe: "Write out db",
           },
         ),
       (argv: yargs.Arguments): void => {
@@ -27,29 +27,36 @@ if (require.main === module) {
 function validateConfig(
   compile: boolean,
 ): void {
+  const final_db: any = {};
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name);
+    final_db[folder_name] = validateFolder(config, folder_name);
   });
+  if (compile) {
+    writeFileSync(".foia-db.json", JSON.stringify(final_db));
+  }
 }
 
 function validateFolder(
   config: any,
   folder_name: string,
-): void {
+): any {
+  const final_folder: any = {};
   if (!existsSync("data/" + folder_name + "/")) {
     throw new Error("Missing data for " + folder_name);
   }
   readdirSync("data/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name);
+    final_folder[document_name] = validateDocument(config, folder_name, document_name);
   });
+  return final_folder;
 }
 
 function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-): void {
+): any {
+  const final_document: any = {};
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -66,8 +73,9 @@ function validateDocument(
       throw new Error("Unsupported data type " + key_type);
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    validateValue(config, folder_name, document_name, value_name);
+    final_document[value_name] = validateValue(config, folder_name, document_name, value_name);
   });
+  return final_document;
 }
 
 function validateValue(
@@ -75,23 +83,24 @@ function validateValue(
   folder_name: string,
   document_name: string,
   value_name: string,
-): void {
+): any {
   const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
-  const value: string = doc[value_name];
+  const final_value: any = doc[value_name];
   const value_type: string = documentConfig[value_name].type;
   switch(value_type) {
     case "string":
-      if (typeof value !== "string") {
-        throw new Error("This is not a proper string " + value)
+      if (typeof final_value !== "string") {
+        throw new Error("This is not a proper string " + final_value)
       }
       break;
     case "number":
-      if (typeof value !== "number") {
-        throw new Error("This is not a proper number " + value)
+      if (typeof final_value !== "number") {
+        throw new Error("This is not a proper number " + final_value)
       }
       break;
     default:
       throw new Error("Unsupported data type " + value_type);
   }
+  return final_value;
 }
