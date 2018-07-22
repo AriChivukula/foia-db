@@ -15,8 +15,11 @@
         "type": "string"
       },
       "document": {
-        "gender": {
-          "type": "number"
+        "genders": {
+          "type": "number[]"
+        },
+        "pronouns": {
+          "type": "string[]"
         }
       }
     }
