@@ -43,7 +43,10 @@ function validateFolder(
 ): any {
   const final_folder: any = {};
   if (!existsSync("data/" + folder_name + "/")) {
-    throw new Error("Missing data for " + folder_name);
+    throwError(
+      [folder_name],
+      "Missing data",
+    );
   }
   readdirSync("data/" + folder_name + "/").forEach((document_name: string) => {
     final_folder[document_name] = validateDocument(config, folder_name, document_name);
@@ -61,16 +64,25 @@ function validateDocument(
   switch(key_type) {
     case "string":
       if (document_name.trim() !== document_name) {
-        throw new Error("This is not a proper string " + document_name)
+        throwError(
+          [folder_name, document_name],
+          "This is not a proper string " + document_name,
+        );
       }
       break;
     case "number":
       if (parseInt(document_name, 10).toString() !== document_name) {
-        throw new Error("This is not a proper number " + document_name)
+        throwError(
+          [folder_name, document_name],
+          "This is not a proper number " + document_name,
+        );
       }
       break;
     default:
-      throw new Error("Unsupported data type " + key_type);
+      throwError(
+        [folder_name, document_name],
+        "Unsupported data type " + key_type,
+      );
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
     final_document[value_name] = validateValue(config, folder_name, document_name, value_name);
@@ -91,26 +103,45 @@ function validateValue(
   switch(value_type) {
     case "string":
       if (typeof final_value !== "string") {
-        throw new Error("This is not a proper string " + final_value)
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper string " + final_value,
+        );
       }
       break;
     case "string[]":
       if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "string")) {
-        throw new Error("This is not a proper string array " + final_value)
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper string[] " + final_value,
+        );
       }
       break;
     case "number":
       if (typeof final_value !== "number") {
-        throw new Error("This is not a proper number " + final_value)
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper number " + final_value,
+        );
       }
       break;
     case "number[]":
       if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
-        throw new Error("This is not a proper number array " + final_value)
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper number[] " + final_value,
+        );
       }
       break;
     default:
-      throw new Error("Unsupported data type " + value_type);
+      throwError(
+        [folder_name, document_name, value_name],
+        "Unsupported data type " + value_type,
+      );
   }
   return final_value;
+}
+
+function throwError(breadcrumbs: string[], message: string): void {
+  throw new Error("<" + breadcrumbs.join(",") + "> " + message);
 }
