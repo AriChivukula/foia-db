@@ -1,3 +1,4 @@
 {
-  "gender": 1E+2
+  "genders": [1E+2, 0],
+  "pronouns": ["they", "them", "their"]
 }
