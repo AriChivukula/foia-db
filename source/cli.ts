@@ -127,7 +127,7 @@ function validateValue(
       break;
     case "number[]":
       if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
-        throw new Error(
+        throwError(
           [folder_name, document_name, value_name],
           "This is not a proper number[] " + final_value,
         );
