@@ -94,9 +94,19 @@ function validateValue(
         throw new Error("This is not a proper string " + final_value)
       }
       break;
+    case "string[]":
+      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "string")) {
+        throw new Error("This is not a proper string array " + final_value)
+      }
+      break;
     case "number":
       if (typeof final_value !== "number") {
         throw new Error("This is not a proper number " + final_value)
+      }
+      break;
+    case "number[]":
+      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
+        throw new Error("This is not a proper number array " + final_value)
       }
       break;
     default:
