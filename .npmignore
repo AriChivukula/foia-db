@@ -1,6 +1,6 @@
 node_modules
 source
-test
+data
 .gitignore
 .npmignore
 .travis.yml
@@ -10,4 +10,3 @@ LICENSE
 README.md
 tsconfig.json
 yarn.lock
-cc-test-reporter
