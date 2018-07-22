@@ -1,1 +1,1 @@
-{"project":{"0":{"description":"My First Project"},"1":{"description":"My First Project++"}},"user":{"ari":{"gender":100}}}
+{"project":{"0":{"description":"My First Project"},"1":{"description":"My First Project++"}},"user":{"ari":{"genders":[100,0],"pronouns":["they","them","their"]}}}
