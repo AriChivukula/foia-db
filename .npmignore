@@ -1,6 +1,6 @@
 node_modules
 source
-data
+db
 .gitignore
 .npmignore
 .travis.yml
