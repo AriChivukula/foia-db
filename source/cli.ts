@@ -42,13 +42,13 @@ function validateFolder(
   folder_name: string,
 ): any {
   const final_folder: any = {};
-  if (!existsSync("data/" + folder_name + "/")) {
+  if (!existsSync("db/" + folder_name + "/")) {
     throwError(
       [folder_name],
       "Missing data",
     );
   }
-  readdirSync("data/" + folder_name + "/").forEach((document_name: string) => {
+  readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
     final_folder[document_name] = validateDocument(config, folder_name, document_name);
   });
   return final_folder;
@@ -97,7 +97,7 @@ function validateValue(
   value_name: string,
 ): any {
   const documentConfig: any = config.folders[folder_name].document;
-  const doc: any = JSON.parse(readFileSync("data/" + folder_name + "/" + document_name, "ascii"));
+  const doc: any = JSON.parse(readFileSync("db/" + folder_name + "/" + document_name, "ascii"));
   const final_value: any = doc[value_name];
   const value_type: string = documentConfig[value_name].type;
   switch(value_type) {
