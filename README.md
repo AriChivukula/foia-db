@@ -7,7 +7,7 @@ The code, test cases, and the below examples are intended to provide sufficient 
 Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 
 ```
-<DB_REPO>/data/project/0
+<DB_REPO>/db/project/0
 
 {
   "description": "My First Project"
@@ -15,7 +15,7 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 ```
 
 ```
-<DB_REPO>/data/project/1
+<DB_REPO>/db/project/1
 
 {
   "description": "My First Project++"
@@ -23,7 +23,7 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 ```
 
 ```
-<DB_REPO>/data/user/ari
+<DB_REPO>/db/user/ari
 
 {
   "gender": 1E+2
