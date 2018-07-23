@@ -83,3 +83,16 @@ jobs:
     if: ( type = push ) AND ( branch = master )
     script: npx foia-db --compile
 ```
+
+## Reading
+
+Make use of the stored data.
+
+```
+<DB_REPO>/example.ts
+
+import { DB } from "foia-db";
+
+... = DB["project"][0]["description"];
+
+```
