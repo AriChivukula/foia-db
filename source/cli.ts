@@ -75,7 +75,7 @@ function validateDocument(
       }
       break;
     case "number":
-      if (parseInt(document_name, 10).toString() !== document_name) {
+      if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
         throwError(
           [folder_name, document_name],
           "This is not a proper number " + document_name,
