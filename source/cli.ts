@@ -28,11 +28,13 @@ function validateConfig(
   compile: boolean,
 ): void {
   const final_db: any = {};
+  console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   Object.keys(config.folders).forEach((folder_name: string) => {
     final_db[folder_name] = validateFolder(config, folder_name);
   });
   if (compile) {
+    console.log("Writing DB");
     writeFileSync(".foia-db.json", JSON.stringify(final_db));
   }
 }
@@ -41,6 +43,7 @@ function validateFolder(
   config: any,
   folder_name: string,
 ): any {
+  console.log(folder_name);
   const final_folder: any = {};
   if (!existsSync("db/" + folder_name + "/")) {
     throwError(
@@ -59,6 +62,7 @@ function validateDocument(
   folder_name: string,
   document_name: string,
 ): any {
+  console.log(folder_name + "/" + document_name);
   const final_document: any = {};
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
@@ -96,6 +100,7 @@ function validateValue(
   document_name: string,
   value_name: string,
 ): any {
+  console.log(folder_name + "/" + document_name + "/" + value_name);
   const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("db/" + folder_name + "/" + document_name, "ascii"));
   const final_value: any = doc[value_name];
