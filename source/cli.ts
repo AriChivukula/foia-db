@@ -33,7 +33,7 @@ function validateConfig(
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: gremlin.Graph = new gremlin.structure.Graph();
   Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name, graph.traversal());
+    validateFolder(config, folder_name, graph);
   });
   if (compile) {
     console.log("Writing DB");
@@ -44,7 +44,7 @@ function validateConfig(
 function validateFolder(
   config: any,
   folder_name: string,
-  graph: gremlin.GraphTraversal,
+  graph: gremlin.Graph,
 ): void {
   console.log(folder_name);
   if (!existsSync("db/" + folder_name + "/")) {
@@ -54,7 +54,7 @@ function validateFolder(
     );
   }
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name, graph);
+    validateDocument(config, folder_name, document_name, graph.traversal());
   });
 }
 
@@ -62,7 +62,7 @@ function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  graph: gremlin.GraphTraversal,
+  traversal: gremlin.GraphTraversal,
 ): void {
   console.log(folder_name + "/" + document_name);
   const key_type: string = config.folders[folder_name].key.type;
@@ -89,13 +89,18 @@ function validateDocument(
         "Unsupported data type " + key_type,
       );
   }
+  traversal
+    .addV(folder_name)
+    .property("id", document_name);
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    validateValue(
-      config,
-      folder_name,
-      document_name,
+    traversal.property(
       value_name,
-      graph.addV(folder_name).property('id', document_name),
+      validateValue(
+        config,
+        folder_name,
+        document_name,
+        value_name,
+      ),
     );
   });
 }
@@ -105,8 +110,7 @@ function validateValue(
   folder_name: string,
   document_name: string,
   value_name: string,
-  graph: gremlin.GraphTraversal,
-): void {
+): any {
   console.log(folder_name + "/" + document_name + "/" + value_name);
   const documentConfig: any = config.folders[folder_name].document;
   const doc: any = JSON.parse(readFileSync("db/" + folder_name + "/" + document_name, "ascii"));
@@ -167,7 +171,7 @@ function validateValue(
         "Unsupported data type " + value_type,
       );
   }
-  graph.property(value_name, final_value);
+  return final_value;
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
