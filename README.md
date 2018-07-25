@@ -7,18 +7,10 @@ The code, test cases, and the below examples are intended to provide sufficient 
 Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 
 ```
-<DB_REPO>/db/project/0
+<DB_REPO>/db/project/00
 
 {
   "description": "My First Project"
-}
-```
-
-```
-<DB_REPO>/db/project/1
-
-{
-  "description": "My First Project++"
 }
 ```
 
@@ -30,6 +22,13 @@ Edit JSON documents in GitHub, have their content auto-linted on pull requests.
 }
 ```
 
+```
+<DB_REPO>/db/project/00--EDGE--creator/user/ari
+
+{
+}
+```
+
 ## Cleaning
 
 Set lint rules by describing the data format expected.
@@ -38,22 +37,27 @@ Set lint rules by describing the data format expected.
 <DB_REPO>/.foia-db
 
 {
-  "folders": {
+  "vertices": {
     "project": {
-      "key": {
+      "id": {
         "type": "number"
       },
-      "document": {
+      "properties": {
         "description": {
           "type": "string"
+        }
+      },
+      "edges": {
+        "creator": {
+          "type": "user"
         }
       }
     },
     "user": {
-      "key": {
+      "id": {
         "type": "string"
       },
-      "document": {
+      "properties": {
         "gender": {
           "type": "number"
         }
@@ -91,8 +95,8 @@ Make use of the stored data.
 ```
 <DB_REPO>/example.ts
 
-import { DB } from "foia-db";
+import { Graph } from "foia-db";
 
-... = DB["project"][0]["description"];
+... = Graph.read()...;
 
 ```
