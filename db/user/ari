@@ -1,4 +1,5 @@
 {
   "genders": [1E+2, 0],
-  "pronouns": ["they", "them", "their"]
+  "pronouns": ["they", "them", "their"],
+  "thoughts": [true, false]
 }
