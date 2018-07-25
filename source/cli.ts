@@ -31,21 +31,21 @@ function validateConfig(
 ): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const graph: gremlin.Graph = new gremlin.structure.Graph();
+  const traversal: gremlin.GraphTraversal = new gremlin.structure.Graph().traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name, graph);
+    traversal = validateFolder(config, folder_name, traversal);
   });
   if (compile) {
     console.log("Writing DB");
-    writeFileSync(".foia-db.json", (new gremlin.structure.io.GraphSONWriter()).write(graph));
+    writeFileSync(".foia-db.json", (new gremlin.structure.io.GraphSONWriter()).write(traversal));
   }
 }
 
 function validateFolder(
   config: any,
   folder_name: string,
-  graph: gremlin.Graph,
-): void {
+  traversal: gremlin.GraphTraversal,
+): gremlin.GraphTraversal {
   console.log(folder_name);
   if (!existsSync("db/" + folder_name + "/")) {
     throwError(
@@ -54,7 +54,7 @@ function validateFolder(
     );
   }
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name, graph);
+    traversal = validateDocument(config, folder_name, document_name, traversal);
   });
 }
 
@@ -62,10 +62,10 @@ function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  graph: gremlin.Graph,
-): void {
+  traversal: gremlin.GraphTraversal,
+): gremlin.GraphTraversal {
   console.log(folder_name + "/" + document_name);
-  let traversal: gremlin.GraphTraversal = graph.traversal().addV(folder_name);
+  traversal = graph.addV(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -103,6 +103,7 @@ function validateDocument(
       ),
     );
   });
+  return traversal;
 }
 
 function validateValue(
