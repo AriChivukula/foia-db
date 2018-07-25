@@ -129,10 +129,10 @@ export class Graph {
   /* Terminal */
 
   public count(): number {
-    return (this.verticesToRead as VertexStorage[]).length;
+    return (this.verticesToRead as Set<VertexStorage>).length;
   }
 
   public toList(): any[] {
-    return (this.verticesToRead as VertexStorage[]).map(vertex => vertex.properties);
+    return (this.verticesToRead as Set<VertexStorage>).map((vertex: VertexStorage) => vertex.properties);
   }
 }
