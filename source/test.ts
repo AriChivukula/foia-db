@@ -9,5 +9,6 @@ import {
 it(
   "test",
   async (): Promise<void> => {
+    expect(DB.V().count()).to.equal(3);
   },
 );
