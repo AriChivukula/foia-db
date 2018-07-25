@@ -107,9 +107,9 @@ export class Graph {
           Object.values(this.storage.edges)
             .filter(edge => edge.source_id === vertex.properties["id"] &&
                             edge.source_label === vertex.label)
-        );
+        ));
       },
-    ));
+    );
     return this;
   }
 
@@ -122,9 +122,9 @@ export class Graph {
           Object.values(this.storage.vertices)
             .filter(vertex => vertex.properties["id"] === edge.target_id &&
                               vertex.label === edge.label)
-        );
+        ));
       },
-    ));
+    );
     return this;
   }
 
