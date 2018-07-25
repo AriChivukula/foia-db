@@ -31,7 +31,7 @@ function validateConfig(
 ): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const traversal: gremlin.GraphTraversal = new gremlin.structure.Graph().traversal();
+  let traversal: gremlin.GraphTraversal = new gremlin.structure.Graph().traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
     traversal = validateFolder(config, folder_name, traversal);
   });
