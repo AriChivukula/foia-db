@@ -7,6 +7,12 @@
       "document": {
         "description": {
           "type": "string"
+        },
+        "days": {
+          "type": "number"
+        },
+        "active": {
+          "type": "boolean"
         }
       }
     },
@@ -20,6 +26,9 @@
         },
         "pronouns": {
           "type": "string[]"
+        },
+        "thoughts": {
+          "type": "boolean[]"
         }
       }
     }
