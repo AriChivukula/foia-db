@@ -10,6 +10,6 @@ it(
   "test",
   async (): Promise<void> => {
     console.log(DB);
-    chai.expect(DB.traversal().V().hasLabel("project").count()).to.equal(2);
+    chai.expect(DB.V().hasLabel("project").count()).to.equal(2);
   },
 );
