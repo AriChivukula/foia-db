@@ -13,7 +13,8 @@ interface GraphStorage {
 export class Graph {
   
   private storage: GraphStorage;
-  private vertedToAdd: ?VertexStorage;
+  private vertexToWrite: ?VertexStorage;
+  private verticesToRead: ?(VertexStorage[]);
 
   public static new(): Graph {
     return new Graph(false);
@@ -33,34 +34,45 @@ export class Graph {
     }
   }
 
+  private endWrites(): void {
+    this.vertexToWrite = undefined;
+  }
+
+  private endReads(): void {
+    this.verticesToRead = undefined;
+  }
+
   public write(): void {
     writeFileSync(".foia-db.json", JSON.stringify(this.storage))
   }
 
   public property(name: string, value: any): Graph {
-    this.vertedToAdd[name] = value;
+    this.vertexToWrite[name] = value;
     return this;
   }
 
   public addVertex(label: string): Graph {
-    this.vertedToAdd = {
+    this.endReads();
+    this.vertexToWrite = {
       label,
       properties: {},
     };
-    this.storage.vertices = this.storage.vertices.concat([this.vertedToAdd]);
+    this.storage.vertices = this.storage.vertices.concat([this.vertexToWrite]);
     return this;
   }
 
   public V(): Graph {
-    this.vertedToAdd = undefined;
+    this.endWrites();
+    this.verticesToRead = Object.values(this.storage.vertices);
     return this;
   }
 
   public hasLabel(label: string): Graph {
+    this.verticesToRead = this.verticesToRead.filter(vertex => vertex.label === label);
     return this;
   }
 
   public count(): number {
-    return 0;
+    return this.verticesToRead.length;
   }
 }
