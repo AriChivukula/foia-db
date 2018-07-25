@@ -3,14 +3,12 @@ import "mocha";
 import * as chai from "chai";
 
 import {
-  DB,
-} from "./index";
+  Graph,
+} from "./graph";
 
 it(
   "test",
   async (): Promise<void> => {
-    console.log(DB);
-    const result: number = await DB.V().hasLabel("project").count().next();
-    chai.expect(result).to.equal(2);
+    chai.expect(Graph.read().V().hasLabel("project").count()).to.equal(2);
   },
 );
