@@ -75,7 +75,7 @@ function validateDocument(
       }
       break;
     case "number":
-      if (parseInt(document_name, 10).toString() !== document_name) {
+      if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
         throwError(
           [folder_name, document_name],
           "This is not a proper number " + document_name,
@@ -135,6 +135,22 @@ function validateValue(
         throwError(
           [folder_name, document_name, value_name],
           "This is not a proper number[] " + final_value,
+        );
+      }
+      break;
+    case "boolean":
+      if (typeof final_value !== "boolean") {
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper boolean " + final_value,
+        );
+      }
+      break;
+    case "boolean[]":
+      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "boolean")) {
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper boolean[] " + final_value,
         );
       }
       break;
