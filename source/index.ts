@@ -35,11 +35,11 @@ export class Graph {
   }
 
   private endWrites(): void {
-    this.vertexToWrite = null;
+    this.vertexToWrite = undefined;
   }
 
   private endReads(): void {
-    this.verticesToRead = null;
+    this.verticesToRead = undefined;
   }
 
   public write(): void {
@@ -47,7 +47,7 @@ export class Graph {
   }
 
   public property(name: string, value: any): Graph {
-    this.vertexToWrite[name] = value;
+    (this.vertexToWrite as VertexStorage)[name] = value;
     return this;
   }
 
@@ -68,12 +68,12 @@ export class Graph {
   }
 
   public hasLabel(label: string): Graph {
-    this.verticesToRead = this.verticesToRead.filter(vertex => vertex.label === label);
+    this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter(vertex => vertex.label === label);
     return this;
   }
 
   public count(): number {
-    return this.verticesToRead.length;
+    return (this.verticesToRead as VertexStorage[]).length;
   }
 
   public toList(): object[] {
