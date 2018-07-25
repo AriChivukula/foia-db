@@ -2,6 +2,7 @@
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
+// @ts-ignore
 import gremlin from "gremlin";
 
 if (require.main === module) {
