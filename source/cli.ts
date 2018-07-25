@@ -2,10 +2,8 @@
 
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
-// @ts-ignore
-import * as gremlin from "gremlin";
 
-import { FOIAGraph } from "./index";
+import { Graph } from "./graph";
 
 if (require.main === module) {
   yargs
@@ -20,35 +18,34 @@ if (require.main === module) {
             describe: "Write out db",
           },
         ),
-      async (argv: yargs.Arguments): Promise<void> => {
-        await validateConfig(argv.compile);
+      (argv: yargs.Arguments): void => {
+        validateConfig(argv.compile);
       },
     )
     .help()
     .argv;
 }
 
-async function validateConfig(
+function validateConfig(
   compile: boolean,
-): Promise<void> {
+): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: FOIAGraph = new FOIAGraph();
-  let traversal: gremlin.process.GraphTraversal = graph.traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
-    traversal = validateFolder(config, folder_name, traversal);
+    validateFolder(config, folder_name, graph);
   });
   if (compile) {
     console.log("Writing DB");
-    await traversal.next();
+    graph.write();
   }
 }
 
 function validateFolder(
   config: any,
   folder_name: string,
-  traversal: gremlin.process.GraphTraversal,
-): gremlin.process.GraphTraversal {
+  graph: FOIAGraph,
+): void {
   console.log(folder_name);
   if (!existsSync("db/" + folder_name + "/")) {
     throwError(
@@ -57,19 +54,18 @@ function validateFolder(
     );
   }
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    traversal = validateDocument(config, folder_name, document_name, traversal);
+    validateDocument(config, folder_name, document_name, graph);
   });
-  return traversal;
 }
 
 function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  traversal: gremlin.process.GraphTraversal,
-): gremlin.process.GraphTraversal {
+  graph: FOIAGraph,
+): void {
   console.log(folder_name + "/" + document_name);
-  traversal = traversal.addV(folder_name);
+  graph.addVertex(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -79,7 +75,7 @@ function validateDocument(
           "This is not a proper string " + document_name,
         );
       }
-      traversal = traversal.property("id", document_name);
+      graph.property("id", document_name);
       break;
     case "number":
       if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
@@ -88,7 +84,7 @@ function validateDocument(
           "This is not a proper number " + document_name,
         );
       }
-      traversal = traversal.property("id", parseInt(document_name, 10));
+      graph.property("id", parseInt(document_name, 10));
       break;
     default:
       throwError(
@@ -97,12 +93,11 @@ function validateDocument(
       );
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    traversal = traversal.property(
+    graph.property(
       value_name,
       validateValue(config, folder_name, document_name, value_name),
     );
   });
-  return traversal;
 }
 
 function validateValue(
