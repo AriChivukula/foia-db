@@ -37,7 +37,7 @@ function validateConfig(
   });
   if (compile) {
     console.log("Writing DB");
-    graph.io(gremlin.IoCore.graphson()).writer().writeGraph(".foia-db.json");
+    graph.io(gremlin.structure.io.IoCore.graphson()).writer().writeGraph(".foia-db.json");
   }
 }
 
