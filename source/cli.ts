@@ -65,7 +65,7 @@ function validateDocument(
   graph: Graph,
 ): void {
   console.log(folder_name + "/" + document_name);
-  graph.addVertex(folder_name);
+  graph.addV(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
