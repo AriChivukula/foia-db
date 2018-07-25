@@ -131,6 +131,22 @@ function validateValue(
       }
       break;
     case "number[]":
+      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "boolean")) {
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper boolean[] " + final_value,
+        );
+      }
+      break;
+    case "boolean":
+      if (typeof final_value !== "boolean") {
+        throwError(
+          [folder_name, document_name, value_name],
+          "This is not a proper boolean " + final_value,
+        );
+      }
+      break;
+    case "boolean[]":
       if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
         throwError(
           [folder_name, document_name, value_name],
