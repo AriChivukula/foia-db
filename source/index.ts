@@ -101,30 +101,30 @@ export class Graph {
   public hasLabel(label: string): Graph {
     this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter((vertex: VertexStorage) => vertex.label === label);
     this.edgesToRead = [];
-    this.verticesToRead.map(
+    (this.verticesToRead as VertexStorage[]).map(
       (vertex: VertexStorage) => {
-        this.edgesToRead = this.edgesToRead.concat(
+        this.edgesToRead = (this.edgesToRead as EdgeStorage[]).concat(
           Object.values(this.storage.edges)
             .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
         );
       },
     );
-    this.edgesToRead = (new Set(this.edgesToRead)).values();
+    this.edgesToRead = new Array(new Set(this.edgesToRead)));
     return this;
   }
 
   public outE(label: string): Graph {
     this.edgesToRead = (this.edgesToRead as EdgeStorage[]).filter((edge: EdgeStorage) => edge.label === label);
     this.verticesToRead = [];
-    this.edgesToRead.map(
+    (this.edgesToRead as EdgeStorage[]).map(
       (edge: EdgeStorage) => {
-        this.verticesToRead = this.verticesToRead.concat(
+        this.verticesToRead = (this.verticesToRead as VertexStorage[]).concat(
           Object.values(this.storage.vertices)
             .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
         );
       },
     );
-    this.verticesToRead = (new Set(this.verticesToRead)).values();
+    this.verticesToRead = new Array(new Set(this.verticesToRead)));
     return this;
   }
 
