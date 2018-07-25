@@ -56,6 +56,7 @@ function validateFolder(
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
     traversal = validateDocument(config, folder_name, document_name, traversal);
   });
+  return traversal;
 }
 
 function validateDocument(
