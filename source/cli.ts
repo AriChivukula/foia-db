@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 // @ts-ignore
-import gremlin from "gremlin";
+import * as gremlin from "gremlin";
 
 if (require.main === module) {
   yargs
@@ -31,12 +31,13 @@ function validateConfig(
 ): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const graph: gremlin.Graph = new gremlin.Graph();
+  const graph: gremlin.Graph = gremlin.TinkerFactory.createModern();
   Object.keys(config.folders).forEach((folder_name: string) => {
     validateFolder(config, folder_name, graph);
   });
   if (compile) {
     console.log("Writing DB");
+    graph.io(gremlin.IoCore.graphson()).writer().writeGraph(".foia-db.json");
   }
 }
 
