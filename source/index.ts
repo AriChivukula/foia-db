@@ -79,7 +79,7 @@ export class Graph {
       source_label: (this.vertexToWrite as VertexStorage).label,
       source_id: (this.vertexToWrite as VertexStorage).properties["id"],
       target_id: vertex.properties["id"],
-      target_label = vertex.label,
+      target_label: vertex.label,
     };
     this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
     return this;
@@ -102,11 +102,10 @@ export class Graph {
     this.verticesToRead = (this.verticesToRead as Set<VertexStorage>).filter(vertex => vertex.label === label);
     this.edgesToRead = new Set();
     this.verticesToRead.map(
-      vertex => {
+      (vertex: VertexStorage) => {
         this.edgesToRead = new Set(this.edgesToRead.concat(
           Object.values(this.storage.edges)
-            .filter(edge => edge.source_id === vertex.properties["id"] &&
-                            edge.source_label === vertex.label)
+            .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
         ));
       },
     );
@@ -117,11 +116,10 @@ export class Graph {
     this.edgesToRead = (this.edgesToRead as Set<EdgeStorage>).filter(edge => edge.label === label);
     this.verticesToRead = new Set();
     this.edgesToRead.map(
-      edge => {
+      (edge: EdgeStorage) => {
         this.verticesToRead = new Set(this.verticesToRead.concat(
           Object.values(this.storage.vertices)
-            .filter(vertex => vertex.properties["id"] === edge.target_id &&
-                              vertex.label === edge.label)
+            .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
         ));
       },
     );
