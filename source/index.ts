@@ -58,8 +58,8 @@ export class Graph {
     return this;
   }
  
-  public property(name: string, value: any): Graph {
-    (this.vertexToWrite as VertexStorage)[name] = value;
+  public property(key: string, value: any): Graph {
+    (this.vertexToWrite as VertexStorage).property[key] = value;
     return this;
   }
  
@@ -83,6 +83,6 @@ export class Graph {
   }
 
   public toList(): object[] {
-    return this.verticesToRead.map(vertex => vertex.properties);
+    return (this.verticesToRead as VertexStorage[]).map(vertex => vertex.properties);
   }
 }
