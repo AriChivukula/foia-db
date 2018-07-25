@@ -9,7 +9,6 @@ import {
 it(
   "test",
   async (): Promise<void> => {
-    const d: any = await DB;
-    chai.expect(d.V().hasLabel("project").count().toList()).to.equal(2);
+    chai.expect(d.V().hasLabel("project").count().next()).to.equal(2);
   },
 );
