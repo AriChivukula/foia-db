@@ -90,7 +90,13 @@ function validateDocument(
       );
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    validateValue(config, folder_name, document_name, value_name, graph);
+    validateValue(
+      config,
+      folder_name,
+      document_name,
+      value_name,
+      graph.addV(folder_name).property('id', document_name),
+    );
   });
 }
 
@@ -161,6 +167,7 @@ function validateValue(
         "Unsupported data type " + value_type,
       );
   }
+  graph.property(value_name, final_value);
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
