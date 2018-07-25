@@ -37,7 +37,7 @@ function validateConfig(
   });
   if (compile) {
     console.log("Writing DB");
-    writeFileSync(".foia-db.json", (new gremlin.structure.io.GraphSONWriter()).write(traversal));
+    writeFileSync(".foia-db.json", traversal.bytecode.toString());
   }
 }
 
