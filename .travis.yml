@@ -5,6 +5,8 @@ cache: yarn
 install:
 - npm install --global --upgrade yarn
 - yarn install
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
 jobs:
   include:
   - stage: Lint
@@ -13,6 +15,10 @@ jobs:
     - yarn outdated
     - yarn tsc
     - yarn ts-node source/cli.ts
+    - ./cc-test-reporter before-build
+    - yarn nyc mocha
+    - yarn nyc report
+    - ./cc-test-reporter after-build
   - stage: Release
     if: type = api
     script:
