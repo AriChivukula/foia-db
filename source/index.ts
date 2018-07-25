@@ -41,17 +41,14 @@ export class Graph {
   private endReads(): void {
     this.verticesToRead = undefined;
   }
-
+ 
   public write(): void {
     writeFileSync(".foia-db.json", JSON.stringify(this.storage))
   }
+ 
+  /* Write */
 
-  public property(name: string, value: any): Graph {
-    (this.vertexToWrite as VertexStorage)[name] = value;
-    return this;
-  }
-
-  public addVertex(label: string): Graph {
+  public addV(label: string): Graph {
     this.endReads();
     this.vertexToWrite = {
       label,
@@ -60,6 +57,13 @@ export class Graph {
     this.storage.vertices = this.storage.vertices.concat([this.vertexToWrite]);
     return this;
   }
+ 
+  public property(name: string, value: any): Graph {
+    (this.vertexToWrite as VertexStorage)[name] = value;
+    return this;
+  }
+ 
+  /* Read */
 
   public V(): Graph {
     this.endWrites();
@@ -71,6 +75,8 @@ export class Graph {
     this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter(vertex => vertex.label === label);
     return this;
   }
+ 
+  /* Terminal */
 
   public count(): number {
     return (this.verticesToRead as VertexStorage[]).length;
