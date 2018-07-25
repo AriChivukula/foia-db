@@ -33,7 +33,7 @@ function validateConfig(
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: gremlin.Graph = new gremlin.structure.Graph();
   Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name, graph);
+    validateFolder(config, folder_name, graph.traversal());
   });
   if (compile) {
     console.log("Writing DB");
@@ -44,7 +44,7 @@ function validateConfig(
 function validateFolder(
   config: any,
   folder_name: string,
-  graph: gremlin.Graph,
+  graph: gremlin.GraphTraversal,
 ): void {
   console.log(folder_name);
   if (!existsSync("db/" + folder_name + "/")) {
@@ -62,7 +62,7 @@ function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  graph: gremlin.Graph,
+  graph: gremlin.GraphTraversal,
 ): void {
   console.log(folder_name + "/" + document_name);
   const key_type: string = config.folders[folder_name].key.type;
@@ -99,7 +99,7 @@ function validateValue(
   folder_name: string,
   document_name: string,
   value_name: string,
-  graph: gremlin.Graph,
+  graph: gremlin.GraphTraversal,
 ): void {
   console.log(folder_name + "/" + document_name + "/" + value_name);
   const documentConfig: any = config.folders[folder_name].document;
