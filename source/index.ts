@@ -59,7 +59,7 @@ export class Graph {
   }
  
   public property(key: string, value: any): Graph {
-    (this.vertexToWrite as VertexStorage).property[key] = value;
+    (this.vertexToWrite as VertexStorage).properties[key] = value;
     return this;
   }
  
