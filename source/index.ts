@@ -22,9 +22,10 @@ interface GraphStorage {
 export class Graph {
 
   private storage: GraphStorage;
-  private vertexToWrite?: VertexStorage;
   private edgeToWrite?: EdgeStorage;
-  private verticesToRead?: VertexStorage[];
+  private vertexToWrite?: VertexStorage;
+  private edgesToRead?: Set<EdgeStorage>;
+  private verticesToRead?: Set<VertexStorage>;
 
   public static new(): Graph {
     return new Graph(false);
@@ -46,11 +47,12 @@ export class Graph {
   }
 
   private endWrites(): void {
-    this.vertexToWrite = undefined;
     this.edgeToWrite = undefined;
+    this.vertexToWrite = undefined;
   }
 
   private endReads(): void {
+    this.edgesToRead = undefined;
     this.verticesToRead = undefined;
   }
 
@@ -92,16 +94,37 @@ export class Graph {
 
   public V(): Graph {
     this.endWrites();
-    this.verticesToRead = Object.values(this.storage.vertices);
+    this.verticesToRead = new Set(Object.values(this.storage.vertices));
     return this;
   }
 
   public hasLabel(label: string): Graph {
-    this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter(vertex => vertex.label === label);
+    this.verticesToRead = (this.verticesToRead as Set<VertexStorage>).filter(vertex => vertex.label === label);
+    this.edgesToRead = new Set();
+    this.verticesToRead.map(
+      vertex => {
+        this.edgesToRead = new Set(this.edgesToRead.concat(
+          Object.values(this.storage.edges)
+            .filter(edge => edge.source_id === vertex.properties["id"] &&
+                            edge.source_label === vertex.label)
+        );
+      },
+    ));
     return this;
   }
 
   public outE(label: string): Graph {
+    this.edgesToRead = (this.edgesToRead as Set<EdgeStorage>).filter(edge => edge.label === label);
+    this.verticesToRead = new Set();
+    this.edgesToRead.map(
+      edge => {
+        this.verticesToRead = new Set(this.verticesToRead.concat(
+          Object.values(this.storage.vertices)
+            .filter(vertex => vertex.properties["id"] === edge.target_id &&
+                              vertex.label === edge.label)
+        );
+      },
+    ));
     return this;
   }
 
