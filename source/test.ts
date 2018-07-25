@@ -7,8 +7,19 @@ import {
 } from "./index";
 
 it(
-  "test",
+  "count",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().hasLabel("project").count()).to.equal(2);
+  },
+);
+
+it(
+  "toList",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().V().hasLabel("user").toList()).to.equal([{
+      "genders": [1E+2, 0],
+      "pronouns": ["they", "them", "their"],
+      "thoughts": [true, false]
+    }]);
   },
 );
