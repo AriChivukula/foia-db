@@ -1,4 +1,4 @@
 --require ts-node/register
 --full-trace
 --bail
-test/*.ts
+source/test.ts
