@@ -33,6 +33,6 @@ export class Graph {
   }
 
   public count(): number {
-    return this;
+    return 0;
   }
 }
