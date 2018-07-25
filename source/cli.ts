@@ -96,12 +96,7 @@ function validateDocument(
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
     traversal = traversal.property(
       value_name,
-      validateValue(
-        config,
-        folder_name,
-        document_name,
-        value_name,
-      ),
+      validateValue(config, folder_name, document_name, value_name),
     );
   });
   return traversal;
