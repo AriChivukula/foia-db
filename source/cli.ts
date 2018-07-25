@@ -31,13 +31,14 @@ async function validateConfig(
 ): Promise<void> {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  let traversal: gremlin.process.GraphTraversal = (new gremlin.structure.Graph()).traversal();
+  const graph: gremlin.structure.Graph = new gremlin.structure.Graph();
+  let traversal: gremlin.process.GraphTraversal = graph.traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
     traversal = validateFolder(config, folder_name, traversal);
   });
   if (compile) {
     console.log("Writing DB");
-    const graph: any = await traversal.toList();
+    await traversal.toList();
     writeFileSync(".foia-db.json", JSON.stringify(graph));
   }
 }
