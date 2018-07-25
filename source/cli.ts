@@ -31,7 +31,7 @@ function validateConfig(
 ): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const graph: FOIAGraph = new FOIAGraph();
+  const graph: Graph = Graph.new();
   Object.keys(config.folders).forEach((folder_name: string) => {
     validateFolder(config, folder_name, graph);
   });
@@ -44,7 +44,7 @@ function validateConfig(
 function validateFolder(
   config: any,
   folder_name: string,
-  graph: FOIAGraph,
+  graph: Graph,
 ): void {
   console.log(folder_name);
   if (!existsSync("db/" + folder_name + "/")) {
@@ -62,7 +62,7 @@ function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  graph: FOIAGraph,
+  graph: Graph,
 ): void {
   console.log(folder_name + "/" + document_name);
   graph.addVertex(folder_name);
