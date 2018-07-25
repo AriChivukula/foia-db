@@ -9,6 +9,8 @@ import {
 it(
   "test",
   async (): Promise<void> => {
-    chai.expect(DB.V().hasLabel("project").count().next()).to.equal(2);
+    console.log(DB);
+    const result: number = await DB.V().hasLabel("project").count().next();
+    chai.expect(result).to.equal(2);
   },
 );
