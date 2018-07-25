@@ -54,7 +54,7 @@ function validateFolder(
     );
   }
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name, graph.traversal());
+    validateDocument(config, folder_name, document_name, graph);
   });
 }
 
@@ -62,9 +62,10 @@ function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-  traversal: gremlin.GraphTraversal,
+  graph: gremlin.Graph,
 ): void {
   console.log(folder_name + "/" + document_name);
+  let traversal: gremlin.GraphTraversal = graph.traversal().addV(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -74,6 +75,7 @@ function validateDocument(
           "This is not a proper string " + document_name,
         );
       }
+      traversal = traversal.property("id", document_name);
       break;
     case "number":
       if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
@@ -82,6 +84,7 @@ function validateDocument(
           "This is not a proper number " + document_name,
         );
       }
+      traversal = traversal.property("id", parseInt(document_name, 10));
       break;
     default:
       throwError(
@@ -89,11 +92,8 @@ function validateDocument(
         "Unsupported data type " + key_type,
       );
   }
-  traversal
-    .addV(folder_name)
-    .property("id", document_name);
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    traversal.property(
+    traversal = traversal.property(
       value_name,
       validateValue(
         config,
