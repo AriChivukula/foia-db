@@ -5,7 +5,7 @@ import * as yargs from "yargs";
 // @ts-ignore
 import * as gremlin from "gremlin";
 
-import { LocalGraph } from "./index";
+import { FOIAGraph } from "./index";
 
 if (require.main === module) {
   yargs
@@ -33,7 +33,7 @@ async function validateConfig(
 ): Promise<void> {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const graph: LocalGraph = new LocalGraph();
+  const graph: FOIAGraph = new FOIAGraph();
   let traversal: gremlin.process.GraphTraversal = graph.traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
     traversal = validateFolder(config, folder_name, traversal);
