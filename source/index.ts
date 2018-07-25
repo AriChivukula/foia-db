@@ -13,8 +13,8 @@ interface GraphStorage {
 export class Graph {
   
   private storage: GraphStorage;
-  private vertexToWrite: ?VertexStorage = null;
-  private verticesToRead: ?(VertexStorage[]) = null;
+  private vertexToWrite?: VertexStorage;
+  private verticesToRead?: VertexStorage[];
 
   public static new(): Graph {
     return new Graph(false);
