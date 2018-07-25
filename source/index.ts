@@ -76,7 +76,7 @@ export class Graph {
     this.endReads();
     this.edgeToWrite = {
       label,
-      source_label = (this.vertexToWrite as VertexStorage).label,
+      source_label: (this.vertexToWrite as VertexStorage).label,
       source_id: (this.vertexToWrite as VertexStorage).properties["id"],
       target_id: vertex.properties["id"],
       target_label = vertex.label,
