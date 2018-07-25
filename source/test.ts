@@ -9,6 +9,6 @@ import {
 it(
   "test",
   async (): Promise<void> => {
-    chai.expect(DB.V().count()).to.equal(3);
+    chai.expect(DB.traversal().V().count()).to.equal(3);
   },
 );
