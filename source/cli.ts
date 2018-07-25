@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { Graph } from "./graph";
+import { Graph } from "./index";
 
 if (require.main === module) {
   yargs
