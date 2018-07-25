@@ -9,6 +9,6 @@ import {
 it(
   "test",
   async (): Promise<void> => {
-    chai.expect(d.V().hasLabel("project").count().next()).to.equal(2);
+    chai.expect(DB.V().hasLabel("project").count().next()).to.equal(2);
   },
 );
