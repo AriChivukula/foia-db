@@ -16,7 +16,7 @@ it(
 it(
   "toList",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().hasLabel("user").toList()).to.equal([{
+    chai.expect(Graph.read().V().hasLabel("user").toList()).to.deep.equal([{
       "genders": [1E+2, 0],
       "id": "ari",
       "pronouns": ["they", "them", "their"],
