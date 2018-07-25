@@ -24,7 +24,7 @@ export class Graph {
     return new Graph(true);
   }
 
-  private constructor(try_read: bool) {
+  private constructor(try_read: boolean) {
     if (try_read) {
       this.storage = JSON.parse(readFileSync(".foia-db.json", "ascii"));
     } else {
