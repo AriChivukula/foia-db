@@ -13,8 +13,8 @@ interface GraphStorage {
 export class Graph {
   
   private storage: GraphStorage;
-  private vertexToWrite: ?VertexStorage;
-  private verticesToRead: ?(VertexStorage[]);
+  private vertexToWrite: ?VertexStorage = null;
+  private verticesToRead: ?(VertexStorage[]) = null;
 
   public static new(): Graph {
     return new Graph(false);
@@ -35,11 +35,11 @@ export class Graph {
   }
 
   private endWrites(): void {
-    this.vertexToWrite = undefined;
+    this.vertexToWrite = null;
   }
 
   private endReads(): void {
-    this.verticesToRead = undefined;
+    this.verticesToRead = null;
   }
 
   public write(): void {
@@ -74,5 +74,9 @@ export class Graph {
 
   public count(): number {
     return this.verticesToRead.length;
+  }
+
+  public toList(): object[] {
+    return this.verticesToRead.map(vertex => vertex.properties);
   }
 }
