@@ -1,5 +1,4 @@
 import "@babel/polyfill";
-import { readFileSync } from "fs";
 // @ts-ignore
 import * as gremlin from "gremlin";
 
