@@ -14,7 +14,7 @@ interface GraphStorage {
 export class Graph {
   
   private storage: GraphStorage;
-  private activeVertex: VertexStorage?;
+  private activeVertex: ?VertexStorage;
 
   public static new(): Graph {
     return new Graph(false);
