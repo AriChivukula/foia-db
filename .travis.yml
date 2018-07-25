@@ -11,8 +11,14 @@ jobs:
     if: type = push
     script:
     - yarn outdated
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
+    - yarn nyc mocha
+    - yarn nyc report
+    - ./cc-test-reporter after-build
     - yarn tsc
-    - yarn ts-node source/cli.ts
+    - node build/cli.js
   - stage: Release
     if: type = api
     script:

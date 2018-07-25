@@ -3,6 +3,8 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
+import { Graph } from "./index";
+
 if (require.main === module) {
   yargs
     .usage(
@@ -27,24 +29,24 @@ if (require.main === module) {
 function validateConfig(
   compile: boolean,
 ): void {
-  const final_db: any = {};
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
+  const graph: Graph = Graph.new();
   Object.keys(config.folders).forEach((folder_name: string) => {
-    final_db[folder_name] = validateFolder(config, folder_name);
+    validateFolder(config, folder_name, graph);
   });
   if (compile) {
     console.log("Writing DB");
-    writeFileSync(".foia-db.json", JSON.stringify(final_db));
+    graph.write();
   }
 }
 
 function validateFolder(
   config: any,
   folder_name: string,
-): any {
+  graph: Graph,
+): void {
   console.log(folder_name);
-  const final_folder: any = {};
   if (!existsSync("db/" + folder_name + "/")) {
     throwError(
       [folder_name],
@@ -52,18 +54,18 @@ function validateFolder(
     );
   }
   readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    final_folder[document_name] = validateDocument(config, folder_name, document_name);
+    validateDocument(config, folder_name, document_name, graph);
   });
-  return final_folder;
 }
 
 function validateDocument(
   config: any,
   folder_name: string,
   document_name: string,
-): any {
+  graph: Graph,
+): void {
   console.log(folder_name + "/" + document_name);
-  const final_document: any = {};
+  graph.addV(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
@@ -73,6 +75,7 @@ function validateDocument(
           "This is not a proper string " + document_name,
         );
       }
+      graph.property("id", document_name);
       break;
     case "number":
       if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
@@ -81,6 +84,7 @@ function validateDocument(
           "This is not a proper number " + document_name,
         );
       }
+      graph.property("id", parseInt(document_name, 10));
       break;
     default:
       throwError(
@@ -89,9 +93,11 @@ function validateDocument(
       );
   }
   Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
-    final_document[value_name] = validateValue(config, folder_name, document_name, value_name);
+    graph.property(
+      value_name,
+      validateValue(config, folder_name, document_name, value_name),
+    );
   });
-  return final_document;
 }
 
 function validateValue(
