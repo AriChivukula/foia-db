@@ -5,6 +5,8 @@ import * as yargs from "yargs";
 // @ts-ignore
 import * as gremlin from "gremlin";
 
+import { LocalGraph } from "./index";
+
 if (require.main === module) {
   yargs
     .usage(
@@ -31,15 +33,14 @@ async function validateConfig(
 ): Promise<void> {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  const graph: gremlin.structure.Graph = new gremlin.structure.Graph();
+  const graph: LocalGraph = new LocalGraph();
   let traversal: gremlin.process.GraphTraversal = graph.traversal();
   Object.keys(config.folders).forEach((folder_name: string) => {
     traversal = validateFolder(config, folder_name, traversal);
   });
   if (compile) {
     console.log("Writing DB");
-    await traversal.toList();
-    writeFileSync(".foia-db.json", JSON.stringify(graph));
+    await traversal.next();
   }
 }
 
