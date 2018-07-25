@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from "fs";
 
 interface VertexStorage {
  label: string;
- properties: object;
+ properties: any;
 }
 
 interface GraphStorage {
@@ -82,7 +82,7 @@ export class Graph {
     return (this.verticesToRead as VertexStorage[]).length;
   }
 
-  public toList(): object[] {
+  public toList(): any[] {
     return (this.verticesToRead as VertexStorage[]).map(vertex => vertex.properties);
   }
 }
