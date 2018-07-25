@@ -8,6 +8,6 @@ export const DB: gremlin.process.GraphTraversal = new gremlin.process.GraphTrave
   new gremlin.process.TraversalStrategies(),
   {
     sourceInstructions: [],
-    sourceInstructions: (new gremlin.structure.io.GraphSONReader()).read(JSON.parse(readFileSync(".foia-db.json", "ascii")))["steps"],
+    stepInstructions: (new gremlin.structure.io.GraphSONReader()).read(JSON.parse(readFileSync(".foia-db.json", "ascii")))["steps"],
   },
 );
