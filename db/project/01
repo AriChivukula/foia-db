@@ -1,3 +1,5 @@
 {
-  "description": "My First Project++"
+  "description": "My First Project++",
+  "days": 1,
+  "active": true
 }
