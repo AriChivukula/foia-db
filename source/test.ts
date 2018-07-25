@@ -7,16 +7,35 @@ import {
 } from "./index";
 
 it(
-  "count",
+  "V#count",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().hasLabel("project").count()).to.equal(2);
   },
 );
 
 it(
-  "toList",
+  "V#toList",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().hasLabel("user").toList()).to.deep.equal([{
+      "genders": [1E+2, 0],
+      "id": "ari",
+      "pronouns": ["they", "them", "their"],
+      "thoughts": [true, false]
+    }]);
+  },
+);
+
+it(
+  "E#count",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().V().hasLabel("user").outE("created").count()).to.equal(2);
+  },
+);
+
+it(
+  "E#toList",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().V().hasLabel("project").outE("creator").toList()).to.deep.equal([{
       "genders": [1E+2, 0],
       "id": "ari",
       "pronouns": ["they", "them", "their"],
