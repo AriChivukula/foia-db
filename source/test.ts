@@ -9,7 +9,7 @@ import {
 it(
   "test",
   async (): Promise<void> => {
-    const count: number = await DB.V().hasLabel("project").count();
-    chai.expect(count).to.equal(2);
+    const d: any = await DB;
+    chai.expect(d.V().hasLabel("project").count()).to.equal(2);
   },
 );
