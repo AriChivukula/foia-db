@@ -5,6 +5,6 @@ import * as gremlin from "gremlin";
 
 export const DB: gremlin.GraphTraversal = new gremlin.structure.GraphTraversalSource(
   new gremlin.structure.Graph(),
-  new gremlin.structure.TraversalStrategies(),
+  new gremlin.process.TraversalStrategies(),
   (new gremlin.structure.io.GraphSONReader()).read(JSON.parse(readFileSync(".foia-db.json", "ascii"))),
 );
