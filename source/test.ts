@@ -4,7 +4,7 @@ import * as chai from "chai";
 
 import {
   Graph,
-} from "./graph";
+} from "./index";
 
 it(
   "test",
