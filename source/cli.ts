@@ -65,7 +65,7 @@ function validateDocument(
   traversal: gremlin.GraphTraversal,
 ): gremlin.GraphTraversal {
   console.log(folder_name + "/" + document_name);
-  traversal = graph.addV(folder_name);
+  traversal = traversal.addV(folder_name);
   const key_type: string = config.folders[folder_name].key.type;
   switch(key_type) {
     case "string":
