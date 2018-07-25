@@ -10,11 +10,10 @@ interface GraphStorage {
  vertices: VertexStorage[];
 }
 
-
 export class Graph {
   
   private storage: GraphStorage;
-  private activeVertex: ?VertexStorage;
+  private vertedToAdd: ?VertexStorage;
 
   public static new(): Graph {
     return new Graph(false);
@@ -39,21 +38,21 @@ export class Graph {
   }
 
   public property(name: string, value: any): Graph {
-    this.activeVertex[name] = value;
+    this.vertedToAdd[name] = value;
     return this;
   }
 
   public addVertex(label: string): Graph {
-    this.activeVertex = {
+    this.vertedToAdd = {
       label,
       {},
     };
-    this.storage.vertices = this.storage.vertices.concat([this.activeVertex]);
+    this.storage.vertices = this.storage.vertices.concat([this.vertedToAdd]);
     return this;
   }
 
   public V(): Graph {
-    this.activeVertex = undefined;
+    this.vertedToAdd = undefined;
     return this;
   }
 
