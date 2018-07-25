@@ -4,7 +4,7 @@ import * as chai from "chai";
 
 import {
   DB,
-} from "../source/index";
+} from "index";
 
 it(
   "test",
