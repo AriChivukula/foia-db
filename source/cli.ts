@@ -31,13 +31,13 @@ function validateConfig(
 ): void {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
-  let traversal: gremlin.GraphTraversal = new gremlin.structure.Graph().traversal();
+  let traversal: gremlin.GraphTraversal = (new gremlin.structure.Graph()).traversal().withComputer();
   Object.keys(config.folders).forEach((folder_name: string) => {
     traversal = validateFolder(config, folder_name, traversal);
   });
   if (compile) {
     console.log("Writing DB");
-    writeFileSync(".foia-db.json", (new gremlin.structure.io.GraphSONWriter()).write(traversal));
+    writeFileSync(".foia-db.json", (new gremlin.structure.io.GraphSONWriter()).write(traversal.getGraph()));
   }
 }
 
