@@ -37,7 +37,8 @@ function validateConfig(
   });
   if (compile) {
     console.log("Writing DB");
-    writeFileSync(".foia-db.json", traversal.bytecode.toString());
+    const graph: any = await traversal.toList();
+    writeFileSync(".foia-db.json", JSON.stringify(graph));
   }
 }
 
