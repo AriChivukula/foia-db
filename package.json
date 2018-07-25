@@ -14,7 +14,7 @@
     ],
     "instrument": true,
     "extension": [
-      ".ts",
+      ".ts"
     ],
     "require": [
       "ts-node/register"
