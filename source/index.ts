@@ -9,7 +9,7 @@ export class FOIAGraphSource extends gremlin.process.GraphTraversalSource {
 export class FOIAGraph extends gremlin.structure.Graph {
   
   public traversal(): FOIAGraphSource {
-    return new FOIAGraphSource(this, new TraversalStrategies());
+    return new FOIAGraphSource(this, new gremlin.process.TraversalStrategies());
   }
 }
 
