@@ -45,7 +45,7 @@ export class Graph {
   public addVertex(label: string): Graph {
     this.vertedToAdd = {
       label,
-      {},
+      properties: {},
     };
     this.storage.vertices = this.storage.vertices.concat([this.vertedToAdd]);
     return this;
