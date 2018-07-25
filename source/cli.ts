@@ -18,17 +18,17 @@ if (require.main === module) {
             describe: "Write out db",
           },
         ),
-      (argv: yargs.Arguments): void => {
-        validateConfig(argv.compile);
+      async (argv: yargs.Arguments): Promise<void> => {
+        await validateConfig(argv.compile);
       },
     )
     .help()
     .argv;
 }
 
-function validateConfig(
+async function validateConfig(
   compile: boolean,
-): void {
+): Promise<void> {
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   let traversal: gremlin.process.GraphTraversal = (new gremlin.structure.Graph()).traversal();
