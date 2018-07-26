@@ -69,7 +69,7 @@ function validateVertex(
 ): void {
   console.log(vertex_label + "/" + vertex_id);
   graph.addV(vertex_label);
-  const verted_id_type: string = config.folders[vertex_label].key.type;
+  const verted_id_type: string = config.vertices[vertex_label].key.type;
   switch(verted_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
@@ -95,14 +95,14 @@ function validateVertex(
         "Unsupported data type " + verted_id_type,
       );
   }
-  Object.keys(config.folders[vertex_label].properties).forEach((property_key: string) => {
+  Object.keys(config.vertices[vertex_label].properties).forEach((property_key: string) => {
     graph.property(
       property_key,
       validateVertexProperty(config, vertex_label, vertex_id, property_key),
     );
   });
-  Object.keys(config.folders[vertex_label].edges).forEach((edge_label: string) => {
-    const target_label: string = config.folders[vertex_label].edges[edge_label].type;
+  Object.keys(config.vertices[vertex_label].edges).forEach((edge_label: string) => {
+    const target_label: string = config.vertices[vertex_label].edges[edge_label].type;
     validateEdge(config, vertex_label, vertex_id, edge_label, target_label).forEach(
       (target_id: string) => {
         graph.addE(
@@ -124,7 +124,7 @@ function validateVertexProperty(
   console.log(vertex_label + "/" + vertex_id + "/" + property_key);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
   const property_value: any = doc[property_key];
-  const property_type: string = config.folders[vertex_label].properties[property_key].type;
+  const property_type: string = config.vertices[vertex_label].properties[property_key].type;
   switch(property_type) {
     case "string":
       if (typeof property_value !== "string") {
