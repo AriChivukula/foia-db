@@ -99,7 +99,7 @@ export class Graph {
           .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
           .map(
             (edge: EdgeStorage) => {
-              nextEdges[edge.label + "/" + edge.source_label + "/" + edge.source_id] = vertex;
+              nextEdges[edge.label + "/" + edge.source_label + "/" + edge.source_id] = edge;
             },
           );
       },
