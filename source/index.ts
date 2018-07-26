@@ -13,6 +13,14 @@ export type PropertyValue = any;
 export type EdgeLabel = string;
 export type EdgeID = string;
 
+export function vl(label: string): VertexLabel {
+  return "VL-" + label;
+}
+
+export function el(label: string): EdgeLabel {
+  return "EL-" + label;
+}
+
 export class Vertex {
   label: VertexLabel;
   id: VertexID;
