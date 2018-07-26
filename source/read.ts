@@ -112,12 +112,12 @@ export class Graph {
   /* Read */
 
   public V(): Graph {
-    this.verticesToRead = Object.values(this.props.vertices);
+    this.verticesToRead = this.props.vertices;
     return this;
   }
   
   public E(): Graph {
-    this.edgesToRead = Object.values(this.props.edges);
+    this.edgesToRead = this.props.edges;
     return this;
   }
 
