@@ -20,23 +20,23 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().E().outE(el("creator")).outV(vl("user")).listV()).to.deep.equal([
       {
-        "id": "ari"
-        "label": "user"
+        "id": "ari",
+        "label": "user",
         "properties": {
           "genders": [
-            100
-            0
-          ]
+            100,
+            0,
+          ],
           "pronouns": [
-            "they"
-            "them"
-            "their"
-          ]
+            "they",
+            "them",
+            "their",
+          ],
           "thoughts": [
-            true
-            false
-          ]
-        }
+            true,
+            false,
+          ],
+        },
       },
     ]);
   },
@@ -54,23 +54,23 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "ari"
-        "label": "user"
+        "id": "ari",
+        "label": "user",
         "properties": {
           "genders": [
-            100
-            0
-          ]
+            100,
+            0,
+          ],
           "pronouns": [
-            "they"
-            "them"
-            "their"
-          ]
+            "they",
+            "them",
+            "their",
+          ],
           "thoughts": [
-            true
-            false
-          ]
-        }
+            true,
+            false,
+          ],
+        },
       },
     ]);
   },
@@ -88,23 +88,23 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
       {
-        "id": "ari"
-        "label": "user"
+        "id": "ari",
+        "label": "user",
         "properties": {
           "genders": [
-            100
-            0
-          ]
+            100,
+            0,
+          ],
           "pronouns": [
-            "they"
-            "them"
-            "their"
-          ]
+            "they",
+            "them",
+            "their",
+          ],
           "thoughts": [
-            true
-            false
-          ]
-        }
+            true,
+            false,
+          ],
+        },
       },
     ]);
   },
@@ -122,23 +122,23 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "ari"
-        "label": "user"
+        "id": "ari",
+        "label": "user",
         "properties": {
           "genders": [
-            100
-            0
-          ]
+            100,
+            0,
+          ],
           "pronouns": [
-            "they"
-            "them"
-            "their"
-          ]
+            "they",
+            "them",
+            "their",
+          ],
           "thoughts": [
-            true
-            false
-          ]
-        }
+            true,
+            false,
+          ],
+        },
       },
     ]);
   },
