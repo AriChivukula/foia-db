@@ -29,14 +29,12 @@ if (require.main === module) {
 function validateConfig(
   compile: boolean,
 ): void {
-  console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
-  Object.keys(config.vertices).forEach((vertex_label: string) => {
+  Object.keys(config).forEach((vertex_label: string) => {
     validateVertices(config, vertex_label, graph);
   });
   if (compile) {
-    console.log("Writing DB");
     graph.write();
   }
 }
@@ -46,17 +44,11 @@ function validateVertices(
   vertex_label: string,
   graph: Graph,
 ): void {
-  console.log(vertex_label);
-  if (!existsSync("db/" + vertex_label + "/")) {
-    throwError(
-      [vertex_label],
-      "Missing data",
-    );
+  printContext([vertex_label]);
+  if (!existsSync("db/VL-" + vertex_label + "/VI-*.json")) {
+    return;
   }
-  readdirSync("db/" + vertex_label + "/").forEach((vertex_id: string) => {
-    if (vertex_id.includes("--EDGE--")) {
-      return;
-    }
+  readdirSync("db/VL-" + vertex_label + "/VI-*.json").forEach((vertex_id: string) => {
     validateVertex(config, vertex_label, vertex_id, graph);
   });
 }
@@ -67,8 +59,8 @@ function validateVertex(
   vertex_id: string,
   graph: Graph,
 ): void {
-  console.log(vertex_label + "/" + vertex_id);
-  const verted_id_type: string = config.vertices[vertex_label].id.type;
+  printContext([vertex_label, vertex_id]);
+  const verted_id_type: string = config[vertex_label].id.type;
   switch(verted_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
@@ -94,14 +86,14 @@ function validateVertex(
         "Unsupported data type " + verted_id_type,
       );
   }
-  Object.keys(config.vertices[vertex_label].properties).forEach((property_key: string) => {
+  Object.keys(config[vertex_label].properties).forEach((property_key: string) => {
     graph.property(
       property_key,
       validateVertexProperty(config, vertex_label, vertex_id, property_key),
     );
   });
-  Object.keys(config.vertices[vertex_label].edges).forEach((edge_label: string) => {
-    const target_label: string = config.vertices[vertex_label].edges[edge_label].type;
+  Object.keys(config[vertex_label].edges).forEach((edge_label: string) => {
+    const target_label: string = config[vertex_label].edges[edge_label].type;
     validateEdge(config, vertex_label, vertex_id, edge_label, target_label).forEach(
       (target_id: any) => {
         graph.addE(
@@ -120,10 +112,10 @@ function validateVertexProperty(
   vertex_id: string,
   property_key: string,
 ): any {
-  console.log(vertex_label + "/" + vertex_id + "--PROPERTY--" + property_key);
-  const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
+  printContext([vertex_label, vertex_id, property_key]);
+  const doc: any = JSON.parse(readFileSync("db/VL-" + vertex_label + "/VI-" + vertex_id + ".json", "ascii"));
   const property_value: any = doc[property_key];
-  const property_type: string = config.vertices[vertex_label].properties[property_key].type;
+  const property_type: string = config[vertex_label].properties[property_key].type;
   switch(property_type) {
     case "string":
       if (typeof property_value !== "string") {
@@ -189,16 +181,20 @@ function validateEdge(
   edge_label: string,
   target_label: string,
 ): any[] {
-  console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
-  return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/")
+  printContext([vertex_label, vertex_id, edge_label, target_label]);
+  return readdirSync("db/VL-" + vertex_label + "/VI-" + vertex_id + "/EL-" + edge_label + "/VL-" + target_label + "/EI-*.json")
     .map((target_id: string) => {
-      if (config.vertices[target_label].id.type === "number") {
+      if (config[target_label].id.type === "number") {
         return parseInt(target_id, 10);
       }
       return target_id;
     });
 }
 
-function throwError(breadcrumbs: string[], message: string): void {
+function printContext(breadcrumbs: string[]): void {
+  console.log("<" + breadcrumbs.join(",") + ">");
+}
+
+function throwError(breadcrumbs: string[], message: string): never {
   throw new Error("<" + breadcrumbs.join(",") + "> " + message);
 }
