@@ -79,7 +79,7 @@ export class Graph {
       source_label: (this.vertexToWrite as VertexStorage).label,
       source_id: (this.vertexToWrite as VertexStorage).properties["id"],
       target_label,
-      target_id,,
+      target_id,
     };
     this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
     return this;
