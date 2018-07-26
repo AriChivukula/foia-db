@@ -104,7 +104,7 @@ export class Graph {
           .filter((edge: EdgeStorage) => edge.source_id === vertex.id && edge.source_label === vertex.label)
           .map(
             (edge: EdgeStorage) => {
-              nextEdges[edge.source_label + "/" + edge.source_id + "/" + edge.label + "/" + edge.target_label + "/" + edge.target_id] = edge;
+              nextEdges[edge.source_label + "-" + edge.source_id + "-" + edge.label + "-" + edge.target_label + "-" + edge.target_id] = edge;
             },
           );
       },
@@ -122,7 +122,7 @@ export class Graph {
           .filter((vertex: VertexStorage) => vertex.id === edge.target_id && vertex.label === edge.target_label)
           .map(
             (vertex: VertexStorage) => {
-              nextVertices[vertex.label + "/" + vertex.id] = vertex;
+              nextVertices[vertex.label + "-" + vertex.id] = vertex;
             },
           );
       },
