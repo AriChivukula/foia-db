@@ -109,7 +109,7 @@ export class Graph {
         );
       },
     );
-    this.edgesToRead = ([]).concat(new Set(this.edgesToRead as EdgeStorage[]));
+    this.edgesToRead = ([]).concat((new Set(this.edgesToRead as EdgeStorage[])).values());
     return this;
   }
 
@@ -124,7 +124,7 @@ export class Graph {
         );
       },
     );
-    this.verticesToRead = ([]).concat(new Set(this.verticesToRead as VertexStorage[]));
+    this.verticesToRead = ([]).concat((new Set(this.verticesToRead as VertexStorage[])).values());
     return this;
   }
 
