@@ -102,7 +102,7 @@ export class Graph {
   }
 
   public addP(label: PropertyLabel, value: PropertyValue): Graph {
-    (this.vertexToWrite as IVertex).properties[key] = value;
+    (this.vertexToWrite as IVertex).properties[label] = value;
     return this;
   }
 
@@ -123,7 +123,7 @@ export class Graph {
     const nextEdges: any = {};
     this.verticesToRead.map(
       (vertex: IVertex) => {
-        Object.values(this.storage.edges)
+        this.props.edges
           .filter((edge: IEdge) => vk(edge.thread[0]) === vk(vertex))
           .map(
             (edge: IEdge) => {
@@ -141,7 +141,7 @@ export class Graph {
     const nextVertices: any = {};
     this.edgesToRead.map(
       (edge: IEdge) => {
-        Object.values(this.props.vertices)
+        this.props.vertices
           .filter((vertex: IVertex) => vk(vertex) === vk(edge.thread[1]))
           .map(
             (vertex: IVertex) => {
