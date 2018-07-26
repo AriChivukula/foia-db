@@ -32,8 +32,8 @@ function validateConfig(
   console.log("Loading Config");
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
-  Object.keys(config.folders).forEach((folder_name: string) => {
-    validateFolder(config, folder_name, graph);
+  Object.keys(config.vertices).forEach((vertex_label: string) => {
+    validateVertices(config, vertex_label, graph);
   });
   if (compile) {
     console.log("Writing DB");
@@ -41,132 +41,163 @@ function validateConfig(
   }
 }
 
-function validateFolder(
+function validateVertices(
   config: any,
-  folder_name: string,
+  vertex_label: string,
   graph: Graph,
 ): void {
-  console.log(folder_name);
-  if (!existsSync("db/" + folder_name + "/")) {
+  console.log(vertex_label);
+  if (!existsSync("db/" + vertex_label + "/")) {
     throwError(
-      [folder_name],
+      [vertex_label],
       "Missing data",
     );
   }
-  readdirSync("db/" + folder_name + "/").forEach((document_name: string) => {
-    validateDocument(config, folder_name, document_name, graph);
+  readdirSync("db/" + vertex_label + "/").forEach((vertex_id: string) => {
+    if (vertex_id.includes("--EDGE--")) {
+      return;
+    }
+    validateVertex(config, vertex_label, vertex_id, graph);
   });
 }
 
-function validateDocument(
+function validateVertex(
   config: any,
-  folder_name: string,
-  document_name: string,
+  vertex_label: string,
+  vertex_id: string,
   graph: Graph,
 ): void {
-  console.log(folder_name + "/" + document_name);
-  graph.addV(folder_name);
-  const key_type: string = config.folders[folder_name].key.type;
-  switch(key_type) {
+  console.log(vertex_label + "/" + vertex_id);
+  graph.addV(vertex_label);
+  const verted_id_type: string = config.vertices[vertex_label].id.type;
+  switch(verted_id_type) {
     case "string":
-      if (document_name.trim() !== document_name) {
+      if (vertex_id.trim() !== vertex_id) {
         throwError(
-          [folder_name, document_name],
-          "This is not a proper string " + document_name,
+          [vertex_label, vertex_id],
+          "This is not a proper string " + vertex_id,
         );
       }
-      graph.property("id", document_name);
+      graph.property("id", vertex_id);
       break;
     case "number":
-      if (parseInt(document_name, 10).toString() !== document_name.replace(/^0+(?!$)/, "")) {
+      if (parseInt(vertex_id, 10).toString() !== vertex_id.replace(/^0+(?!$)/, "")) {
         throwError(
-          [folder_name, document_name],
-          "This is not a proper number " + document_name,
+          [vertex_label, vertex_id],
+          "This is not a proper number " + vertex_id,
         );
       }
-      graph.property("id", parseInt(document_name, 10));
+      graph.property("id", parseInt(vertex_id, 10));
       break;
     default:
       throwError(
-        [folder_name, document_name],
-        "Unsupported data type " + key_type,
+        [vertex_label, vertex_id],
+        "Unsupported data type " + verted_id_type,
       );
   }
-  Object.keys(config.folders[folder_name].document).forEach((value_name: string) => {
+  Object.keys(config.vertices[vertex_label].properties).forEach((property_key: string) => {
     graph.property(
-      value_name,
-      validateValue(config, folder_name, document_name, value_name),
+      property_key,
+      validateVertexProperty(config, vertex_label, vertex_id, property_key),
+    );
+  });
+  Object.keys(config.vertices[vertex_label].edges).forEach((edge_label: string) => {
+    const target_label: string = config.vertices[vertex_label].edges[edge_label].type;
+    validateEdge(config, vertex_label, vertex_id, edge_label, target_label).forEach(
+      (target_id: any) => {
+        graph.addE(
+          edge_label,
+          target_label,
+          target_id,
+        );
+      },
     );
   });
 }
 
-function validateValue(
+function validateVertexProperty(
   config: any,
-  folder_name: string,
-  document_name: string,
-  value_name: string,
+  vertex_label: string,
+  vertex_id: string,
+  property_key: string,
 ): any {
-  console.log(folder_name + "/" + document_name + "/" + value_name);
-  const documentConfig: any = config.folders[folder_name].document;
-  const doc: any = JSON.parse(readFileSync("db/" + folder_name + "/" + document_name, "ascii"));
-  const final_value: any = doc[value_name];
-  const value_type: string = documentConfig[value_name].type;
-  switch(value_type) {
+  console.log(vertex_label + "/" + vertex_id + "--PROPERTY--" + property_key);
+  const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
+  const property_value: any = doc[property_key];
+  const property_type: string = config.vertices[vertex_label].properties[property_key].type;
+  switch(property_type) {
     case "string":
-      if (typeof final_value !== "string") {
+      if (typeof property_value !== "string") {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper string " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper string " + property_value,
         );
       }
       break;
     case "string[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "string")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "string")) {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper string[] " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper string[] " + property_value,
         );
       }
       break;
     case "number":
-      if (typeof final_value !== "number") {
+      if (typeof property_value !== "number") {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper number " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper number " + property_value,
         );
       }
       break;
     case "number[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "number")) {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper number[] " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper number[] " + property_value,
         );
       }
       break;
     case "boolean":
-      if (typeof final_value !== "boolean") {
+      if (typeof property_value !== "boolean") {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper boolean " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper boolean " + property_value,
         );
       }
       break;
     case "boolean[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "boolean")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "boolean")) {
         throwError(
-          [folder_name, document_name, value_name],
-          "This is not a proper boolean[] " + final_value,
+          [vertex_label, vertex_id, property_key],
+          "This is not a proper boolean[] " + property_value,
         );
       }
       break;
     default:
       throwError(
-        [folder_name, document_name, value_name],
-        "Unsupported data type " + value_type,
+        [vertex_label, vertex_id, property_key],
+        "Unsupported data type " + property_type,
       );
   }
-  return final_value;
+  return property_value;
+}
+
+function validateEdge(
+  config: any,
+  vertex_label: string,
+  vertex_id: string,
+  edge_label: string,
+  target_label: string,
+): any[] {
+  console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
+  return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/")
+    .map((target_id: string) => {
+      if (config.vertices[target_label].id.type === "number") {
+        return parseInt(target_id, 10);
+      }
+      return target_id;
+    });
 }
 
 function throwError(breadcrumbs: string[], message: string): void {

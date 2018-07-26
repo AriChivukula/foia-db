@@ -1,10 +1,15 @@
 {
-  "folders": {
+  "vertices": {
     "project": {
-      "key": {
+      "id": {
         "type": "number"
       },
-      "document": {
+      "edges": {
+        "creator": {
+          "type": "user"
+        }
+      },
+      "properties": {
         "description": {
           "type": "string"
         },
@@ -17,10 +22,15 @@
       }
     },
     "user": {
-      "key": {
+      "id": {
         "type": "string"
       },
-      "document": {
+      "edges": {
+        "created": {
+          "type": "project"
+        }
+      },
+      "properties": {
         "genders": {
           "type": "number[]"
         },
