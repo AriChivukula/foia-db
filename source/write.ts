@@ -31,8 +31,8 @@ function validateConfig(
 ): void {
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
-  Object.keys(config).forEach((vertex_label: VertexLabel) => {
-    validateVertices(graph, config, vertex_label);
+  Object.keys(config).forEach((vertex_label: string) => {
+    validateVertices(graph, config, vl(vertex_label));
   });
   if (compile) {
     graph.write();
@@ -113,13 +113,13 @@ function validateVertex(
       property_label,
     );
   });
-  Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
+  Object.keys(config[vertex_label].edges).forEach((edge_label: string) => {
     const target_label: VertexLabel = config[vertex_label].edges[edge_label].type;
     validateEdges(
       graph,
       config,
       vertex_label,
-      edge_label,
+      el(edge_label),
       target_label,
     );
   });
