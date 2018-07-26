@@ -68,44 +68,40 @@ export class Edge {
   }
 
   public toString(): string {
-    return this.props.thread[0].label + "/" + this.props.label + "/" + this.props.thread[1].label + "/" + this.props.thread[0].id + "/" + this.props.thread[1].id;
+    return this.props.thread[0].props.label + "/" + this.props.label + "/" + this.props.thread[1].props.label + "/" + this.props.thread[0].props.id + "/" + this.props.thread[1].props.id;
   }
 }
 
-export interface GraphStore {
-  public edges: Edge[];
-  public vertices: Vertex[];
+export interface IGraph {
+  public edges: IEdge[];
+  public vertices: IVertex[];
 }
 
 export class Graph {
-
-  private storage: GraphStorage;
+  
   private edgeToWrite?: Edge;
   private vertexToWrite?: Vertex;
-  private edgesToRead: Edge[] = [];
-  private verticesToRead: Vertex[]= [];
+  private edgesToRead: IEdge[] = [];
+  private verticesToRead: IVertex[]= [];
 
   public static new(): Graph {
-    return new Graph(false);
+    return new Graph({
+      edges: [],
+      vertices: [],
+    });
   }
-
+  
   public static read(): Graph {
-    return new Graph(true);
+    return new Graph(JSON.parse(readFileSync(".foia-db.json", "ascii")));
   }
 
-  private constructor(try_read: boolean) {
-    if (try_read) {
-      this.storage = JSON.parse(readFileSync(".foia-db.json", "ascii"));
-    } else {
-      this.storage = {
-        edges: [],
-        vertices: [],
-      };
-    }
+  private constructor(
+    private readonly props: IGraph,
+  ) {
   }
 
   public write(): void {
-    writeFileSync(".foia-db.json", JSON.stringify(this.storage))
+    writeFileSync(".foia-db.json", JSON.stringify(this.props))
   }
 
   /* Write */
@@ -116,7 +112,7 @@ export class Graph {
       id,
       properties: {},
     });
-    this.storage.vertices = this.storage.vertices.concat([this.vertexToWrite]);
+    this.vertices = this.vertices.concat([this.vertexToWrite.props]);
     return this;
   }
 
@@ -125,12 +121,12 @@ export class Graph {
       label,
       thread,
     });
-    this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
+    this.edges = this.edges.concat([this.edgeToWrite.props]);
     return this;
   }
 
   public addP(label: PropertyLabel, value: PropertyValue): Graph {
-    (this.vertexToWrite as Vertex).properties[key] = value;
+    (this.vertexToWrite as IVertex).properties[key] = value;
     return this;
   }
 
@@ -147,14 +143,14 @@ export class Graph {
   }
 
   public outV(label: VertexLabel): Graph {
-    this.verticesToRead = this.verticesToRead.filter((vertex: Vertex) => vertex.label === label);
+    this.verticesToRead = this.verticesToRead.filter((vertex: IVertex) => vertex.label === label);
     const nextEdges: any = {};
     this.verticesToRead.map(
-      (vertex: Vertex) => {
+      (vertex: IVertex) => {
         Object.values(this.storage.edges)
-          .filter((edge: Edge) => edge.thread[0].id === vertex.id && edge.thread[0].label === vertex.label)
+          .filter((edge: IEdge) => edge.thread[0].id === vertex.id && edge.thread[0].label === vertex.label)
           .map(
-            (edge: Edge) => {
+            (edge: IEdge) => {
               nextEdges[edge] = edge;
             },
           );
@@ -165,15 +161,15 @@ export class Graph {
   }
 
   public outE(label: EdgeLabel): Graph {
-    this.edgesToRead = this.edgesToRead.filter((edge: Edge) => edge.label === label);
+    this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.label === label);
     const nextVertices: any = {};
     this.edgesToRead.map(
-      (edge: EdgeStorage) => {
+      (edge: IEdge) => {
         Object.values(this.storage.vertices)
-          .filter((vertex: Vertex) => vertex.id === edge.thread[1].id && vertex.label === edge.thread[1].label)
+          .filter((vertex: IVertex) => vertex.id === edge.thread[1].id && vertex.label === edge.thread[1].label)
           .map(
-            (vertex: Vertex) => {
-              nextVertices[vertex] = vertex;
+            (vertex: IVertex) => {
+              nextVertices[IVertex] = vertex;
             },
           );
       },
@@ -188,7 +184,7 @@ export class Graph {
     return this.verticesToRead.length;
   }
 
-  public listV(): Vertex[] {
+  public listV(): IVertex[] {
     return this.verticesToRead;
   }
   
@@ -196,7 +192,7 @@ export class Graph {
     return this.edgesToRead.length;
   }
 
-  public listE(): Edge[] {
+  public listE(): IEdge[] {
     return this.edgesToRead;
   }
 }
