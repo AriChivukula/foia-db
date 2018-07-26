@@ -89,7 +89,7 @@ export class Graph {
     return this;
   }
 
-  public property(label: PropertyLabel, value: PropertyValue): Graph {
+  public addP(label: PropertyLabel, value: PropertyValue): Graph {
     (this.vertexToWrite as Vertex).properties[key] = value;
     return this;
   }
@@ -106,7 +106,7 @@ export class Graph {
     return this;
   }
 
-  public hasLabel(label: VertexLabel): Graph {
+  public outV(label: VertexLabel): Graph {
     this.verticesToRead = this.verticesToRead.filter((vertex: Vertex) => vertex.label === label);
     const nextEdges: any = {};
     this.verticesToRead.map(
@@ -144,11 +144,19 @@ export class Graph {
 
   /* Terminal */
 
-  public count(): number {
+  public countV(): number {
     return this.verticesToRead.length;
   }
 
-  public toList(): Vertex[] {
+  public listV(): Vertex[] {
     return this.verticesToRead;
+  }
+  
+  public countE(): number {
+    return this.edgesToRead.length;
+  }
+
+  public listE(): Edge[] {
+    return this.edgesToRead;
   }
 }
