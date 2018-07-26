@@ -6,7 +6,7 @@ import {
   Graph,
   el,
   vl,
-} from "./index";
+} from "./read";
 
 it(
   "E#countV",
@@ -35,14 +35,14 @@ it(
 it(
   "E#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("created").countE()).to.equal(2);
+    chai.expect(Graph.read().E().outE(el("created")).countE()).to.equal(2);
   },
 );
 
 it(
   "E#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("creator").listE()).to.deep.equal([
+    chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
