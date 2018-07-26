@@ -70,7 +70,7 @@ export class Graph {
     this.edgeToWrite = {
       label,
       source_label: (this.vertexToWrite as VertexStorage).label,
-      source_id: (this.vertexToWrite as VertexStorage).properties["_id"],
+      source_id: (this.vertexToWrite as VertexStorage).id,
       target_label,
       target_id,
     };
@@ -101,7 +101,7 @@ export class Graph {
     this.verticesToRead.map(
       (vertex: VertexStorage) => {
         Object.values(this.storage.edges)
-          .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["_id"] && edge.source_label === vertex.label)
+          .filter((edge: EdgeStorage) => edge.source_id === vertex.id && edge.source_label === vertex.label)
           .map(
             (edge: EdgeStorage) => {
               nextEdges[edge.source_label + "/" + edge.source_id + "/" + edge.label + "/" + edge.target_label + "/" + edge.target_id] = edge;
@@ -119,10 +119,10 @@ export class Graph {
     this.edgesToRead.map(
       (edge: EdgeStorage) => {
         Object.values(this.storage.vertices)
-          .filter((vertex: VertexStorage) => vertex.properties["_id"] === edge.target_id && vertex.label === edge.target_label)
+          .filter((vertex: VertexStorage) => vertex.id === edge.target_id && vertex.label === edge.target_label)
           .map(
             (vertex: VertexStorage) => {
-              nextVertices[vertex.label + "/" + vertex.properties["_id"]] = vertex;
+              nextVertices[vertex.label + "/" + vertex.id] = vertex;
             },
           );
       },
