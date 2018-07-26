@@ -54,7 +54,7 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "EL-creator",
+        "label": "EL-creator",
         "thread": [
           {
             "id": 0,
@@ -62,7 +62,22 @@ it(
             "properties": {},
           },
           {
+            "id": "ari",
+            "label": "VL-user",
+            "properties": {},
+          },
+        ],
+      },
+      {
+        "label": "EL-creator",
+        "thread": [
+          {
             "id": 1,
+            "label": "VL-project",
+            "properties": {},
+          },
+          {
+            "id": "ari",
             "label": "VL-user",
             "properties": {},
           },
@@ -118,7 +133,7 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "EL-creator",
+        "label": "EL-creator",
         "thread": [
           {
             "id": 0,
@@ -126,7 +141,22 @@ it(
             "properties": {},
           },
           {
+            "id": "ari",
+            "label": "VL-user",
+            "properties": {},
+          },
+        ],
+      },
+      {
+        "label": "EL-creator",
+        "thread": [
+          {
             "id": 1,
+            "label": "VL-project",
+            "properties": {},
+          },
+          {
+            "id": "ari",
             "label": "VL-user",
             "properties": {},
           },
