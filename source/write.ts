@@ -32,7 +32,7 @@ function validateConfig(
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
   Object.keys(config).forEach((vertex_label: VertexLabel) => {
-    validateVertices(config, vertex_label, graph);
+    validateVertices(graph, config, vertex_label);
   });
   if (compile) {
     graph.write();
@@ -55,10 +55,10 @@ function validateVertices(
     .forEach((vertex_path: string) => {
       if (vertex_path.endsWith(".json")) {
         validateVertex(
+          graph,
           config,
           vertex_label,
           vertex_path.replace(".json"),
-          graph,
         );
       }
     });
@@ -102,11 +102,24 @@ function validateVertex(
       );
   }
   Object.keys(config[vertex_label].properties).forEach((property_key: PropertyLabel) => {
-    validateVertexProperty(config, vertex_label, vertex_id, property_label, graph);
+    validateVertexProperty(
+      graph,
+      config,
+      vertex_label,
+      vertex_id,
+      property_label,
+    );
   });
   Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
     const target_label: VertexLabel = config[vertex_label].edges[edge_label].type;
-    validateEdges(config, vertex_label, vertex_id, edge_label, target_label, graph);
+    validateEdges(
+      graph,
+      config,
+      vertex_label,
+      vertex_id,
+      edge_label,
+      target_label,
+    );
   });
 }
 
@@ -233,8 +246,8 @@ function validateEdge(
   }
   graph.addE(
     edge_label,
-    target_label,
-    target_id,
+    thread_1_label,
+    thread_1_id,
   );
 }
 
