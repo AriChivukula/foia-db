@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./index";
+import { vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./index";
 
 if (require.main === module) {
   yargs
@@ -58,7 +58,7 @@ function validateVertices(
           graph,
           config,
           vertex_label,
-          vertex_path.replace(".json"),
+          vi(vertex_path.replace(".json")),
         );
       }
     });
@@ -93,7 +93,7 @@ function validateVertex(
           "This is not a proper number " + vertex_id,
         );
       }
-      graph.addV(vertex_label, parseInt(vertex_id, 10));
+      graph.addV(vertex_label, vi(parseInt(vertex_id, 10)));
       break;
     default:
       throwError(
@@ -213,8 +213,8 @@ function validateEdges(
   }
   readdirSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")
     .map((target_path: string) => {
-      const edge_id: EdgeID = target_path.replace(".json", "");
-      const thread_ids [VertexID, VertexID] = edge_id.split("-");
+      const edge_id: EdgeID = ei(target_path.replace(".json", ""));
+      const thread_ids [VertexID, VertexID] = edge_id.split("-").map(vi);
       validateEdge(
         graph,
         config,
