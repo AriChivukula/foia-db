@@ -46,16 +46,6 @@ export class Graph {
     }
   }
 
-  private endWrites(): void {
-    this.edgeToWrite = undefined;
-    this.vertexToWrite = undefined;
-  }
-
-  private endReads(): void {
-    this.edgesToRead = undefined;
-    this.verticesToRead = undefined;
-  }
-
   public write(): void {
     writeFileSync(".foia-db.json", JSON.stringify(this.storage))
   }
@@ -63,7 +53,6 @@ export class Graph {
   /* Write */
 
   public addV(label: string): Graph {
-    this.endReads();
     this.vertexToWrite = {
       label,
       properties: {},
@@ -73,7 +62,6 @@ export class Graph {
   }
 
   public addE(label: string, target_label: string, target_id: string): Graph {
-    this.endReads();
     this.edgeToWrite = {
       label,
       source_label: (this.vertexToWrite as VertexStorage).label,
@@ -93,13 +81,11 @@ export class Graph {
   /* Read */
 
   public V(): Graph {
-    this.endWrites();
     this.verticesToRead = Object.values(this.storage.vertices);
     return this;
   }
   
   public E(): Graph {
-    this.endWrites();
     this.edgesToRead = Object.values(this.storage.edges);
     return this;
   }
@@ -113,7 +99,7 @@ export class Graph {
           .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
           .map(
             (edge: EdgeStorage) => {
-              nextEdges[vertex.label + "/" + vertex.properties["id"] + "--EDGE--" + edge.source_label + "/" + edge.source_id] = vertex;
+              nextEdges[edge.label + "/" + edge.source_label + "/" + edge.source_id] = vertex;
             },
           );
       },
