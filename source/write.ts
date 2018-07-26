@@ -46,6 +46,7 @@ function validateVertices(
 ): void {
   const breadcrumbs: Breadcrumb = {
     label: [vertex_label],
+    id: [],
   };
   printBreadcrumbs(breadcrumbs);
   if (!existsSync("db/" + vertex_label + "/")) {
@@ -204,6 +205,7 @@ function validateEdges(
 ): void {
   const breadcrumbs: Breadcrumb = {
     label: [thread_0_label, edge_label, thread_1_label],
+    id: [],
   };
   printBreadcrumbs(breadcrumbs);
   if (!existsSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")) {
@@ -251,7 +253,7 @@ function validateEdge(
 
 interface Breadcrumb {
   label: any[];
-  id?: any[];
+  id: any[];
 };
 
 function printBreadcrumbs(breadcrumb: Breadcrumb): void {
