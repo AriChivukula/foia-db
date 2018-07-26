@@ -21,12 +21,15 @@ export function el(label: string): EdgeLabel {
   return "EL-" + label;
 }
 
-export function vi(label: any): VertexID {
-  return label;
+export function vi(id: any, type: string): VertexID {
+  if (type === "number") {
+    return parseInt(id, type);
+  }
+  return id;
 }
 
-export function ei(label: string): EdgeID {
-  return label;
+export function ei(id: string): EdgeID {
+  return id;
 }
 
 export interface IVertex {
