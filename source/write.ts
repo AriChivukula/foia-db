@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./index";
+import { vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./read";
 
 if (require.main === module) {
   yargs
@@ -202,7 +202,6 @@ function validateEdges(
   thread_0_label: VertexLabel,
   edge_label: EdgeLabel,
   thread_1_label: VertexLabel,
-  graph: Graph,
 ): void {
   const breadcrumbs: Breadcrumbs = [
     [thread_0_label, edge_label, thread_1_label],
@@ -214,7 +213,7 @@ function validateEdges(
   readdirSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")
     .map((target_path: string) => {
       const edge_id: EdgeID = ei(target_path.replace(".json", ""));
-      const thread_ids [VertexID, VertexID] = edge_id.split("-").map(vi);
+      const thread_ids: [VertexID, VertexID] = edge_id.split("-").map(vi);
       validateEdge(
         graph,
         config,
