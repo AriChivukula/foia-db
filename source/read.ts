@@ -21,6 +21,14 @@ export function el(label: string): EdgeLabel {
   return "EL-" + label;
 }
 
+export function vi(label: any): VertexID {
+  return label;
+}
+
+export function ei(label: string): EdgeID {
+  return label;
+}
+
 export class Vertex {
   label: VertexLabel;
   id: VertexID;
