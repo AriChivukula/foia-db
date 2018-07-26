@@ -251,8 +251,8 @@ function validateEdge(
 }
 
 type Breadcrumbs = [
-  [VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel],
-  [?VertexID, ?EdgeID],
+  ?[VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel],
+  ?[?VertexID, ?EdgeID],
 ];
 
 function printBreadcrumbs(breadcrumbs: Breadcrumbs): void {
