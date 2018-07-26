@@ -4,32 +4,37 @@ import {
   writeFileSync,
 } from "fs";
 
-export interface EdgeStorage {
-  label: string;
-  source_id: any;
-  source_label: string;
-  target_id: any;
-  target_label: string;
+export type VertexLabel = string;
+export type VertexID = any;
+
+export type PropertyLabel = string;
+export type PropertyValue = any;
+
+export type EdgeLabel = string;
+
+export interface Vertex {
+  label: VertexLabel;
+  id: VertexID;
+  properties: {[idx: PropertyLabel]: PropertyValue};
 }
 
-export interface VertexStorage {
-  label: string;
-  id: any;
-  properties: any;
+export interface Edge {
+  label: EdgeLabel;
+  thread: Vertex[]
 }
 
-export interface GraphStorage {
-  edges: EdgeStorage[];
-  vertices: VertexStorage[];
+export interface GraphStore {
+  edges: Edge[];
+  vertices: Vertex[];
 }
 
 export class Graph {
 
   private storage: GraphStorage;
-  private edgeToWrite?: EdgeStorage;
-  private vertexToWrite?: VertexStorage;
-  private edgesToRead: EdgeStorage[] = [];
-  private verticesToRead: VertexStorage[]= [];
+  private edgeToWrite?: Edge;
+  private vertexToWrite?: Vertex;
+  private edgesToRead: Edge[] = [];
+  private verticesToRead: Vertex[]= [];
 
   public static new(): Graph {
     return new Graph(false);
@@ -56,7 +61,7 @@ export class Graph {
 
   /* Write */
 
-  public addV(label: string, id: any): Graph {
+  public addV(label: VertexLabel, id: VertexID): Graph {
     this.vertexToWrite = {
       label,
       id,
@@ -66,19 +71,16 @@ export class Graph {
     return this;
   }
 
-  public addE(label: string, target_label: string, target_id: any): Graph {
+  public addE(label: EdgeLabel, thread: Vertex[]): Graph {
     this.edgeToWrite = {
       label,
-      source_label: (this.vertexToWrite as VertexStorage).label,
-      source_id: (this.vertexToWrite as VertexStorage).id,
-      target_label,
-      target_id,
+      thread,
     };
     this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
     return this;
   }
 
-  public property(key: string, value: any): Graph {
+  public property(label: PropertyLabel, value: PropertyValue): Graph {
     (this.vertexToWrite as VertexStorage).properties[key] = value;
     return this;
   }
@@ -95,7 +97,7 @@ export class Graph {
     return this;
   }
 
-  public hasLabel(label: string): Graph {
+  public hasLabel(label: VertexLabel): Graph {
     this.verticesToRead = this.verticesToRead.filter((vertex: VertexStorage) => vertex.label === label);
     const nextEdges: any = {};
     this.verticesToRead.map(
@@ -113,7 +115,7 @@ export class Graph {
     return this;
   }
 
-  public outE(label: string): Graph {
+  public outE(label: EdgeLabel): Graph {
     this.edgesToRead = this.edgesToRead.filter((edge: EdgeStorage) => edge.label === label);
     const nextVertices: any = {};
     this.edgesToRead.map(
@@ -137,7 +139,7 @@ export class Graph {
     return this.verticesToRead.length;
   }
 
-  public toList(): VertexStorage[] {
+  public toList(): Vertex[] {
     return this.verticesToRead;
   }
 }
