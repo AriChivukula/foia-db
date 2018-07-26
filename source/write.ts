@@ -72,13 +72,13 @@ function validateVertex(
   vertex_id: VertexID,
 ): void {
   const vertex_id_type: string = config[vertex_label].id.type;
-  if (vertex_id_type === "number") {
-    vertex_id = parseInt(vertex_id, 10);
-  }
   const breadcrumbs: Breadcrumb = {
     label: [vertex_label],
     id: [vertex_id],
   };
+  if (vertex_id_type === "number") {
+    breadcrumbs.id[0] = parseInt(vertex_id, 10);
+  }
   printBreadcrumbs(breadcrumbs);
   switch(vertex_id_type) {
     case "string":
