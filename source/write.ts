@@ -58,7 +58,7 @@ function validateVertices(
           graph,
           config,
           vertex_label,
-          vi(vertex_path.replace(".json")),
+          vi(vertex_path.replace(".json", "")),
         );
       }
     });
@@ -251,7 +251,7 @@ function validateEdge(
 
 interface Breadcrumb {
   label: ?[VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel];
-  ?id: ?[?VertexID, ?EdgeID];
+  id?: ?[?VertexID, ?EdgeID];
 };
 
 function printBreadcrumbs(breadcrumb: Breadcrumb): void {
