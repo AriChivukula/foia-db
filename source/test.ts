@@ -68,6 +68,21 @@ it(
           },
         ],
       },
+      {
+        "label": "EL-creator",
+        "thread": [
+          {
+            "id": 1,
+            "label": "VL-project",
+            "properties": {},
+          },
+          {
+            "id": "ari",
+            "label": "VL-user",
+            "properties": {},
+          },
+        ],
+      },
     ]);
   },
 );
