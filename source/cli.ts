@@ -68,8 +68,6 @@ function validateVertex(
   graph: Graph,
 ): void {
   console.log(vertex_label + "/" + vertex_id);
-  graph.addV(vertex_label);
-  graph.property("_label", vertex_label);
   const verted_id_type: string = config.vertices[vertex_label].id.type;
   switch(verted_id_type) {
     case "string":
@@ -79,7 +77,7 @@ function validateVertex(
           "This is not a proper string " + vertex_id,
         );
       }
-      graph.property("_id", vertex_id);
+      graph.addV(vertex_label, vertex_id);
       break;
     case "number":
       if (parseInt(vertex_id, 10).toString() !== vertex_id.replace(/^0+(?!$)/, "")) {
@@ -88,7 +86,7 @@ function validateVertex(
           "This is not a proper number " + vertex_id,
         );
       }
-      graph.property("_id", parseInt(vertex_id, 10));
+      graph.addV(vertex_label, parseInt(vertex_id, 10));
       break;
     default:
       throwError(
