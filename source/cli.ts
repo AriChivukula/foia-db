@@ -44,7 +44,7 @@ function validateVertices(
   config: any,
   vertex_label: VertexLabel,
 ): void {
-  const breadcrumbs: any[][] = [
+  const breadcrumbs: Breadcrumbs = [
     [vertex_label],
   ];
   printPreadcrumbs(breadcrumbs);
@@ -70,7 +70,7 @@ function validateVertex(
   vertex_label: VertexLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: any[][] = [
+  const breadcrumbs: Breadcrumbs = [
     [vertex_label],
     [vertex_id],
   ];
@@ -117,7 +117,7 @@ function validateVertexProperty(
   property_label: PropertyLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: any[][] = [
+  const breadcrumbs: Breadcrumbs = [
     [vertex_label, property_label],
     [vertex_id],
   ];
@@ -191,7 +191,7 @@ function validateEdges(
   thread_1_label: VertexLabel,
   graph: Graph,
 ): void {
-  const breadcrumbs: any[][] = [
+  const breadcrumbs: Breadcrumbs = [
     [thread_0_label, edge_label, thread_1_label],
   ];
   printBreadcrumbs(breadcrumbs);
@@ -223,7 +223,7 @@ function validateEdge(
   thread_0_id: VertexID,
   thread_1_id: VertexID,
 ): void {
-  const breadcrumbs: any[][] = [
+  const breadcrumbs: Breadcrumbs = [
     [thread_0_label, edge_label, thread_1_label],
     [thread_0_id, thread_1_id],
   ];
@@ -238,7 +238,12 @@ function validateEdge(
   );
 }
 
-function printBreadcrumbs(breadcrumbs: any[][]): void {
+type Breadcrumbs = [
+  [VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel],
+  [?VertexID, ?EdgeID],
+];
+
+function printBreadcrumbs(breadcrumbs: Breadcrumbs): void {
   console.log(
     breadcrumbs
       .map((breadcrumb: any[]) => breadcrumb.join(","))
@@ -246,7 +251,7 @@ function printBreadcrumbs(breadcrumbs: any[][]): void {
   );
 }
 
-function throwError(breadcrumbs: any[][], message: string): never {
+function throwError(breadcrumbs: Breadcrumbs, message: string): never {
   throw new Error(
     breadcrumbs
       .map((breadcrumb: any[]) => breadcrumb.join(","))
