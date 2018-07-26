@@ -9,14 +9,62 @@ import {
 } from "./index";
 
 it(
-  "countV",
+  "E#countV",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().E().outE(el("created")).outV(vl("project")).countV()).to.equal(2);
+  },
+);
+
+it(
+  "E#listV",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().E().outE(el("creator")).outV(vl("user")).listV()).to.deep.equal([
+      {
+        "id": "ari",
+        "label": "user",
+        "properties": {
+          "genders": [1E+2, 0],
+          "pronouns": ["they", "them", "their"],
+          "thoughts": [true, false]
+        }
+      }
+    ]);
+  },
+);
+
+it(
+  "E#countE",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().E().outE(el("created").countE()).to.equal(2);
+  },
+);
+
+it(
+  "E#listE",
+  async (): Promise<void> => {
+    chai.expect(Graph.read().E().outE(el("creator").listE()).to.deep.equal([
+      {
+        "id": "ari",
+        "label": "user",
+        "properties": {
+          "genders": [1E+2, 0],
+          "pronouns": ["they", "them", "their"],
+          "thoughts": [true, false]
+        }
+      }
+    ]);
+  },
+);
+
+it(
+  "V#countV",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("project")).countV()).to.equal(2);
   },
 );
 
 it(
-  "listV",
+  "V#listV",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
       {
@@ -33,14 +81,14 @@ it(
 );
 
 it(
-  "countE",
+  "V#countE",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outL(vl("user")).outE(el("created")).countE()).to.equal(2);
   },
 );
 
 it(
-  "listE",
+  "V#listE",
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outL(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
