@@ -104,7 +104,7 @@ function validateVertex(
   Object.keys(config.vertices[vertex_label].edges).forEach((edge_label: string) => {
     const target_label: string = config.vertices[vertex_label].edges[edge_label].type;
     validateEdge(config, vertex_label, vertex_id, edge_label, target_label).forEach(
-      (target_id: string) => {
+      (target_id: any) => {
         graph.addE(
           edge_label,
           target_label,
@@ -191,7 +191,13 @@ function validateEdge(
   target_label: string,
 ): any[] {
   console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
-  return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/");
+  return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/")
+    .map((target_id: string) => {
+      if (config.vertices[vertex_label].id.type === "number") {
+        return parseInt(target_id, 10);
+      }
+      return target_id;
+    });
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
