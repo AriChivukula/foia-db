@@ -103,15 +103,13 @@ export class Graph {
     const nextEdges: any = {};
     (this.verticesToRead as VertexStorage[]).map(
       (vertex: VertexStorage) => {
-        (this.edgesToRead as EdgeStorage[]).concat(
-          Object.values(this.storage.edges)
-            .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
-            .map(
-              (edge: EdgeStorage) => {
-                nextEdges[vertex.label + "/" + vertex.properties["id"] + "--EDGE--" + edge.source_label + "/" + edge.source_id] = vertex;
-              },
-            );
-        );
+        Object.values(this.storage.edges)
+          .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
+          .map(
+            (edge: EdgeStorage) => {
+              nextEdges[vertex.label + "/" + vertex.properties["id"] + "--EDGE--" + edge.source_label + "/" + edge.source_id] = vertex;
+            },
+          );
       },
     );
     this.edgesToRead = Object.values(nextEdges);
@@ -123,15 +121,13 @@ export class Graph {
     const nextVertices: any = {};
     (this.edgesToRead as EdgeStorage[]).map(
       (edge: EdgeStorage) => {
-        (this.verticesToRead as VertexStorage[]).concat(
-          Object.values(this.storage.vertices)
-            .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
-            .map(
-              (vertex: VertexStorage) => {
-                nextVertices[vertex.label + "/" + vertex.properties["id"]] = vertex;
-              },
-            );
-        );
+        Object.values(this.storage.vertices)
+          .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
+          .map(
+            (vertex: VertexStorage) => {
+              nextVertices[vertex.label + "/" + vertex.properties["id"]] = vertex;
+            },
+          );
       },
     );
     this.verticesToRead = Object.values(nextVertices);
