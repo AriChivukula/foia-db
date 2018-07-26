@@ -54,6 +54,9 @@ function validateVertices(
     );
   }
   readdirSync("db/" + vertex_label + "/").forEach((vertex_id: string) => {
+    if (vertex_id.contains("--EDGE--")) {
+      return;
+    }
     validateVertex(config, vertex_label, vertex_id, graph);
   });
 }
@@ -92,10 +95,22 @@ function validateVertex(
         "Unsupported data type " + vertex_label,
       );
   }
-  Object.keys(config.folders[vertex_label].document).forEach((property_key: string) => {
+  Object.keys(config.folders[vertex_label].properties).forEach((property_key: string) => {
     graph.property(
       property_key,
       validateVertexProperty(config, vertex_label, vertex_id, property_key),
+    );
+  });
+  Object.keys(config.folders[vertex_label].edges).forEach((edge_label: string) => {
+    const target_label: string = config.folders[vertex_label].edges[edge_label].type;
+    validateEdge(config, vertex_label, vertex_id, edge_label, target_label).forEach(
+      (target_id: string) => {
+        graph.addE(
+          edge_label,
+          target_label,
+          target_id,
+        );
+      });
     );
   });
 }
@@ -107,10 +122,9 @@ function validateVertexProperty(
   property_key: string,
 ): any {
   console.log(vertex_label + "/" + vertex_id + "/" + property_key);
-  const documentConfig: any = config.folders[vertex_label].document;
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
   const property_value: any = doc[property_key];
-  const property_type: string = documentConfig[property_key].type;
+  const property_type: string = config.folders[vertex_label].properties[property_key].type;
   switch(property_type) {
     case "string":
       if (typeof property_value !== "string") {
@@ -167,6 +181,17 @@ function validateVertexProperty(
       );
   }
   return property_value;
+}
+
+function validateEdge(
+  config: any,
+  vertex_label: string,
+  vertex_id: string,
+  edge_label: string,
+  target_label: string,
+): any[] {
+  console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
+  return readdirSync(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/"));
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
