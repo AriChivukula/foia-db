@@ -54,7 +54,7 @@ function validateVertices(
     );
   }
   readdirSync("db/" + vertex_label + "/").forEach((vertex_id: string) => {
-    if (vertex_id.contains("--EDGE--")) {
+    if (vertex_id.includes("--EDGE--")) {
       return;
     }
     validateVertex(config, vertex_label, vertex_id, graph);
@@ -69,8 +69,8 @@ function validateVertex(
 ): void {
   console.log(vertex_label + "/" + vertex_id);
   graph.addV(vertex_label);
-  const vertex_label: string = config.folders[vertex_label].key.type;
-  switch(vertex_label) {
+  const verted_id_type: string = config.folders[vertex_label].key.type;
+  switch(verted_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
         throwError(
@@ -92,7 +92,7 @@ function validateVertex(
     default:
       throwError(
         [vertex_label, vertex_id],
-        "Unsupported data type " + vertex_label,
+        "Unsupported data type " + verted_id_type,
       );
   }
   Object.keys(config.folders[vertex_label].properties).forEach((property_key: string) => {
@@ -110,7 +110,7 @@ function validateVertex(
           target_label,
           target_id,
         );
-      });
+      },
     );
   });
 }
