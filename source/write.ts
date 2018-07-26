@@ -101,7 +101,7 @@ function validateVertex(
         "Unsupported data type " + vertex_id_type,
       );
   }
-  Object.keys(config[vertex_label].properties).forEach((property_key: PropertyLabel) => {
+  Object.keys(config[vertex_label].properties).forEach((property_label: PropertyLabel) => {
     validateVertexProperty(
       graph,
       config,
@@ -116,7 +116,6 @@ function validateVertex(
       graph,
       config,
       vertex_label,
-      vertex_id,
       edge_label,
       target_label,
     );
