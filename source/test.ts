@@ -4,19 +4,21 @@ import * as chai from "chai";
 
 import {
   Graph,
+  el,
+  vl,
 } from "./index";
 
 it(
   "V#count",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("project")).count()).to.equal(2);
+    chai.expect(Graph.read().V().outV(vl("project")).countV()).to.equal(2);
   },
 );
 
 it(
   "V#toList",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("user")).list()).to.deep.equal([
+    chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
@@ -33,14 +35,14 @@ it(
 it(
   "E#count",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("user")).outE(el("created")).count()).to.equal(2);
+    chai.expect(Graph.read().V().outL(vl("user")).outE(el("created")).countE()).to.equal(2);
   },
 );
 
 it(
   "E#toList",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("project")).outE(el("creator")).list()).to.deep.equal([
+    chai.expect(Graph.read().V().outL(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
