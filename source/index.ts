@@ -12,20 +12,28 @@ export type PropertyValue = any;
 
 export type EdgeLabel = string;
 
-export interface Vertex {
+export class Vertex {
   label: VertexLabel;
   id: VertexID;
   properties: {[idx: PropertyLabel]: PropertyValue};
+  
+  public toString(): string {
+    return this.label + "/" + this.id;
+  }
 }
 
-export interface Edge {
-  label: EdgeLabel;
-  thread: Vertex[]
+export class Edge {
+  public label: EdgeLabel;
+  public thread: [Vertex, Vertex];
+  
+  public toString(): string {
+    return this.thread[0].label + "/" + this.label + "/" + this.thread[1].label + "/" + this.thread[0].id + "/" + this.thread[1].id;
+  }
 }
 
 export interface GraphStore {
-  edges: Edge[];
-  vertices: Vertex[];
+  public edges: Edge[];
+  public vertices: Vertex[];
 }
 
 export class Graph {
@@ -81,7 +89,7 @@ export class Graph {
   }
 
   public property(label: PropertyLabel, value: PropertyValue): Graph {
-    (this.vertexToWrite as VertexStorage).properties[key] = value;
+    (this.vertexToWrite as Vertex).properties[key] = value;
     return this;
   }
 
@@ -98,15 +106,15 @@ export class Graph {
   }
 
   public hasLabel(label: VertexLabel): Graph {
-    this.verticesToRead = this.verticesToRead.filter((vertex: VertexStorage) => vertex.label === label);
+    this.verticesToRead = this.verticesToRead.filter((vertex: Vertex) => vertex.label === label);
     const nextEdges: any = {};
     this.verticesToRead.map(
-      (vertex: VertexStorage) => {
+      (vertex: Vertex) => {
         Object.values(this.storage.edges)
-          .filter((edge: EdgeStorage) => edge.source_id === vertex.id && edge.source_label === vertex.label)
+          .filter((edge: Edge) => edge.thread[0].id === vertex.id && edge.thread[0].label === vertex.label)
           .map(
-            (edge: EdgeStorage) => {
-              nextEdges[edge.source_label + "-" + edge.source_id + "-" + edge.label + "-" + edge.target_label + "-" + edge.target_id] = edge;
+            (edge: Edge) => {
+              nextEdges[edge] = edge;
             },
           );
       },
@@ -116,15 +124,15 @@ export class Graph {
   }
 
   public outE(label: EdgeLabel): Graph {
-    this.edgesToRead = this.edgesToRead.filter((edge: EdgeStorage) => edge.label === label);
+    this.edgesToRead = this.edgesToRead.filter((edge: Edge) => edge.label === label);
     const nextVertices: any = {};
     this.edgesToRead.map(
       (edge: EdgeStorage) => {
         Object.values(this.storage.vertices)
-          .filter((vertex: VertexStorage) => vertex.id === edge.target_id && vertex.label === edge.target_label)
+          .filter((vertex: Vertex) => vertex.id === edge.thread[1].id && vertex.label === edge.thread[1].label)
           .map(
-            (vertex: VertexStorage) => {
-              nextVertices[vertex.label + "-" + vertex.id] = vertex;
+            (vertex: Vertex) => {
+              nextVertices[vertex] = vertex;
             },
           );
       },
