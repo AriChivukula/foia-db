@@ -61,7 +61,7 @@ export class Graph {
     return this;
   }
 
-  public addE(label: string, target_label: string, target_id: string): Graph {
+  public addE(label: string, target_label: string, target_id: any): Graph {
     this.edgeToWrite = {
       label,
       source_label: (this.vertexToWrite as VertexStorage).label,
