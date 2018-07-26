@@ -71,12 +71,14 @@ function validateVertex(
   vertex_label: VertexLabel,
   vertex_id: VertexID,
 ): void {
+  if (config[vertex_label].id.type === "number") {
+    vertex_id = parseInt(vertex_id, 10);
+  }
   const breadcrumbs: Breadcrumb = {
     label: [vertex_label],
     id: [vertex_id],
   };
   printBreadcrumbs(breadcrumbs);
-  const vertex_id_type: string = config[vertex_label].id.type;
   switch(vertex_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
@@ -85,7 +87,6 @@ function validateVertex(
           "This is not a proper string " + vertex_id,
         );
       }
-      graph.addV(vertex_label, vertex_id);
       break;
     case "number":
       if (parseInt(vertex_id, 10).toString() !== vertex_id.replace(/^0+(?!$)/, "")) {
@@ -94,7 +95,6 @@ function validateVertex(
           "This is not a proper number " + vertex_id,
         );
       }
-      graph.addV(vertex_label, vi(parseInt(vertex_id, 10)));
       break;
     default:
       throwError(
@@ -102,6 +102,7 @@ function validateVertex(
         "Unsupported data type " + vertex_id_type,
       );
   }
+  graph.addV(vertex_label, vertex_id);
   Object.keys(config[vertex_label].properties).forEach((property_label: PropertyLabel) => {
     validateVertexProperty(
       graph,
@@ -130,11 +131,11 @@ function validateVertexProperty(
   property_label: PropertyLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumb = {
+  const breadcrumb: Breadcrumb = {
     label: [vertex_label, property_label],
     id: [vertex_id],
   };
-  printBreadcrumbs(breadcrumbs);
+  printBreadcrumbs(breadcrumb);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
   const property_value: PropertyValue = doc[property_label];
   const property_type: string = config[vertex_label].properties[property_label].type;
@@ -142,7 +143,7 @@ function validateVertexProperty(
     case "string":
       if (typeof property_value !== "string") {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper string " + property_value,
         );
       }
@@ -150,7 +151,7 @@ function validateVertexProperty(
     case "string[]":
       if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "string")) {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper string[] " + property_value,
         );
       }
@@ -158,7 +159,7 @@ function validateVertexProperty(
     case "number":
       if (typeof property_value !== "number") {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper number " + property_value,
         );
       }
@@ -166,7 +167,7 @@ function validateVertexProperty(
     case "number[]":
       if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "number")) {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper number[] " + property_value,
         );
       }
@@ -174,7 +175,7 @@ function validateVertexProperty(
     case "boolean":
       if (typeof property_value !== "boolean") {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper boolean " + property_value,
         );
       }
@@ -182,18 +183,18 @@ function validateVertexProperty(
     case "boolean[]":
       if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "boolean")) {
         throwError(
-          breadcrumbs,
+          breadcrumb,
           "This is not a proper boolean[] " + property_value,
         );
       }
       break;
     default:
       throwError(
-        breadcrumbs,
+        breadcrumb,
         "Unsupported data type " + property_type,
       );
   }
-  graph.property(property_label, property_value);
+  graph.addP(property_label, property_value);
 }
 
 function validateEdges(
@@ -214,7 +215,7 @@ function validateEdges(
   readdirSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")
     .map((target_path: string) => {
       const edge_id: EdgeID = ei(target_path.replace(".json", ""));
-      const thread_ids: [VertexID, VertexID] = edge_id.split("-").map(vi);
+      const thread_ids: VertexID[] = edge_id.split("-").map(vi);
       validateEdge(
         graph,
         config,
@@ -236,14 +237,14 @@ function validateEdge(
   thread_0_id: VertexID,
   thread_1_id: VertexID,
 ): void {
+  if (config[target_label].id.type === "number") {
+    thread_1_id = parseInt(thread_1_id, 10);
+  }
   const breadcrumbs: Breadcrumb = {
     label: [thread_0_label, edge_label, thread_1_label],
     id: [thread_0_id, thread_1_id],
   };
   printBreadcrumbs(breadcrumbs);
-  if (config[target_label].id.type === "number") {
-    target_id = parseInt(target_id, 10);
-  }
   graph.addE(
     edge_label,
     thread_1_label,
