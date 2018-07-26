@@ -32,7 +32,7 @@ export function ei(label: string): EdgeID {
 export interface IVertex {
   label: VertexLabel;
   id: VertexID;
-  properties: {[idx: PropertyLabel]: PropertyValue};
+  properties: {[idx: string]: PropertyValue};
 }
 
 export class Vertex {
