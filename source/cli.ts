@@ -49,7 +49,7 @@ function validateVertices(
     return;
   }
   readdirSync("db/VL-" + vertex_label + "/").forEach((vertex_path: string) => {
-    if (vertex_path.startsWith("VI-").endsWith(".json")) {
+    if (vertex_path.startsWith("VI-") && vertex_path.endsWith(".json")) {
       validateVertex(
         config,
         vertex_label,
