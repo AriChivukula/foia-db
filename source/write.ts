@@ -250,8 +250,8 @@ function validateEdge(
 }
 
 interface Breadcrumb {
-  label: ?[VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel];
-  id?: ?[?VertexID, ?EdgeID];
+  label: any[];
+  id?: any[];
 };
 
 function printBreadcrumbs(breadcrumb: Breadcrumb): void {
