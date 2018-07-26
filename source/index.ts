@@ -11,6 +11,7 @@ export type PropertyLabel = string;
 export type PropertyValue = any;
 
 export type EdgeLabel = string;
+export type EdgeID = string;
 
 export class Vertex {
   label: VertexLabel;
