@@ -47,7 +47,7 @@ export class Vertex {
   }
   
   public toString(): string {
-    return this.label + "/" + this.id;
+    return this.props.label + "/" + this.props.id;
   }
 }
 
@@ -68,7 +68,7 @@ export class Edge {
   }
 
   public toString(): string {
-    return this.thread[0].label + "/" + this.label + "/" + this.thread[1].label + "/" + this.thread[0].id + "/" + this.thread[1].id;
+    return this.props.thread[0].label + "/" + this.props.label + "/" + this.props.thread[1].label + "/" + this.props.thread[0].id + "/" + this.props.thread[1].id;
   }
 }
 
