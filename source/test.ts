@@ -21,7 +21,7 @@ it(
     chai.expect(Graph.read().E().outE(el("creator")).outV(vl("user")).listV()).to.deep.equal([
       {
         "id": "ari",
-        "label": "user",
+        "label": "VL-user",
         "properties": {
           "genders": [
             100,
@@ -54,23 +54,19 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "ari",
-        "label": "user",
-        "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
-        },
+        "id": "EL-creator",
+        "thread": [
+          {
+            "id": 0,
+            "label": "VL-project",
+            "properties": {},
+          },
+          {
+            "id": 1,
+            "label": "VL-user",
+            "properties": {},
+          },
+        ],
       },
     ]);
   },
@@ -89,7 +85,7 @@ it(
     chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
       {
         "id": "ari",
-        "label": "user",
+        "label": "VL-user",
         "properties": {
           "genders": [
             100,
@@ -122,23 +118,19 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
-        "id": "ari",
-        "label": "user",
-        "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
-        },
+        "id": "EL-creator",
+        "thread": [
+          {
+            "id": 0,
+            "label": "VL-project",
+            "properties": {},
+          },
+          {
+            "id": 1,
+            "label": "VL-user",
+            "properties": {},
+          },
+        ],
       },
     ]);
   },
