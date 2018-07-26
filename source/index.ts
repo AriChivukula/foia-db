@@ -1,7 +1,10 @@
 import "@babel/polyfill";
-import { readFileSync, writeFileSync } from "fs";
+import {
+  readFileSync,
+  writeFileSync,
+} from "fs";
 
-interface EdgeStorage {
+export interface EdgeStorage {
   label: string;
   source_id: any;
   source_label: string;
@@ -9,12 +12,13 @@ interface EdgeStorage {
   target_label: string;
 }
 
-interface VertexStorage {
- label: string;
- properties: any;
+export interface VertexStorage {
+  label: string;
+  id: any;
+  properties: any;
 }
 
-interface GraphStorage {
+export interface GraphStorage {
   edges: EdgeStorage[];
   vertices: VertexStorage[];
 }
@@ -52,9 +56,10 @@ export class Graph {
 
   /* Write */
 
-  public addV(label: string): Graph {
+  public addV(label: string, id: any): Graph {
     this.vertexToWrite = {
       label,
+      id,
       properties: {},
     };
     this.storage.vertices = this.storage.vertices.concat([this.vertexToWrite]);
@@ -132,7 +137,7 @@ export class Graph {
     return this.verticesToRead.length;
   }
 
-  public toList(): any[] {
-    return this.verticesToRead.map((vertex: VertexStorage) => vertex.properties);
+  public toList(): VertexStorage[] {
+    return this.verticesToRead;
   }
 }
