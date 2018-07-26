@@ -29,20 +29,44 @@ export function ei(label: string): EdgeID {
   return label;
 }
 
-export class Vertex {
+export interface IVertex {
   label: VertexLabel;
   id: VertexID;
   properties: {[idx: PropertyLabel]: PropertyValue};
+}
+
+export class Vertex {
+
+  public static new(props: IVertex): Vertex {
+    return new Vertex(props);
+  }
+
+  private constructor(
+    private readonly props: IVertex,
+  ) {
+  }
   
   public toString(): string {
     return this.label + "/" + this.id;
   }
 }
 
+export interface IEdge {
+  label: EdgeLabel;
+  thread: [Vertex, Vertex];
+}
+
 export class Edge {
-  public label: EdgeLabel;
-  public thread: [Vertex, Vertex];
-  
+
+  public static new(props: IEdge): Edge {
+    return new Edge(props);
+  }
+
+  private constructor(
+    private readonly props: IEdge,
+  ) {
+  }
+
   public toString(): string {
     return this.thread[0].label + "/" + this.label + "/" + this.thread[1].label + "/" + this.thread[0].id + "/" + this.thread[1].id;
   }
@@ -87,20 +111,20 @@ export class Graph {
   /* Write */
 
   public addV(label: VertexLabel, id: VertexID): Graph {
-    this.vertexToWrite = {
+    this.vertexToWrite = Vertex.new({
       label,
       id,
       properties: {},
-    };
+    });
     this.storage.vertices = this.storage.vertices.concat([this.vertexToWrite]);
     return this;
   }
 
   public addE(label: EdgeLabel, thread: Vertex[]): Graph {
-    this.edgeToWrite = {
+    this.edgeToWrite = Edge.new({
       label,
       thread,
-    };
+    });
     this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
     return this;
   }
