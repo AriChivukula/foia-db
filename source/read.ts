@@ -123,7 +123,7 @@ export class Graph {
 
   public outV(label: VertexLabel): Graph {
     this.verticesToRead = this.verticesToRead.filter((vertex: IVertex) => vertex.label === label);
-    const nextEdges: any = {};
+    let nextEdges: {[id: string]: IEdge} = {};
     this.verticesToRead.map(
       (vertex: IVertex) => {
         this.props.edges
@@ -141,7 +141,7 @@ export class Graph {
 
   public outE(label: EdgeLabel): Graph {
     this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.label === label);
-    const nextVertices: any = {};
+    let nextVertices: {[id: string]: IVertex} = {};
     this.edgesToRead.map(
       (edge: IEdge) => {
         this.props.vertices
