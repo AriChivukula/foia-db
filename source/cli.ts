@@ -191,7 +191,7 @@ function validateEdge(
   target_label: string,
 ): any[] {
   console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
-  return readdirSync(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/");
+  return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/");
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
