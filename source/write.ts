@@ -44,10 +44,10 @@ function validateVertices(
   config: any,
   vertex_label: VertexLabel,
 ): void {
-  const breadcrumbs: Breadcrumbs = {
+  const breadcrumbs: Breadcrumb = {
     label: [vertex_label],
   };
-  printPreadcrumbs(breadcrumbs);
+  printBreadcrumbs(breadcrumbs);
   if (!existsSync("db/" + vertex_label + "/")) {
     return;
   }
@@ -70,13 +70,13 @@ function validateVertex(
   vertex_label: VertexLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = {
+  const breadcrumbs: Breadcrumb = {
     label: [vertex_label],
     id: [vertex_id],
   };
   printBreadcrumbs(breadcrumbs);
-  const verted_id_type: string = config[vertex_label].id.type;
-  switch(verted_id_type) {
+  const vertex_id_type: string = config[vertex_label].id.type;
+  switch(vertex_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
         throwError(
@@ -130,7 +130,7 @@ function validateVertexProperty(
   property_label: PropertyLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = {
+  const breadcrumbs: Breadcrumb = {
     label: [vertex_label, property_label],
     id: [vertex_id],
   };
@@ -203,7 +203,7 @@ function validateEdges(
   edge_label: EdgeLabel,
   thread_1_label: VertexLabel,
 ): void {
-  const breadcrumbs: Breadcrumbs = {
+  const breadcrumbs: Breadcrumb = {
     label: [thread_0_label, edge_label, thread_1_label],
   };
   printBreadcrumbs(breadcrumbs);
@@ -235,7 +235,7 @@ function validateEdge(
   thread_0_id: VertexID,
   thread_1_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = {
+  const breadcrumbs: Breadcrumb = {
     label: [thread_0_label, edge_label, thread_1_label],
     id: [thread_0_id, thread_1_id],
   };
