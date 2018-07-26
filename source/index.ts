@@ -24,8 +24,8 @@ export class Graph {
   private storage: GraphStorage;
   private edgeToWrite?: EdgeStorage;
   private vertexToWrite?: VertexStorage;
-  private edgesToRead?: EdgeStorage[];
-  private verticesToRead?: VertexStorage[];
+  private edgesToRead: EdgeStorage[] = [];
+  private verticesToRead: VertexStorage[]= [];
 
   public static new(): Graph {
     return new Graph(false);
@@ -105,9 +105,9 @@ export class Graph {
   }
 
   public hasLabel(label: string): Graph {
-    this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter((vertex: VertexStorage) => vertex.label === label);
+    this.verticesToRead = this.verticesToRead.filter((vertex: VertexStorage) => vertex.label === label);
     const nextEdges: any = {};
-    (this.verticesToRead as VertexStorage[]).map(
+    this.verticesToRead.map(
       (vertex: VertexStorage) => {
         Object.values(this.storage.edges)
           .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
@@ -123,9 +123,9 @@ export class Graph {
   }
 
   public outE(label: string): Graph {
-    this.edgesToRead = (this.edgesToRead as EdgeStorage[]).filter((edge: EdgeStorage) => edge.label === label);
+    this.edgesToRead = this.edgesToRead.filter((edge: EdgeStorage) => edge.label === label);
     const nextVertices: any = {};
-    (this.edgesToRead as EdgeStorage[]).map(
+    this.edgesToRead.map(
       (edge: EdgeStorage) => {
         Object.values(this.storage.vertices)
           .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.target_label)
@@ -143,10 +143,10 @@ export class Graph {
   /* Terminal */
 
   public count(): number {
-    return (this.verticesToRead as VertexStorage[]).length;
+    return this.verticesToRead.length;
   }
 
   public toList(): any[] {
-    return (this.verticesToRead as VertexStorage[]).map((vertex: VertexStorage) => vertex.properties);
+    return this.verticesToRead.map((vertex: VertexStorage) => vertex.properties);
   }
 }
