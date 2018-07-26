@@ -44,9 +44,9 @@ function validateVertices(
   config: any,
   vertex_label: VertexLabel,
 ): void {
-  const breadcrumbs: Breadcrumbs = [
-    [vertex_label],
-  ];
+  const breadcrumbs: Breadcrumbs = {
+    label: [vertex_label],
+  };
   printPreadcrumbs(breadcrumbs);
   if (!existsSync("db/" + vertex_label + "/")) {
     return;
@@ -70,10 +70,10 @@ function validateVertex(
   vertex_label: VertexLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = [
-    [vertex_label],
-    [vertex_id],
-  ];
+  const breadcrumbs: Breadcrumbs = {
+    label: [vertex_label],
+    id: [vertex_id],
+  };
   printBreadcrumbs(breadcrumbs);
   const verted_id_type: string = config[vertex_label].id.type;
   switch(verted_id_type) {
@@ -130,10 +130,10 @@ function validateVertexProperty(
   property_label: PropertyLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = [
-    [vertex_label, property_label],
-    [vertex_id],
-  ];
+  const breadcrumbs: Breadcrumbs = {
+    label: [vertex_label, property_label],
+    id: [vertex_id],
+  };
   printBreadcrumbs(breadcrumbs);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
   const property_value: PropertyValue = doc[property_label];
@@ -203,9 +203,9 @@ function validateEdges(
   edge_label: EdgeLabel,
   thread_1_label: VertexLabel,
 ): void {
-  const breadcrumbs: Breadcrumbs = [
-    [thread_0_label, edge_label, thread_1_label],
-  ];
+  const breadcrumbs: Breadcrumbs = {
+    label: [thread_0_label, edge_label, thread_1_label],
+  };
   printBreadcrumbs(breadcrumbs);
   if (!existsSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")) {
     return;
@@ -235,10 +235,10 @@ function validateEdge(
   thread_0_id: VertexID,
   thread_1_id: VertexID,
 ): void {
-  const breadcrumbs: Breadcrumbs = [
-    [thread_0_label, edge_label, thread_1_label],
-    [thread_0_id, thread_1_id],
-  ];
+  const breadcrumbs: Breadcrumbs = {
+    label: [thread_0_label, edge_label, thread_1_label],
+    id: [thread_0_id, thread_1_id],
+  };
   printBreadcrumbs(breadcrumbs);
   if (config[target_label].id.type === "number") {
     target_id = parseInt(target_id, 10);
@@ -250,25 +250,15 @@ function validateEdge(
   );
 }
 
-type Breadcrumbs = [
-  ?[VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel],
-  ?[?VertexID, ?EdgeID],
-];
+interface Breadcrumb {
+  label?: [VertexLabel, ?EdgeLabel, ?VertexLabel, ?PropertyLabel];
+  id?: [?VertexID, ?EdgeID];
+};
 
-function printBreadcrumbs(breadcrumbs: Breadcrumbs): void {
-  console.log(
-    breadcrumbs
-      .map((breadcrumb: any[]) => breadcrumb.join(","))
-      .join("<>"),
-  );
+function printBreadcrumbs(breadcrumb: Breadcrumb): void {
+  console.log(breadcrumb.label.join(",") + "<>" + breadcrumb.id.join(","));
 }
 
-function throwError(breadcrumbs: Breadcrumbs, message: string): never {
-  throw new Error(
-    breadcrumbs
-      .map((breadcrumb: any[]) => breadcrumb.join(","))
-      .join("<>")
-    + "\n"
-    + message,
-  );
+function throwError(breadcrumb: Breadcrumb, message: string): never {
+  throw new Error(breadcrumb.label.join(",") + "<>" + breadcrumb.id.join(",")+ "\n" + message);
 }
