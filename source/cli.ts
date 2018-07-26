@@ -31,7 +31,7 @@ function validateConfig(
 ): void {
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
-  Object.keys(config).forEach((vertex_label: string) => {
+  Object.keys(config).forEach((vertex_label: VL) => {
     validateVertices(config, vertex_label, graph);
   });
   if (compile) {
@@ -41,20 +41,20 @@ function validateConfig(
 
 function validateVertices(
   config: any,
-  vertex_label: string,
+  vertex_label: VL,
   graph: Graph,
 ): void {
   printContext([vertex_label]);
-  if (!existsSync("db/VL-" + vertex_label + "/")) {
+  if (!existsSync("db/" + vertex_label + "/")) {
     return;
   }
-  readdirSync("db/VL-" + vertex_label + "/")
+  readdirSync("db/" + vertex_label + "/")
     .forEach((vertex_path: string) => {
-      if (vertex_path.startsWith("VI-")) {
+      if (vertex_path.endsWith(".json")) {
         validateVertex(
           config,
           vertex_label,
-          vertex_path.replace("VI-", "").replace(".json", ""),
+          vertex_path.replace("VI-", ""),
           graph,
         );
       }
@@ -63,8 +63,8 @@ function validateVertices(
 
 function validateVertex(
   config: any,
-  vertex_label: string,
-  vertex_id: any,
+  vertex_label: VL,
+  vertex_id: VI,
   graph: Graph,
 ): void {
   printContext([vertex_label, vertex_id]);
@@ -105,9 +105,9 @@ function validateVertex(
 
 function validateVertexProperty(
   config: any,
-  vertex_label: string,
-  vertex_id: any,
-  property_key: string,
+  vertex_label: VL,
+  vertex_id: VI,
+  property_key: PL,
   graph: Graph,
 ): void {
   printContext([vertex_label, vertex_id, property_key]);
@@ -174,10 +174,10 @@ function validateVertexProperty(
 
 function validateEdges(
   config: any,
-  vertex_label: string,
-  vertex_id: any,
-  edge_label: string,
-  target_label: string,
+  vertex_label: VL,
+  vertex_id: VI,
+  edge_label: EL,
+  target_label: VL,
   graph: Graph,
 ): void {
   printContext([vertex_label, vertex_id, edge_label, target_label]);
@@ -193,11 +193,11 @@ function validateEdges(
 
 function validateEdge(
   config: any,
-  vertex_label: string,
-  vertex_id: any,
-  edge_label: string,
-  target_label: string,
-  target_id: any,
+  vertex_label: VL,
+  vertex_id: VI,
+  edge_label: EL,
+  target_label: VL,
+  target_id: VI,
   graph: Graph,
 ): void {
   printContext([vertex_label, vertex_id, edge_label, target_label, target_id]);
