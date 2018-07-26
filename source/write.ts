@@ -59,7 +59,7 @@ function validateVertices(
           graph,
           config,
           vertex_label,
-          vi(vertex_path.replace(".json", "")),
+          vi(vertex_path.replace(".json", ""), config[vertex_label].id.type),
         );
       }
     });
@@ -76,9 +76,6 @@ function validateVertex(
     label: [vertex_label],
     id: [vertex_id],
   };
-  if (vertex_id_type === "number") {
-    breadcrumbs.id[0] = parseInt(vertex_id, 10);
-  }
   printBreadcrumbs(breadcrumbs);
   switch(vertex_id_type) {
     case "string":
@@ -90,12 +87,6 @@ function validateVertex(
       }
       break;
     case "number":
-      if (parseInt(vertex_id, 10).toString() !== vertex_id.replace(/^0+(?!$)/, "")) {
-        throwError(
-          breadcrumbs,
-          "This is not a proper number " + vertex_id,
-        );
-      }
       break;
     default:
       throwError(
@@ -216,15 +207,14 @@ function validateEdges(
   readdirSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")
     .map((target_path: string) => {
       const edge_id: EdgeID = ei(target_path.replace(".json", ""));
-      const thread_ids: VertexID[] = edge_id.split("-").map(vi);
       validateEdge(
         graph,
         config,
         thread_0_label,
         edge_label,
         thread_1_label,
-        thread_ids[0],
-        thread_ids[1],
+        vi(edge_id.split("-")[0], config[thread_0_label].id.type)),
+        vi(edge_id.split("-")[1], config[thread_0_label].id.type)),
       );
     });
 }
