@@ -214,7 +214,7 @@ function validateEdges(
         edge_label,
         thread_1_label,
         vi(edge_id.split("-")[0], config[thread_0_label].id.type),
-        vi(edge_id.split("-")[1], config[thread_0_label].id.type),
+        vi(edge_id.split("-")[1], config[thread_1_label].id.type),
       );
     });
 }
