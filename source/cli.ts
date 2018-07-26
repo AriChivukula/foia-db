@@ -193,7 +193,7 @@ function validateEdge(
   console.log(vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label);
   return readdirSync("db/" + vertex_label + "/" + vertex_id + "--EDGE--" + edge_label + "/" + target_label + "/")
     .map((target_id: string) => {
-      if (config.vertices[vertex_label].id.type === "number") {
+      if (config.vertices[target_label].id.type === "number") {
         return parseInt(target_id, 10);
       }
       return target_id;
