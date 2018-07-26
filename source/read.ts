@@ -36,7 +36,7 @@ export interface IVertex {
 }
 
 function vk(vertex: IVertex): string {
-  return edge.label + "/" + edge.id;
+  return vertex.label + "/" + vertex.id;
 }
 
 export interface IEdge {
@@ -49,8 +49,8 @@ function ek(edge: IEdge): string {
 }
 
 export interface IGraph {
-  public edges: IEdge[];
-  public vertices: IVertex[];
+  edges: IEdge[];
+  vertices: IVertex[];
 }
 
 export class Graph {
@@ -83,21 +83,21 @@ export class Graph {
   /* Write */
 
   public addV(label: VertexLabel, id: VertexID): Graph {
-    this.vertexToWrite = Vertex.new({
+    this.vertexToWrite = {
       label,
       id,
       properties: {},
-    });
-    this.vertices = this.vertices.concat([this.vertexToWrite]);
+    };
+    this.props.vertices = this.props.vertices.concat([this.vertexToWrite]);
     return this;
   }
 
   public addE(label: EdgeLabel, thread: [IVertex, IVertex]): Graph {
-    this.edgeToWrite = Edge.new({
+    this.edgeToWrite = {
       label,
       thread,
-    });
-    this.edges = this.edges.concat([this.edgeToWrite]);
+    };
+    this.props.edges = this.props.edges.concat([this.edgeToWrite]);
     return this;
   }
 
@@ -109,12 +109,12 @@ export class Graph {
   /* Read */
 
   public V(): Graph {
-    this.verticesToRead = Object.values(this.storage.vertices);
+    this.verticesToRead = Object.values(this.props.vertices);
     return this;
   }
   
   public E(): Graph {
-    this.edgesToRead = Object.values(this.storage.edges);
+    this.edgesToRead = Object.values(this.props.edges);
     return this;
   }
 
@@ -141,7 +141,7 @@ export class Graph {
     const nextVertices: any = {};
     this.edgesToRead.map(
       (edge: IEdge) => {
-        Object.values(this.storage.vertices)
+        Object.values(this.props.vertices)
           .filter((vertex: IVertex) => vk(vertex) === vk(edge.thread[1]))
           .map(
             (vertex: IVertex) => {
