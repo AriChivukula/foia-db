@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./read";
+import { vl, el, vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./read";
 
 if (require.main === module) {
   yargs
