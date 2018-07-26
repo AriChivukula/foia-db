@@ -23,7 +23,7 @@ export function el(label: string): EdgeLabel {
 
 export function vi(id: any, type: string): VertexID {
   if (type === "number") {
-    return parseInt(id, type);
+    return parseInt(id, 10);
   }
   return id;
 }
