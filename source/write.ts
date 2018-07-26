@@ -71,7 +71,8 @@ function validateVertex(
   vertex_label: VertexLabel,
   vertex_id: VertexID,
 ): void {
-  if (config[vertex_label].id.type === "number") {
+  const vertex_id_type: string = config[vertex_label].id.type;
+  if (vertex_id_type === "number") {
     vertex_id = parseInt(vertex_id, 10);
   }
   const breadcrumbs: Breadcrumb = {
@@ -237,7 +238,7 @@ function validateEdge(
   thread_0_id: VertexID,
   thread_1_id: VertexID,
 ): void {
-  if (config[target_label].id.type === "number") {
+  if (config[thread_1_label].id.type === "number") {
     thread_1_id = parseInt(thread_1_id, 10);
   }
   const breadcrumbs: Breadcrumb = {
@@ -247,8 +248,18 @@ function validateEdge(
   printBreadcrumbs(breadcrumbs);
   graph.addE(
     edge_label,
-    thread_1_label,
-    thread_1_id,
+    [
+      {
+        id: thread_0_id,
+        label: thread_0_label,
+        properties: {},
+      },
+      {
+        id: thread_1_id,
+        label: thread_1_label,
+        properties: {},
+      },
+    ],
   );
 }
 
