@@ -97,6 +97,12 @@ export class Graph {
     this.verticesToRead = Object.values(this.storage.vertices);
     return this;
   }
+  
+  public E(): Graph {
+    this.endWrites();
+    this.edgesToRead = Object.values(this.storage.edges);
+    return this;
+  }
 
   public hasLabel(label: string): Graph {
     this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter((vertex: VertexStorage) => vertex.label === label);
@@ -122,7 +128,7 @@ export class Graph {
     (this.edgesToRead as EdgeStorage[]).map(
       (edge: EdgeStorage) => {
         Object.values(this.storage.vertices)
-          .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
+          .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.target_label)
           .map(
             (vertex: VertexStorage) => {
               nextVertices[vertex.label + "/" + vertex.properties["id"]] = vertex;
