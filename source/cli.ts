@@ -33,7 +33,7 @@ function validateConfig(
   const config: any = JSON.parse(readFileSync(".foia-db", "ascii"));
   const graph: Graph = Graph.new();
   Object.keys(config.vertices).forEach((vertex_label: string) => {
-    validateFolder(config, vertex_label, graph);
+    validateVertices(config, vertex_label, graph);
   });
   if (compile) {
     console.log("Writing DB");
@@ -41,7 +41,7 @@ function validateConfig(
   }
 }
 
-function validateFolder(
+function validateVertices(
   config: any,
   vertex_label: string,
   graph: Graph,
@@ -54,11 +54,11 @@ function validateFolder(
     );
   }
   readdirSync("db/" + vertex_label + "/").forEach((vertex_id: string) => {
-    validateDocument(config, vertex_label, vertex_id, graph);
+    validateVertex(config, vertex_label, vertex_id, graph);
   });
 }
 
-function validateDocument(
+function validateVertex(
   config: any,
   vertex_label: string,
   vertex_id: string,
@@ -66,8 +66,8 @@ function validateDocument(
 ): void {
   console.log(vertex_label + "/" + vertex_id);
   graph.addV(vertex_label);
-  const key_type: string = config.folders[vertex_label].key.type;
-  switch(key_type) {
+  const vertex_label: string = config.folders[vertex_label].key.type;
+  switch(vertex_label) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
         throwError(
@@ -89,7 +89,7 @@ function validateDocument(
     default:
       throwError(
         [vertex_label, vertex_id],
-        "Unsupported data type " + key_type,
+        "Unsupported data type " + vertex_label,
       );
   }
   Object.keys(config.folders[vertex_label].document).forEach((property_key: string) => {
@@ -109,64 +109,64 @@ function validateVertexProperty(
   console.log(vertex_label + "/" + vertex_id + "/" + property_key);
   const documentConfig: any = config.folders[vertex_label].document;
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
-  const final_value: any = doc[property_key];
-  const value_type: string = documentConfig[property_key].type;
-  switch(value_type) {
+  const property_value: any = doc[property_key];
+  const property_type: string = documentConfig[property_key].type;
+  switch(property_type) {
     case "string":
-      if (typeof final_value !== "string") {
+      if (typeof property_value !== "string") {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper string " + final_value,
+          "This is not a proper string " + property_value,
         );
       }
       break;
     case "string[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "string")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "string")) {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper string[] " + final_value,
+          "This is not a proper string[] " + property_value,
         );
       }
       break;
     case "number":
-      if (typeof final_value !== "number") {
+      if (typeof property_value !== "number") {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper number " + final_value,
+          "This is not a proper number " + property_value,
         );
       }
       break;
     case "number[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "number")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "number")) {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper number[] " + final_value,
+          "This is not a proper number[] " + property_value,
         );
       }
       break;
     case "boolean":
-      if (typeof final_value !== "boolean") {
+      if (typeof property_value !== "boolean") {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper boolean " + final_value,
+          "This is not a proper boolean " + property_value,
         );
       }
       break;
     case "boolean[]":
-      if (!Array.isArray(final_value) || !final_value.every((value) => typeof value === "boolean")) {
+      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "boolean")) {
         throwError(
           [vertex_label, vertex_id, property_key],
-          "This is not a proper boolean[] " + final_value,
+          "This is not a proper boolean[] " + property_value,
         );
       }
       break;
     default:
       throwError(
         [vertex_label, vertex_id, property_key],
-        "Unsupported data type " + value_type,
+        "Unsupported data type " + property_type,
       );
   }
-  return final_value;
+  return property_value;
 }
 
 function throwError(breadcrumbs: string[], message: string): void {
