@@ -72,14 +72,14 @@ export class Graph {
     return this;
   }
 
-  public addE(label: string, vertex: VertexStorage): Graph {
+  public addE(label: string, target_label: string, target_id: string): Graph {
     this.endReads();
     this.edgeToWrite = {
       label,
       source_label: (this.vertexToWrite as VertexStorage).label,
       source_id: (this.vertexToWrite as VertexStorage).properties["id"],
-      target_id: vertex.properties["id"],
-      target_label: vertex.label,
+      target_label,
+      target_id,,
     };
     this.storage.edges = this.storage.edges.concat([this.edgeToWrite]);
     return this;
