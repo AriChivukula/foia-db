@@ -189,7 +189,7 @@ function validateEdge(
   target_label: string,
 ): any[] {
   printContext([vertex_label, vertex_id, edge_label, target_label]);
-  return readdirSync("db/VL-" + vertex_label + "/VI-" + vertex_id + "/EL-" + edge_label + "/TL-" + target_label + "/")
+  return readdirSync("db/VL-" + vertex_label + "/EL-" + edge_label + "/TL-" + target_label + "/")
     .map((target_path: string) => {
       const target_id: string = target_path.replace("EI-" + vertex_id + "-", "").replace(".json", "")
       if (config[target_label].id.type === "number") {
