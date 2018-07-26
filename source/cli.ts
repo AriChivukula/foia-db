@@ -45,11 +45,18 @@ function validateVertices(
   graph: Graph,
 ): void {
   printContext([vertex_label]);
-  if (!existsSync("db/VL-" + vertex_label + "/VI-*.json")) {
+  if (!existsSync("db/VL-" + vertex_label + "/")) {
     return;
   }
-  readdirSync("db/VL-" + vertex_label + "/VI-*.json").forEach((vertex_id: string) => {
-    validateVertex(config, vertex_label, vertex_id, graph);
+  readdirSync("db/VL-" + vertex_label + "/").forEach((vertex_path: string) => {
+    if (vertex_path.startsWith("VI-").endsWith(".json")) {
+      validateVertex(
+        config,
+        vertex_label,
+        vertex_path.replace("VI-", "").replace(".json", ""),
+        graph,
+      );
+    }
   });
 }
 
@@ -182,8 +189,9 @@ function validateEdge(
   target_label: string,
 ): any[] {
   printContext([vertex_label, vertex_id, edge_label, target_label]);
-  return readdirSync("db/VL-" + vertex_label + "/VI-" + vertex_id + "/EL-" + edge_label + "/TL-" + target_label + "/EI-*.json")
-    .map((target_id: string) => {
+  return readdirSync("db/VL-" + vertex_label + "/VI-" + vertex_id + "/EL-" + edge_label + "/TL-" + target_label + "/")
+    .map((target_path: string) => {
+      const target_id: string = target_path.replace("EI-" + vertex_id + "-", "").replace(".json", "")
       if (config[target_label].id.type === "number") {
         return parseInt(target_id, 10);
       }
