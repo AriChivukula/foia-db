@@ -69,7 +69,7 @@ function validateVertex(
 ): void {
   console.log(vertex_label + "/" + vertex_id);
   graph.addV(vertex_label);
-  const verted_id_type: string = config.vertices[vertex_label].key.type;
+  const verted_id_type: string = config.vertices[vertex_label].id.type;
   switch(verted_id_type) {
     case "string":
       if (vertex_id.trim() !== vertex_id) {
