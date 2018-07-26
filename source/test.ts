@@ -83,14 +83,14 @@ it(
 it(
   "V#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("user")).outE(el("created")).countE()).to.equal(2);
+    chai.expect(Graph.read().V().outV(vl("user")).outE(el("created")).countE()).to.equal(2);
   },
 );
 
 it(
   "V#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outL(vl("project")).outE(el("creator")).listE()).to.deep.equal([
+    chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
