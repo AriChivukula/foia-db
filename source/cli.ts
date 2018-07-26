@@ -121,7 +121,7 @@ function validateVertexProperty(
   vertex_id: string,
   property_key: string,
 ): any {
-  console.log(vertex_label + "/" + vertex_id + "/" + property_key);
+  console.log(vertex_label + "/" + vertex_id + "--PROPERTY--" + property_key);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id, "ascii"));
   const property_value: any = doc[property_key];
   const property_type: string = config.vertices[vertex_label].properties[property_key].type;
