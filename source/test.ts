@@ -9,14 +9,14 @@ import {
 it(
   "V#count",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().hasLabel("project").count()).to.equal(2);
+    chai.expect(Graph.read().V().outL(vl("project")).count()).to.equal(2);
   },
 );
 
 it(
   "V#toList",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().hasLabel("user").toList()).to.deep.equal([
+    chai.expect(Graph.read().V().outL(vl("user")).list()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
@@ -33,14 +33,14 @@ it(
 it(
   "E#count",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().hasLabel("user").outE("created").count()).to.equal(2);
+    chai.expect(Graph.read().V().outL(vl("user")).outE(el("created")).count()).to.equal(2);
   },
 );
 
 it(
   "E#toList",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().hasLabel("project").outE("creator").toList()).to.deep.equal([
+    chai.expect(Graph.read().V().outL(vl("project")).outE(el("creator")).list()).to.deep.equal([
       {
         "id": "ari",
         "label": "user",
