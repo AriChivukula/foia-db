@@ -124,11 +124,11 @@ export class Graph {
   public outV(label: VertexLabel): Graph {
     this.verticesToRead = this.verticesToRead.filter((vertex: IVertex) => vertex.label === label);
     let nextEdges: {[id: string]: IEdge} = {};
-    this.verticesToRead.map(
+    this.verticesToRead.forEach(
       (vertex: IVertex) => {
         this.props.edges
           .filter((edge: IEdge) => vk(edge.thread[0]) === vk(vertex))
-          .map(
+          .forEach(
             (edge: IEdge) => {
               nextEdges[ek(edge)] = edge;
             },
@@ -142,11 +142,11 @@ export class Graph {
   public outE(label: EdgeLabel): Graph {
     this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.label === label);
     let nextVertices: {[id: string]: IVertex} = {};
-    this.edgesToRead.map(
+    this.edgesToRead.forEach(
       (edge: IEdge) => {
         this.props.vertices
           .filter((vertex: IVertex) => vk(vertex) === vk(edge.thread[1]))
-          .map(
+          .forEach(
             (vertex: IVertex) => {
               nextVertices[vk(vertex)] = vertex;
             },
