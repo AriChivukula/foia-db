@@ -100,31 +100,41 @@ export class Graph {
 
   public hasLabel(label: string): Graph {
     this.verticesToRead = (this.verticesToRead as VertexStorage[]).filter((vertex: VertexStorage) => vertex.label === label);
-    this.edgesToRead = [];
+    const nextEdges: any = {};
     (this.verticesToRead as VertexStorage[]).map(
       (vertex: VertexStorage) => {
-        this.edgesToRead = (this.edgesToRead as EdgeStorage[]).concat(
+        (this.edgesToRead as EdgeStorage[]).concat(
           Object.values(this.storage.edges)
             .filter((edge: EdgeStorage) => edge.source_id === vertex.properties["id"] && edge.source_label === vertex.label)
+            .map(
+              (edge: EdgeStorage) => {
+                nextEdges[vertex.label + "/" + vertex.properties["id"] + "--EDGE--" + edge.source_label + "/" + edge.source_id] = vertex;
+              },
+            );
         );
       },
     );
-    this.edgesToRead = Array.from((new Set(this.edgesToRead as EdgeStorage[])).values());
+    this.edgesToRead = Object.values(nextEdges);
     return this;
   }
 
   public outE(label: string): Graph {
     this.edgesToRead = (this.edgesToRead as EdgeStorage[]).filter((edge: EdgeStorage) => edge.label === label);
-    this.verticesToRead = [];
+    const nextVertices: any = {};
     (this.edgesToRead as EdgeStorage[]).map(
       (edge: EdgeStorage) => {
-        this.verticesToRead = (this.verticesToRead as VertexStorage[]).concat(
+        (this.verticesToRead as VertexStorage[]).concat(
           Object.values(this.storage.vertices)
             .filter((vertex: VertexStorage) => vertex.properties["id"] === edge.target_id && vertex.label === edge.label)
+            .map(
+              (vertex: VertexStorage) => {
+                nextVertices[vertex.label + "/" + vertex.properties["id"]] = vertex;
+              },
+            );
         );
       },
     );
-    this.verticesToRead = Array.from((new Set(this.verticesToRead as VertexStorage[])).values());
+    this.verticesToRead = Object.values(nextVertices);
     return this;
   }
 
