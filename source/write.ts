@@ -109,8 +109,8 @@ function validateVertex(
       graph,
       config,
       vertex_label,
-      vertex_id,
       property_label,
+      vertex_id,
     );
   });
   Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
