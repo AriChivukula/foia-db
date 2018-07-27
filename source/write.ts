@@ -63,6 +63,16 @@ function validateVertices(
         );
       }
     });
+  Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
+    const target_label: VertexLabel = config[vertex_label].edges[edge_label].type;
+    validateEdges(
+      graph,
+      config,
+      vertex_label,
+      edge_label,
+      target_label,
+    );
+  });
 }
 
 function validateVertex(
@@ -102,16 +112,6 @@ function validateVertex(
       vertex_label,
       property_label,
       vertex_id,
-    );
-  });
-  Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
-    const target_label: VertexLabel = config[vertex_label].edges[edge_label].type;
-    validateEdges(
-      graph,
-      config,
-      vertex_label,
-      edge_label,
-      target_label,
     );
   });
 }
