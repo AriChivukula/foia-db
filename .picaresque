@@ -1,0 +1,17 @@
+{
+  "API_KEY": {
+    "description": "NPM Key"
+  },
+  "CC_TEST_REPORTER_ID": {
+    "description": "CC Token"
+  },
+  "EMAIL": {
+    "description": "NPM Email"
+  },
+  "GITHUB_TOKEN": {
+    "description": "GitHub Token"
+  },
+  "GITHUB_USER": {
+    "description": "GitHub Username"
+  }
+}

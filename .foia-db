@@ -1,45 +1,43 @@
 {
-  "vertices": {
-    "project": {
-      "id": {
-        "type": "number"
-      },
-      "edges": {
-        "creator": {
-          "type": "user"
-        }
-      },
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "days": {
-          "type": "number"
-        },
-        "active": {
-          "type": "boolean"
-        }
+  "VL-project": {
+    "id": {
+      "type": "number"
+    },
+    "edges": {
+      "EL-creator": {
+        "type": "VL-user"
       }
     },
-    "user": {
-      "id": {
+    "properties": {
+      "description": {
         "type": "string"
       },
-      "edges": {
-        "created": {
-          "type": "project"
-        }
+      "days": {
+        "type": "number"
       },
-      "properties": {
-        "genders": {
-          "type": "number[]"
-        },
-        "pronouns": {
-          "type": "string[]"
-        },
-        "thoughts": {
-          "type": "boolean[]"
-        }
+      "active": {
+        "type": "boolean"
+      }
+    }
+  },
+  "VL-user": {
+    "id": {
+      "type": "string"
+    },
+    "edges": {
+      "EL-created": {
+        "type": "VL-project"
+      }
+    },
+    "properties": {
+      "genders": {
+        "type": "number[]"
+      },
+      "pronouns": {
+        "type": "string[]"
+      },
+      "thoughts": {
+        "type": "boolean[]"
       }
     }
   }
