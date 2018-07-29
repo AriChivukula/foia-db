@@ -102,54 +102,54 @@ function validateVertexProperty(
   const breadcrumb: any[] = [vertex_label, property_label, vertex_id];
   printBreadcrumbs(breadcrumb);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
-  const property_value: PropertyID = doc[property_label];
+  const property_id: PropertyID = doc[property_label];
   const property_type: string = config[vertex_label].properties[property_label].type;
   switch(property_type) {
     case "string":
-      if (typeof property_value !== "string") {
+      if (typeof property_id !== "string") {
         throwError(
           breadcrumb,
-          "This is not a proper string " + property_value,
+          "This is not a proper string " + property_id,
         );
       }
       break;
     case "string[]":
-      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "string")) {
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "string")) {
         throwError(
           breadcrumb,
-          "This is not a proper string[] " + property_value,
+          "This is not a proper string[] " + property_id,
         );
       }
       break;
     case "number":
-      if (typeof property_value !== "number") {
+      if (typeof property_id !== "number") {
         throwError(
           breadcrumb,
-          "This is not a proper number " + property_value,
+          "This is not a proper number " + property_id,
         );
       }
       break;
     case "number[]":
-      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "number")) {
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "number")) {
         throwError(
           breadcrumb,
-          "This is not a proper number[] " + property_value,
+          "This is not a proper number[] " + property_id,
         );
       }
       break;
     case "boolean":
-      if (typeof property_value !== "boolean") {
+      if (typeof property_id !== "boolean") {
         throwError(
           breadcrumb,
-          "This is not a proper boolean " + property_value,
+          "This is not a proper boolean " + property_id,
         );
       }
       break;
     case "boolean[]":
-      if (!Array.isArray(property_value) || !property_value.every((value) => typeof value === "boolean")) {
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "boolean")) {
         throwError(
           breadcrumb,
-          "This is not a proper boolean[] " + property_value,
+          "This is not a proper boolean[] " + property_id,
         );
       }
       break;
@@ -159,7 +159,7 @@ function validateVertexProperty(
         "Unsupported data type " + property_type,
       );
   }
-  graph.addP(property_label, property_value);
+  graph.addProperty(property_label, property_id);
 }
 
 function validateEdges(
