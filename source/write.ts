@@ -76,8 +76,8 @@ function validateVertex(
       graph,
       config,
       vertex_label,
-      property_label,
       vertex_id,
+      property_label,
     );
   });
   Object.keys(config[vertex_label].edges).forEach((last_label: VertexLabel) => {
@@ -95,8 +95,8 @@ function validateVertexProperty(
   graph: Graph,
   config: any,
   vertex_label: VertexLabel,
-  property_label: PropertyLabel,
   vertex_id: VertexID,
+  property_label: PropertyLabel,
 ): void {
   const breadcrumb: any[] = [vertex_label, vertex_id, property_label];
   printBreadcrumbs(breadcrumb);
@@ -105,6 +105,26 @@ function validateVertexProperty(
   const property_type: string = config[vertex_label].properties[property_label].type;
   validateID(property_type, property_id, breadcrumb);
   graph.addVertexProperty(property_label, property_id);
+  Object.keys(config[vertex_label].properties[property_label].metadata).forEach((metadata_label: MetadataLabel) => {
+    validateVertexPropertyMetadata(
+      graph,
+      config,
+      vertex_label,
+      vertex_id,
+      property_label,
+      metadata_label,
+    );
+  });
+}
+
+function validateVertexPropertyMetadata(
+  graph: Graph,
+  config: any,
+  vertex_label: VertexLabel,
+  vertex_id: VertexID,
+  property_label: PropertyLabel,
+  metadata_label: MetadataLabel,
+): void {
 }
 
 function validateEdges(
@@ -183,6 +203,30 @@ function validateEdgeProperty(
   const property_type: string = config[first_label].edges[last_label].properties[property_label].type;
   validateID(property_type, property_id, breadcrumb);
   graph.addEdgeProperty(property_label, property_id);
+  Object.keys(config[first_label].edges[last_label].properties[property_label].metadata).forEach((metadata_label: MetadataLabel) => {
+    validateEdgePropertyMetadata(
+      graph,
+      config,
+      first_label,
+      first_id,
+      last_label,
+      last_id,
+      property_label,
+      metadata_label,
+    );
+  });
+}
+
+function validateEdgePropertyMetadata(
+  graph: Graph,
+  config: any,
+  first_label: VertexLabel,
+  first_id: VertexID,
+  last_label: VertexLabel,
+  last_id: VertexID,
+  property_label: PropertyLabel,
+  metadata_label: MetadataLabel,
+): void {
 }
 
 function validateID(
