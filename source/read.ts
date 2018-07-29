@@ -82,7 +82,7 @@ export class Graph {
 
   /* Write */
 
-  public addV(label: VertexLabel, id: VertexID): Graph {
+  public addVertex(label: VertexLabel, id: VertexID): Graph {
     this.vertexToWrite = {
       label,
       id,
@@ -92,17 +92,23 @@ export class Graph {
     return this;
   }
 
-  public addE(label: EdgeLabel, thread: [IVertex, IVertex]): Graph {
+  public addEdge(first: [VertexLabel, VertexID], last: [VertexLabel, VertexID]): Graph {
     this.edgeToWrite = {
-      label,
-      thread,
+      first,
+      last,
+      properties: {},
     };
     this.props.edges = this.props.edges.concat([this.edgeToWrite]);
     return this;
   }
 
-  public addP(label: PropertyLabel, value: PropertyValue): Graph {
-    (this.vertexToWrite as IVertex).properties[label] = value;
+  public addVertexProperty(label: PropertyLabel, id: PropertyID): Graph {
+    (this.vertexToWrite as IVertex).properties[label] = id;
+    return this;
+  }
+  
+  public addEdgeProperty(label: PropertyLabel, id: PropertyID): Graph {
+    (this.edgeToWrite as IEdge).properties[label] = id;
     return this;
   }
 
