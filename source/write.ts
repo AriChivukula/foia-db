@@ -60,16 +60,6 @@ function validateVertices(
         );
       }
     });
-  Object.keys(config[vertex_label].edges).forEach((edge_label: EdgeLabel) => {
-    const target_label: VertexLabel = config[vertex_label].edges[edge_label].type;
-    validateEdges(
-      graph,
-      config,
-      vertex_label,
-      edge_label,
-      target_label,
-    );
-  });
 }
 
 function validateVertex(
@@ -88,6 +78,15 @@ function validateVertex(
       vertex_label,
       property_label,
       vertex_id,
+    );
+  });
+  Object.keys(config[vertex_label].edges).forEach((last_label: VertexLabel) => {
+    validateEdges(
+      graph,
+      config,
+      vertex_label,
+      vertex_id,
+      last_label,
     );
   });
 }
@@ -165,26 +164,25 @@ function validateVertexProperty(
 function validateEdges(
   graph: Graph,
   config: any,
-  thread_0_label: VertexLabel,
-  edge_label: EdgeLabel,
-  thread_1_label: VertexLabel,
+  first_label: VertexLabel,
+  first_id: VertexID,
+  last_label: VertexLabel,
 ): void {
-  const breadcrumbs: any[] = [thread_0_label, edge_label, thread_1_label];
+  const breadcrumbs: any[] = [first_label, vertex_id, last_label];
   printBreadcrumbs(breadcrumbs);
-  if (!existsSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")) {
+  if (!existsSync("db/" + first_label + "/" + vertex_id + "/" + v + "/")) {
     return;
   }
-  readdirSync("db/" + thread_0_label + "/" + edge_label + "/" + thread_1_label + "/")
+  readdirSync("db/" + first_label + "/" + vertex_id + "/" + last_label + "/")
     .map((target_path: string) => {
-      const edge_id: EdgeID = ei(target_path.replace(".json", ""));
+      const last_id: VertexID = vi(target_path.replace(".json", ""));
       validateEdge(
         graph,
         config,
-        thread_0_label,
-        edge_label,
-        thread_1_label,
-        vi(edge_id.split("-")[0]),
-        vi(edge_id.split("-")[1]),
+        first_label,
+        first_id,
+        last_label,
+        last_id,
       );
     });
 }
@@ -192,22 +190,21 @@ function validateEdges(
 function validateEdge(
   graph: Graph,
   config: any,
-  thread_0_label: VertexLabel,
-  edge_label: EdgeLabel,
-  thread_1_label: VertexLabel,
-  thread_0_id: VertexID,
-  thread_1_id: VertexID,
+  first_label: VertexLabel,
+  first_id: VertexID,
+  last_label: VertexLabel,
+  last_id: VertexID,
 ): void {
-  const breadcrumbs: any[] = [thread_0_label, edge_label, thread_1_label, thread_0_id, thread_1_id];
+  const breadcrumbs: any[] = [first_label, first_id, last_label, last_id];
   printBreadcrumbs(breadcrumbs);
   graph.addEdge(
     [
-      thread_0_id,
-      thread_0_label,
+      first_label,
+      first_id,
     ],
     [
-      thread_1_id,
-      thread_1_label,
+      last_label,
+      last_id,
     ],
   );
 }
