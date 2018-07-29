@@ -20,7 +20,7 @@ it(
     chai.expect(Graph.read().Edges().outEdge(vl("project")).outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
-        "label": "VL-user",
+        "label": "user",
         "properties": {
           "genders": [
             100,
@@ -53,34 +53,26 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().Edges().outEdge(vl("user")).listEdges()).to.deep.equal([
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 0,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "0",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {},
       },
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 1,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "1",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {},
       },
     ]);
   },
@@ -99,7 +91,7 @@ it(
     chai.expect(Graph.read().Vertices().outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
-        "label": "VL-user",
+        "label": "user",
         "properties": {
           "genders": [
             100,
@@ -132,34 +124,26 @@ it(
   async (): Promise<void> => {
     chai.expect(Graph.read().Vertices().outVertex(vl("project")).outEdge(vl("user")).listEdges()).to.deep.equal([
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 0,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "0",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {},
       },
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 1,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "1",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {},
       },
     ]);
   },
