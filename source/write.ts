@@ -207,6 +207,88 @@ function validateEdge(
       last_id,
     ],
   );
+  Object.keys(config[first_label].edges[last_label].properties).forEach((property_label: PropertyLabel) => {
+    validateEdgeProperty(
+      graph,
+      config,
+      first_label,
+      last_label,
+      last_id,
+      property_label,
+    );
+  });
+}
+
+function validateEdgeProperty(
+  graph: Graph,
+  config: any,
+  first_label: VertexLabel,
+  first_id: VertexID,
+  last_label: VertexLabel,
+  last_id: VertexID,
+  property_label: PropertyLabel,
+): void {
+  const breadcrumb: any[] = [first_label, first_id, last_label, last_id, property_label];
+  printBreadcrumbs(breadcrumb);
+  const doc: any = JSON.parse(readFileSync("db/" + first_label + "/" + first_id + "/" + last_label + "/" + last_id + ".json", "ascii"));
+  const property_id: PropertyID = doc[property_label];
+  const property_type: string = config[first_label].edges[last_label].properties[property_label].type;
+  switch(property_type) {
+    case "string":
+      if (typeof property_id !== "string") {
+        throwError(
+          breadcrumb,
+          "This is not a proper string " + property_id,
+        );
+      }
+      break;
+    case "string[]":
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "string")) {
+        throwError(
+          breadcrumb,
+          "This is not a proper string[] " + property_id,
+        );
+      }
+      break;
+    case "number":
+      if (typeof property_id !== "number") {
+        throwError(
+          breadcrumb,
+          "This is not a proper number " + property_id,
+        );
+      }
+      break;
+    case "number[]":
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "number")) {
+        throwError(
+          breadcrumb,
+          "This is not a proper number[] " + property_id,
+        );
+      }
+      break;
+    case "boolean":
+      if (typeof property_id !== "boolean") {
+        throwError(
+          breadcrumb,
+          "This is not a proper boolean " + property_id,
+        );
+      }
+      break;
+    case "boolean[]":
+      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "boolean")) {
+        throwError(
+          breadcrumb,
+          "This is not a proper boolean[] " + property_id,
+        );
+      }
+      break;
+    default:
+      throwError(
+        breadcrumb,
+        "Unsupported data type " + property_type,
+      );
+  }
+  graph.addEdgeProperty(property_label, property_id);
 }
 
 function printBreadcrumbs(breadcrumb: any[]): void {
