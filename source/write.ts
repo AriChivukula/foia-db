@@ -212,6 +212,7 @@ function validateEdge(
       graph,
       config,
       first_label,
+      first_id,
       last_label,
       last_id,
       property_label,
