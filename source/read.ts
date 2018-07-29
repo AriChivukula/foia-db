@@ -31,7 +31,7 @@ export function pi(id: any): PropertyID {
 export interface IVertex {
   label: VertexLabel;
   id: VertexID;
-  properties: {[idx: string]: PropertyValue};
+  properties: {[string]: PropertyID};
 }
 
 function vk(vertex: IVertex): string {
@@ -41,11 +41,20 @@ function vk(vertex: IVertex): string {
 export interface IEdge {
   first: [VertexLabel, VertexID];
   last: [VertexLabel, VertexID];
-  properties: {[idx: string]: PropertyValue};
+  properties: {[string]: PropertyID};
+}
+
+function vk_first(edge: IEdge): string {
+  return edge.first[0] + "/" + edge.first[1];
+}
+
+
+function vk_last(edge: IEdge): string {
+  return edge.last[0] + "/" + edge.last[1];
 }
 
 function ek(edge: IEdge): string {
-  return edge.first[0] + "/" + edge.first[1] + "/" + edge.last[0] + "/" + edge.last[1];
+  return vk_first(edge) + "/" + vk_last(edge);
 }
 
 export interface IGraph {
@@ -114,23 +123,23 @@ export class Graph {
 
   /* Read */
 
-  public V(): Graph {
+  public Vertices(): Graph {
     this.verticesToRead = this.props.vertices;
     return this;
   }
   
-  public E(): Graph {
+  public Edges(): Graph {
     this.edgesToRead = this.props.edges;
     return this;
   }
 
-  public outV(label: VertexLabel): Graph {
+  public outVertex(label: VertexLabel): Graph {
     this.verticesToRead = this.verticesToRead.filter((vertex: IVertex) => vertex.label === label);
     let nextEdges: {[id: string]: IEdge} = {};
     this.verticesToRead.forEach(
       (vertex: IVertex) => {
         this.props.edges
-          .filter((edge: IEdge) => vk(edge.thread[0]) === vk(vertex))
+          .filter((edge: IEdge) => vk_first(edge) === vk(vertex))
           .forEach(
             (edge: IEdge) => {
               nextEdges[ek(edge)] = edge;
@@ -142,13 +151,13 @@ export class Graph {
     return this;
   }
 
-  public outE(label: EdgeLabel): Graph {
+  public outEdge(label: VertexLabel): Graph {
     this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.label === label);
     let nextVertices: {[id: string]: IVertex} = {};
     this.edgesToRead.forEach(
       (edge: IEdge) => {
         this.props.vertices
-          .filter((vertex: IVertex) => vk(vertex) === vk(edge.thread[1]))
+          .filter((vertex: IVertex) => vk(vertex) === vk_last(edge))
           .forEach(
             (vertex: IVertex) => {
               nextVertices[vk(vertex)] = vertex;
@@ -162,19 +171,19 @@ export class Graph {
 
   /* Terminal */
 
-  public countV(): number {
+  public countVertices(): number {
     return this.verticesToRead.length;
   }
 
-  public listV(): IVertex[] {
+  public listVertices(): IVertex[] {
     return this.verticesToRead;
   }
   
-  public countE(): number {
+  public countEdges(): number {
     return this.edgesToRead.length;
   }
 
-  public listE(): IEdge[] {
+  public listEdges(): IEdge[] {
     return this.edgesToRead;
   }
 }
