@@ -38,13 +38,34 @@ it(
           "0",
         ],
         "last": [
-         "user",
-         "ari",
+          "user",
+          "ari",
         ],
         "properties": {
-          "controls": [2, 3],
-          "permissions": ["four", "five"],
-          "thoughts": [false, true],
+          "controls": {
+            "id": [2, 3],
+            "metadata": {
+              "B": {
+                "id": "test",
+              },
+            },
+          },
+          "permissions": {
+            "id": ["four", "five"],
+            "metadata": {
+              "C": {
+                "id": 42,
+              },
+            },
+          },
+          "thoughts": {
+            "id": [false, true],
+            "metadata": {
+              "A": {
+                "id": true,
+              },
+            },
+          },
         },
       },
       {
@@ -57,9 +78,30 @@ it(
          "ari",
         ],
         "properties": {
-          "controls": [3, 2],
-          "permissions": ["five", "four"],
-          "thoughts": [true, false],
+          "controls": {
+            "id": [3, 2],
+            "metadata": {
+              "B": {
+                "id": "test2",
+              },
+            },
+          },
+          "permissions": {
+            "id": ["five", "four"],
+            "metadata": {
+              "C": {
+                "id": 43,
+              },
+            },
+          },
+          "thoughts": {
+            "id": [true, false],
+            "metadata": {
+              "A": {
+                "id": false,
+              },
+            },
+          },
         },
       },
     ]);
@@ -81,19 +123,40 @@ it(
         "id": "ari",
         "label": "user",
         "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
+          "genders": {
+            "id": [
+              100,
+              0,
+            ],
+            "metadata": {
+              "G": {
+                "id": [false, false],
+              },
+            },
+          },
+          "pronouns": {
+            "id": [
+              "they",
+              "them",
+              "their",
+            ],
+            "metadata": {
+              "H": {
+                "id": [1, 4, 9],
+              },
+            },
+          },
+          "thoughts": {
+            "id": [
+              true,
+              false,
+            ],
+            "metadata": {
+              "I": {
+                "id": ["hello", "world"],
+              },
+            },
+          },
         },
       },
     ]);
@@ -117,13 +180,34 @@ it(
           "0",
         ],
         "last": [
-         "user",
-         "ari",
+          "user",
+          "ari",
         ],
         "properties": {
-          "controls": [2, 3],
-          "permissions": ["four", "five"],
-          "thoughts": [false, true],
+          "controls": {
+            "id": [2, 3],
+            "metadata": {
+              "B": {
+                "id": "test",
+              },
+            },
+          },
+          "permissions": {
+            "id": ["four", "five"],
+            "metadata": {
+              "C": {
+                "id": 42,
+              },
+            },
+          },
+          "thoughts": {
+            "id": [false, true],
+            "metadata": {
+              "A": {
+                "id": true,
+              },
+            },
+          },
         },
       },
       {
@@ -136,9 +220,30 @@ it(
          "ari",
         ],
         "properties": {
-          "controls": [3, 2],
-          "permissions": ["five", "four"],
-          "thoughts": [true, false],
+          "controls": {
+            "id": [3, 2],
+            "metadata": {
+              "B": {
+                "id": "test2",
+              },
+            },
+          },
+          "permissions": {
+            "id": ["five", "four"],
+            "metadata": {
+              "C": {
+                "id": 43,
+              },
+            },
+          },
+          "thoughts": {
+            "id": [true, false],
+            "metadata": {
+              "A": {
+                "id": false,
+              },
+            },
+          },
         },
       },
     ]);

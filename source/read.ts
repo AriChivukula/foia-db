@@ -4,16 +4,20 @@ import {
   writeFileSync,
 } from "fs";
 
-export type VertexLabel = string;
+export type MetadataLabel = string;
 
-export function vl(label: string): VertexLabel {
+export function ml(label: string): MetadataLabel {
   return label;
 }
 
-export type VertexID = string;
+export type MetadataID = any;
 
-export function vi(id: string): VertexID {
+export function mi(id: any): MetadataID {
   return id;
+}
+
+export interface IMetadata {
+  id: MetadataID;
 }
 
 export type PropertyLabel = string;
@@ -28,10 +32,27 @@ export function pi(id: any): PropertyID {
   return id;
 }
 
+export interface IProperty {
+  id: PropertyID;
+  metadata: {[idx: string]: IMetadata};
+}
+
+export type VertexLabel = string;
+
+export function vl(label: string): VertexLabel {
+  return label;
+}
+
+export type VertexID = string;
+
+export function vi(id: string): VertexID {
+  return id;
+}
+
 export interface IVertex {
   label: VertexLabel;
   id: VertexID;
-  properties: {[idx: string]: PropertyID};
+  properties: {[idx: string]: IProperty};
 }
 
 function vk(vertex: IVertex): string {
@@ -41,7 +62,7 @@ function vk(vertex: IVertex): string {
 export interface IEdge {
   first: [VertexLabel, VertexID];
   last: [VertexLabel, VertexID];
-  properties: {[idx: string]: PropertyID};
+  properties: {[idx: string]: IProperty};
 }
 
 function vk_first(edge: IEdge): string {
@@ -66,6 +87,7 @@ export class Graph {
   
   private edgeToWrite?: IEdge;
   private vertexToWrite?: IVertex;
+  private propertyToWrite?: IProperty;
   private edgesToRead: IEdge[] = [];
   private verticesToRead: IVertex[]= [];
 
@@ -112,12 +134,27 @@ export class Graph {
   }
 
   public addVertexProperty(label: PropertyLabel, id: PropertyID): Graph {
-    (this.vertexToWrite as IVertex).properties[label] = id;
+    this.propertyToWrite = {
+      "id": id,
+      metadata: {},
+    };
+    (this.vertexToWrite as IVertex).properties[label] = this.propertyToWrite;
     return this;
   }
   
   public addEdgeProperty(label: PropertyLabel, id: PropertyID): Graph {
-    (this.edgeToWrite as IEdge).properties[label] = id;
+    this.propertyToWrite = {
+      "id": id,
+      metadata: {},
+    };
+    (this.edgeToWrite as IEdge).properties[label] = this.propertyToWrite;
+    return this;
+  }
+  
+  public addMetadata(label: MetadataLabel, id: MetadataID): Graph {
+    (this.propertyToWrite as IProperty).metadata[label] = {
+      "id": id,
+    };
     return this;
   }
 

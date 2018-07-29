@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { vi, Graph, PropertyID, PropertyLabel, VertexID, VertexLabel } from "./read";
+import { vi, Graph, PropertyID, PropertyLabel, VertexID, VertexLabel, MetadataLabel, MetadataID } from "./read";
 
 if (require.main === module) {
   yargs
@@ -76,8 +76,8 @@ function validateVertex(
       graph,
       config,
       vertex_label,
-      property_label,
       vertex_id,
+      property_label,
     );
   });
   Object.keys(config[vertex_label].edges).forEach((last_label: VertexLabel) => {
@@ -95,70 +95,43 @@ function validateVertexProperty(
   graph: Graph,
   config: any,
   vertex_label: VertexLabel,
-  property_label: PropertyLabel,
   vertex_id: VertexID,
+  property_label: PropertyLabel,
 ): void {
   const breadcrumb: any[] = [vertex_label, vertex_id, property_label];
   printBreadcrumbs(breadcrumb);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
   const property_id: PropertyID = doc[property_label];
   const property_type: string = config[vertex_label].properties[property_label].type;
-  switch(property_type) {
-    case "string":
-      if (typeof property_id !== "string") {
-        throwError(
-          breadcrumb,
-          "This is not a proper string " + property_id,
-        );
-      }
-      break;
-    case "string[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "string")) {
-        throwError(
-          breadcrumb,
-          "This is not a proper string[] " + property_id,
-        );
-      }
-      break;
-    case "number":
-      if (typeof property_id !== "number") {
-        throwError(
-          breadcrumb,
-          "This is not a proper number " + property_id,
-        );
-      }
-      break;
-    case "number[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "number")) {
-        throwError(
-          breadcrumb,
-          "This is not a proper number[] " + property_id,
-        );
-      }
-      break;
-    case "boolean":
-      if (typeof property_id !== "boolean") {
-        throwError(
-          breadcrumb,
-          "This is not a proper boolean " + property_id,
-        );
-      }
-      break;
-    case "boolean[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "boolean")) {
-        throwError(
-          breadcrumb,
-          "This is not a proper boolean[] " + property_id,
-        );
-      }
-      break;
-    default:
-      throwError(
-        breadcrumb,
-        "Unsupported data type " + property_type,
-      );
-  }
+  validateID(property_type, property_id, breadcrumb);
   graph.addVertexProperty(property_label, property_id);
+  Object.keys(config[vertex_label].properties[property_label].metadata).forEach((metadata_label: MetadataLabel) => {
+    validateVertexPropertyMetadata(
+      graph,
+      config,
+      vertex_label,
+      vertex_id,
+      property_label,
+      metadata_label,
+    );
+  });
+}
+
+function validateVertexPropertyMetadata(
+  graph: Graph,
+  config: any,
+  vertex_label: VertexLabel,
+  vertex_id: VertexID,
+  property_label: PropertyLabel,
+  metadata_label: MetadataLabel,
+): void {
+  const breadcrumb: any[] = [vertex_label, vertex_id, property_label, metadata_label];
+  printBreadcrumbs(breadcrumb);
+  const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + "/" + property_label + ".json", "ascii"));
+  const metadata_id: MetadataID = doc[metadata_label];
+  const metadata_type: string = config[vertex_label].properties[property_label].metadata[metadata_label].type;
+  validateID(metadata_type, metadata_id, breadcrumb);
+  graph.addMetadata(metadata_label, metadata_id);
 }
 
 function validateEdges(
@@ -175,15 +148,16 @@ function validateEdges(
   }
   readdirSync("db/" + first_label + "/" + first_id + "/" + last_label + "/")
     .map((target_path: string) => {
-      const last_id: VertexID = vi(target_path.replace(".json", ""));
-      validateEdge(
-        graph,
-        config,
-        first_label,
-        first_id,
-        last_label,
-        last_id,
-      );
+      if (target_path.endsWith(".json")) {
+        validateEdge(
+          graph,
+          config,
+          first_label,
+          first_id,
+          last_label,
+          vi(target_path.replace(".json", "")),
+        );
+      }
     });
 }
 
@@ -234,62 +208,101 @@ function validateEdgeProperty(
   const doc: any = JSON.parse(readFileSync("db/" + first_label + "/" + first_id + "/" + last_label + "/" + last_id + ".json", "ascii"));
   const property_id: PropertyID = doc[property_label];
   const property_type: string = config[first_label].edges[last_label].properties[property_label].type;
-  switch(property_type) {
+  validateID(property_type, property_id, breadcrumb);
+  graph.addEdgeProperty(property_label, property_id);
+  Object.keys(config[first_label].edges[last_label].properties[property_label].metadata).forEach((metadata_label: MetadataLabel) => {
+    validateEdgePropertyMetadata(
+      graph,
+      config,
+      first_label,
+      first_id,
+      last_label,
+      last_id,
+      property_label,
+      metadata_label,
+    );
+  });
+}
+
+function validateEdgePropertyMetadata(
+  graph: Graph,
+  config: any,
+  first_label: VertexLabel,
+  first_id: VertexID,
+  last_label: VertexLabel,
+  last_id: VertexID,
+  property_label: PropertyLabel,
+  metadata_label: MetadataLabel,
+): void {
+  const breadcrumb: any[] = [first_label, first_id, last_label, last_id, property_label, metadata_label];
+  printBreadcrumbs(breadcrumb);
+  const doc: any = JSON.parse(readFileSync("db/" + first_label + "/" + first_id + "/" + last_label + "/" + last_id + "/" + property_label + ".json", "ascii"));
+  const metadata_id: MetadataID = doc[metadata_label];
+  const metadata_type: string = config[first_label].edges[last_label].properties[property_label].metadata[metadata_label].type;
+  validateID(metadata_type, metadata_id, breadcrumb);
+  graph.addMetadata(metadata_label, metadata_id);
+}
+
+function validateID(
+  type: string,
+  id: string,
+  breadcrumb: any[],
+): void {
+  switch(type) {
     case "string":
-      if (typeof property_id !== "string") {
+      if (typeof id !== "string") {
         throwError(
           breadcrumb,
-          "This is not a proper string " + property_id,
+          "This is not a proper string " + id,
         );
       }
       break;
     case "string[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "string")) {
+      if (!Array.isArray(id) || !id.every((value) => typeof value === "string")) {
         throwError(
           breadcrumb,
-          "This is not a proper string[] " + property_id,
+          "This is not a proper string[] " + id,
         );
       }
       break;
     case "number":
-      if (typeof property_id !== "number") {
+      if (typeof id !== "number") {
         throwError(
           breadcrumb,
-          "This is not a proper number " + property_id,
+          "This is not a proper number " + id,
         );
       }
       break;
     case "number[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "number")) {
+      if (!Array.isArray(id) || !id.every((value) => typeof value === "number")) {
         throwError(
           breadcrumb,
-          "This is not a proper number[] " + property_id,
+          "This is not a proper number[] " + id,
         );
       }
       break;
     case "boolean":
-      if (typeof property_id !== "boolean") {
+      if (typeof id !== "boolean") {
         throwError(
           breadcrumb,
-          "This is not a proper boolean " + property_id,
+          "This is not a proper boolean " + id,
         );
       }
       break;
     case "boolean[]":
-      if (!Array.isArray(property_id) || !property_id.every((value) => typeof value === "boolean")) {
+      if (!Array.isArray(id) || !id.every((value) => typeof value === "boolean")) {
         throwError(
           breadcrumb,
-          "This is not a proper boolean[] " + property_id,
+          "This is not a proper boolean[] " + id,
         );
       }
       break;
     default:
       throwError(
         breadcrumb,
-        "Unsupported data type " + property_type,
+        "Unsupported data type " + type,
       );
   }
-  graph.addEdgeProperty(property_label, property_id);
 }
 
 function printBreadcrumbs(breadcrumb: any[]): void {
