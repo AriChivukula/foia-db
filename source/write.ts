@@ -158,7 +158,7 @@ function validateVertexProperty(
         "Unsupported data type " + property_type,
       );
   }
-  graph.addProperty(property_label, property_id);
+  graph.addVertexProperty(property_label, property_id);
 }
 
 function validateEdges(
