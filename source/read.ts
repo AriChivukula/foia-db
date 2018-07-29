@@ -152,7 +152,7 @@ export class Graph {
   }
 
   public outEdge(label: VertexLabel): Graph {
-    this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.first[0] === label);
+    this.edgesToRead = this.edgesToRead.filter((edge: IEdge) => edge.last[0] === label);
     let nextVertices: {[id: string]: IVertex} = {};
     this.edgesToRead.forEach(
       (edge: IEdge) => {
