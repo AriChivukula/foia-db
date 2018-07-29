@@ -41,9 +41,9 @@ export function mi(id: any): MetadataID {
 }
 
 export interface IProperty {
-  "id": PropertyID;
-  "metadata": {[idx: string]: {
-    "id": MetadataID,
+  id: PropertyID;
+  metadata: {[idx: string]: {
+    id: MetadataID;
   };
 }
 
