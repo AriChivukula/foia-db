@@ -10,34 +10,14 @@ import {
 it(
   "E#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(vl("user")).outVertex(vl("project")).countVertices()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(vl("user")).outVertex(vl("project")).countVertices()).to.equal(0);
   },
 );
 
 it(
   "E#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(vl("project")).outVertex(vl("user")).listVertices()).to.deep.equal([
-      {
-        "id": "ari",
-        "label": "user",
-        "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
-        },
-      },
-    ]);
+    chai.expect(Graph.read().Edges().outEdge(vl("project")).outVertex(vl("user")).listVertices()).to.deep.equal([]);
   },
 );
 
