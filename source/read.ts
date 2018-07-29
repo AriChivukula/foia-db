@@ -42,9 +42,7 @@ export function mi(id: any): MetadataID {
 
 export interface IProperty {
   id: PropertyID;
-  metadata: {[idx: string]: {
-    id: MetadataID;
-  };
+  metadata: {[idx: string]: MetadataID};
 }
 
 export interface IVertex {
