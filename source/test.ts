@@ -38,13 +38,22 @@ it(
           "0",
         ],
         "last": [
-         "user",
-         "ari",
+          "user",
+          "ari",
         ],
         "properties": {
-          "controls": [2, 3],
-          "permissions": ["four", "five"],
-          "thoughts": [false, true],
+          "controls": {
+            "id": [2, 3],
+            "metadata": {},
+          },
+          "permissions": {
+            "id": ["four", "five"],
+            "metadata": {},
+          },
+          "thoughts": {
+            "id": [false, true],
+            "metadata": {},
+          },
         },
       },
       {
@@ -57,9 +66,18 @@ it(
          "ari",
         ],
         "properties": {
-          "controls": [3, 2],
-          "permissions": ["five", "four"],
-          "thoughts": [true, false],
+          "controls": {
+            "id": [3, 2],
+            "metadata": {},
+          },
+          "permissions": {
+            "id": ["five", "four"],
+            "metadata": {},
+          },
+          "thoughts": {
+            "id": [true, false],
+            "metadata": {},
+          },
         },
       },
     ]);
@@ -81,19 +99,28 @@ it(
         "id": "ari",
         "label": "user",
         "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
+          "genders": {
+            "id": [
+              100,
+              0,
+            ],
+            "metadata": {},
+          },
+          "pronouns": {
+            "id": [
+              "they",
+              "them",
+              "their",
+            ],
+            "metadata": {},
+          },
+          "thoughts": {
+            "id": [
+              true,
+              false,
+            ],
+            "metadata": {},
+          },
         },
       },
     ]);
