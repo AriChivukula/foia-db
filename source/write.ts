@@ -218,9 +218,9 @@ function validateEdge(
 }
 
 function printBreadcrumbs(breadcrumb: any[]): void {
-  console.log(breadcrumb.label.join(","));
+  console.log(breadcrumb.join(","));
 }
 
 function throwError(breadcrumb: any[], message: string): never {
-  throw new Error(breadcrumb.label.join(",") + message);
+  throw new Error(breadcrumb.join(",") + message);
 }
