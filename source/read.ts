@@ -28,10 +28,29 @@ export function pi(id: any): PropertyID {
   return id;
 }
 
+export type MetadataLabel = string;
+
+export function ml(label: string): MetadataLabel {
+  return label;
+}
+
+export type MetadataID = any;
+
+export function mi(id: any): MetadataID {
+  return id;
+}
+
+export interface IProperty {
+  "id": PropertyID,
+  "metadata": {[idx: string]: {
+    "id": MetadataID,
+  },
+};
+
 export interface IVertex {
   label: VertexLabel;
   id: VertexID;
-  properties: {[idx: string]: PropertyID};
+  properties: {[idx: string]: IProperty};
 }
 
 function vk(vertex: IVertex): string {
@@ -41,7 +60,7 @@ function vk(vertex: IVertex): string {
 export interface IEdge {
   first: [VertexLabel, VertexID];
   last: [VertexLabel, VertexID];
-  properties: {[idx: string]: PropertyID};
+  properties: {[idx: string]: IProperty};
 }
 
 function vk_first(edge: IEdge): string {
@@ -66,6 +85,7 @@ export class Graph {
   
   private edgeToWrite?: IEdge;
   private vertexToWrite?: IVertex;
+  private propertyToWrite?: IProperty;
   private edgesToRead: IEdge[] = [];
   private verticesToRead: IVertex[]= [];
 
@@ -112,12 +132,27 @@ export class Graph {
   }
 
   public addVertexProperty(label: PropertyLabel, id: PropertyID): Graph {
-    (this.vertexToWrite as IVertex).properties[label] = id;
+    this.propertyToWrite = {
+      "id": id,
+      metadata: {},
+    };
+    (this.vertexToWrite as IVertex).properties[label] = this.propertyToWrite;
     return this;
   }
   
   public addEdgeProperty(label: PropertyLabel, id: PropertyID): Graph {
-    (this.edgeToWrite as IEdge).properties[label] = id;
+    this.propertyToWrite = {
+      "id": id,
+      metadata: {},
+    };
+    (this.edgeToWrite as IEdge).properties[label] = this.propertyToWrite;
+    return this;
+  }
+  
+  public addMetadata(label: MetadataLabel, id: MetadataID): Graph {
+    (this.propertyToWrite as IProperty).metadata[label] = {
+      "id": id,
+    };
     return this;
   }
 
