@@ -98,7 +98,7 @@ function validateVertexProperty(
   property_label: PropertyLabel,
   vertex_id: VertexID,
 ): void {
-  const breadcrumb: any[] = [vertex_label, property_label, vertex_id];
+  const breadcrumb: any[] = [vertex_label, vertex_id, property_label];
   printBreadcrumbs(breadcrumb);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
   const property_id: PropertyID = doc[property_label];
