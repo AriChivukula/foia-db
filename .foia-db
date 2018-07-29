@@ -1,11 +1,10 @@
 {
-  "VL-project": {
-    "id": {
-      "type": "number"
-    },
+  "project": {
     "edges": {
-      "EL-creator": {
-        "type": "VL-user"
+      "user": {
+        "thoughts": "boolean[]",
+        "controls": "number[]",
+        "permissions": "string[]"
       }
     },
     "properties": {
@@ -20,13 +19,12 @@
       }
     }
   },
-  "VL-user": {
-    "id": {
-      "type": "string"
-    },
+  "user": {
     "edges": {
-      "EL-created": {
-        "type": "VL-project"
+      "project": {
+        "woulda": "boolean",
+        "shoulda": "string",
+        "coulda": "number"
       }
     },
     "properties": {
