@@ -1,5 +1,5 @@
 {
-  "booleans": [false, true],
+  "thoughts": [false, true],
   "controls": [2, 3],
   "permissions": ["four", "five"]
 }
