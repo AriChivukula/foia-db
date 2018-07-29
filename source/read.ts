@@ -5,30 +5,26 @@ import {
 } from "fs";
 
 export type VertexLabel = string;
-export type VertexID = any;
-
-export type PropertyLabel = string;
-export type PropertyValue = any;
-
-export type EdgeLabel = string;
-export type EdgeID = string;
 
 export function vl(label: string): VertexLabel {
-  return "VL-" + label;
+  return label;
 }
 
-export function el(label: string): EdgeLabel {
-  return "EL-" + label;
-}
+export type VertexID = string;
 
-export function vi(id: any, type: string): VertexID {
-  if (type === "number") {
-    return parseInt(id, 10);
-  }
+export function vi(id: string): VertexID {
   return id;
 }
 
-export function ei(id: string): EdgeID {
+export type PropertyLabel = string;
+
+export function pl(label: string): PropertyLabel {
+  return label;
+}
+
+export type PropertyID = any;
+
+export function pi(id: any): PropertyID {
   return id;
 }
 
@@ -43,12 +39,13 @@ function vk(vertex: IVertex): string {
 }
 
 export interface IEdge {
-  label: EdgeLabel;
-  thread: [IVertex, IVertex];
+  first: [VertexLabel, VertexID];
+  last: [VertexLabel, VertexID];
+  properties: {[idx: string]: PropertyValue};
 }
 
 function ek(edge: IEdge): string {
-  return edge.thread[0].label + "/" + edge.label + "/" + edge.thread[1].label + "/" + edge.thread[0].id + "/" + edge.thread[1].id;
+  return edge.first[0] + "/" + edge.first[1] + "/" + edge.last[0] + "/" + edge.last[1];
 }
 
 export interface IGraph {
