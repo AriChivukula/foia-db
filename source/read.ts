@@ -31,7 +31,7 @@ export function pi(id: any): PropertyID {
 export interface IVertex {
   label: VertexLabel;
   id: VertexID;
-  properties: {[string]: PropertyID};
+  properties: {[idx: string]: PropertyID};
 }
 
 function vk(vertex: IVertex): string {
@@ -41,7 +41,7 @@ function vk(vertex: IVertex): string {
 export interface IEdge {
   first: [VertexLabel, VertexID];
   last: [VertexLabel, VertexID];
-  properties: {[string]: PropertyID};
+  properties: {[idx: string]: PropertyID};
 }
 
 function vk_first(edge: IEdge): string {
