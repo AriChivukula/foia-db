@@ -2,9 +2,11 @@
   "project": {
     "edges": {
       "user": {
-        "thoughts": "boolean[]",
-        "controls": "number[]",
-        "permissions": "string[]"
+        "properties": {
+          "thoughts": "boolean[]",
+          "controls": "number[]",
+          "permissions": "string[]"
+        }
       }
     },
     "properties": {
@@ -22,9 +24,11 @@
   "user": {
     "edges": {
       "project": {
-        "woulda": "boolean",
-        "shoulda": "string",
-        "coulda": "number"
+        "properties": {
+          "woulda": "boolean",
+          "shoulda": "string",
+          "coulda": "number"
+        }
       }
     },
     "properties": {
