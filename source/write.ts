@@ -168,12 +168,12 @@ function validateEdges(
   first_id: VertexID,
   last_label: VertexLabel,
 ): void {
-  const breadcrumbs: any[] = [first_label, vertex_id, last_label];
+  const breadcrumbs: any[] = [first_label, first_id, last_label];
   printBreadcrumbs(breadcrumbs);
-  if (!existsSync("db/" + first_label + "/" + vertex_id + "/" + v + "/")) {
+  if (!existsSync("db/" + first_label + "/" + first_id + "/" + v + "/")) {
     return;
   }
-  readdirSync("db/" + first_label + "/" + vertex_id + "/" + last_label + "/")
+  readdirSync("db/" + first_label + "/" + first_id + "/" + last_label + "/")
     .map((target_path: string) => {
       const last_id: VertexID = vi(target_path.replace(".json", ""));
       validateEdge(
