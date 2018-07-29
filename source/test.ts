@@ -11,14 +11,14 @@ import {
 it(
   "E#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("created")).outV(vl("project")).countV()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(el("created")).outVertex(vl("project")).countVertices()).to.equal(2);
   },
 );
 
 it(
   "E#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("creator")).outV(vl("user")).listV()).to.deep.equal([
+    chai.expect(Graph.read().Edges().outEdge(el("creator")).outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
         "label": "VL-user",
@@ -45,14 +45,14 @@ it(
 it(
   "E#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("created")).countE()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(el("created")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "E#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
+    chai.expect(Graph.read().Edges().outEdge(el("creator")).listEdges()).to.deep.equal([
       {
         "label": "EL-creator",
         "thread": [
@@ -90,14 +90,14 @@ it(
 it(
   "V#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("project")).countV()).to.equal(2);
+    chai.expect(Graph.read().Vertices().outVertex(vl("project")).countVertices()).to.equal(2);
   },
 );
 
 it(
   "V#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
+    chai.expect(Graph.read().Vertices().outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
         "label": "VL-user",
@@ -124,14 +124,14 @@ it(
 it(
   "V#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("user")).outE(el("created")).countE()).to.equal(2);
+    chai.expect(Graph.read().Vertices().outVertex(vl("user")).outEdge(el("created")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "V#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
+    chai.expect(Graph.read().Vertices().outVertex(vl("project")).outEdge(el("creator")).listEdges()).to.deep.equal([
       {
         "label": "EL-creator",
         "thread": [
