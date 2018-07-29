@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import * as yargs from "yargs";
 
-import { vi, ei, Graph, EdgeID, EdgeLabel, PropertyLabel, PropertyValue, VertexID, VertexLabel } from "./read";
+import { vi, ei, Graph, PropertyID, PropertyLabel, VertexID, VertexLabel } from "./read";
 
 if (require.main === module) {
   yargs
@@ -129,7 +129,7 @@ function validateVertexProperty(
   };
   printBreadcrumbs(breadcrumb);
   const doc: any = JSON.parse(readFileSync("db/" + vertex_label + "/" + vertex_id + ".json", "ascii"));
-  const property_value: PropertyValue = doc[property_label];
+  const property_value: PropertyID = doc[property_label];
   const property_type: string = config[vertex_label].properties[property_label].type;
   switch(property_type) {
     case "string":
