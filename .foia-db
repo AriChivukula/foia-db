@@ -4,26 +4,56 @@
       "user": {
         "properties": {
           "thoughts": {
-            "type": "boolean[]"
+            "type": "boolean[]",
+            "metadata": {
+              "A": {
+                "type": "boolean"
+              }
+            }
           },
           "controls": {
-            "type": "number[]"
+            "type": "number[]",
+            "metadata": {
+              "B": {
+                "type": "string"
+              }
+            }
           },
           "permissions": {
-            "type": "string[]"
+            "type": "string[]",
+            "metadata": {
+              "C": {
+                "type": "number"
+              }
+            }
           }
         }
       }
     },
     "properties": {
       "description": {
-        "type": "string"
+        "type": "string",
+        "metadata": {
+          "D": {
+            "type": "string"
+          }
+        }
       },
       "days": {
-        "type": "number"
+        "type": "number",
+        "metadata": {
+          "E": {
+            "type": "boolean"
+          }
+        }
       },
       "active": {
-        "type": "boolean"
+        "type": "boolean",
+        "metadata": {
+          "F": {
+            "type": "number"
+          }
+        }
       }
     }
   },
@@ -32,26 +62,56 @@
       "project": {
         "properties": {
           "woulda": {
-            "type": "boolean"
+            "type": "boolean",
+            "metadata": {
+              "J": {
+                "type": "string"
+              }
+            }
           },
           "shoulda": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+              "K": {
+                "type": "number"
+              }
+            }
           },
           "coulda": {
-            "type": "number"
+            "type": "number",
+            "metadata": {
+              "L": {
+                "type": "boolean"
+              }
+            }
           }
         }
       }
     },
     "properties": {
       "genders": {
-        "type": "number[]"
+        "type": "number[]",
+        "metadata": {
+          "G": {
+            "type": "boolean[]"
+          }
+        }
       },
       "pronouns": {
-        "type": "string[]"
+        "type": "string[]",
+        "metadata": {
+          "H": {
+            "type": "number[]"
+          }
+        }
       },
       "thoughts": {
-        "type": "boolean[]"
+        "type": "boolean[]",
+        "metadata": {
+          "I": {
+            "type": "string[]"
+          }
+        }
       }
     }
   }
