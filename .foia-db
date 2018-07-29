@@ -1,11 +1,18 @@
 {
-  "VL-project": {
-    "id": {
-      "type": "number"
-    },
+  "project": {
     "edges": {
-      "EL-creator": {
-        "type": "VL-user"
+      "user": {
+        "properties": {
+          "thoughts": {
+            "type": "boolean[]"
+          },
+          "controls": {
+            "type": "number[]"
+          },
+          "permissions": {
+            "type": "string[]"
+          }
+        }
       }
     },
     "properties": {
@@ -20,13 +27,20 @@
       }
     }
   },
-  "VL-user": {
-    "id": {
-      "type": "string"
-    },
+  "user": {
     "edges": {
-      "EL-created": {
-        "type": "VL-project"
+      "project": {
+        "properties": {
+          "woulda": {
+            "type": "boolean"
+          },
+          "shoulda": {
+            "type": "string"
+          },
+          "coulda": {
+            "type": "number"
+          }
+        }
       }
     },
     "properties": {

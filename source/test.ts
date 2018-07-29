@@ -4,84 +4,63 @@ import * as chai from "chai";
 
 import {
   Graph,
-  el,
   vl,
 } from "./read";
 
 it(
   "E#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("created")).outV(vl("project")).countV()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(vl("user")).outVertex(vl("project")).countVertices()).to.equal(0);
   },
 );
 
 it(
   "E#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("creator")).outV(vl("user")).listV()).to.deep.equal([
-      {
-        "id": "ari",
-        "label": "VL-user",
-        "properties": {
-          "genders": [
-            100,
-            0,
-          ],
-          "pronouns": [
-            "they",
-            "them",
-            "their",
-          ],
-          "thoughts": [
-            true,
-            false,
-          ],
-        },
-      },
-    ]);
+    chai.expect(Graph.read().Edges().outEdge(vl("project")).outVertex(vl("user")).listVertices()).to.deep.equal([]);
   },
 );
 
 it(
   "E#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("created")).countE()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(vl("project")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "E#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().E().outE(el("creator")).listE()).to.deep.equal([
+    chai.expect(Graph.read().Edges().outEdge(vl("user")).listEdges()).to.deep.equal([
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 0,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "0",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {
+          "controls": [2, 3],
+          "permissions": ["four", "five"],
+          "thoughts": [false, true],
+        },
       },
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 1,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "1",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {
+          "controls": [3, 2],
+          "permissions": ["five", "four"],
+          "thoughts": [true, false],
+        },
       },
     ]);
   },
@@ -90,17 +69,17 @@ it(
 it(
   "V#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("project")).countV()).to.equal(2);
+    chai.expect(Graph.read().Vertices().outVertex(vl("project")).countVertices()).to.equal(2);
   },
 );
 
 it(
   "V#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("user")).listV()).to.deep.equal([
+    chai.expect(Graph.read().Vertices().outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
-        "label": "VL-user",
+        "label": "user",
         "properties": {
           "genders": [
             100,
@@ -124,43 +103,43 @@ it(
 it(
   "V#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("user")).outE(el("created")).countE()).to.equal(2);
+    chai.expect(Graph.read().Vertices().outVertex(vl("user")).outEdge(vl("project")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "V#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().V().outV(vl("project")).outE(el("creator")).listE()).to.deep.equal([
+    chai.expect(Graph.read().Vertices().outVertex(vl("project")).outEdge(vl("user")).listEdges()).to.deep.equal([
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 0,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "0",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {
+          "controls": [2, 3],
+          "permissions": ["four", "five"],
+          "thoughts": [false, true],
+        },
       },
       {
-        "label": "EL-creator",
-        "thread": [
-          {
-            "id": 1,
-            "label": "VL-project",
-            "properties": {},
-          },
-          {
-            "id": "ari",
-            "label": "VL-user",
-            "properties": {},
-          },
+        "first": [
+          "project",
+          "1",
         ],
+        "last": [
+         "user",
+         "ari",
+        ],
+        "properties": {
+          "controls": [3, 2],
+          "permissions": ["five", "four"],
+          "thoughts": [true, false],
+        },
       },
     ]);
   },

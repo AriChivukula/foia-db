@@ -1,0 +1,5 @@
+{
+  "thoughts": [true, false],
+  "controls": [3, 2],
+  "permissions": ["five", "four"]
+}
