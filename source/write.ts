@@ -170,7 +170,7 @@ function validateEdges(
 ): void {
   const breadcrumbs: any[] = [first_label, first_id, last_label];
   printBreadcrumbs(breadcrumbs);
-  if (!existsSync("db/" + first_label + "/" + first_id + "/" + v + "/")) {
+  if (!existsSync("db/" + first_label + "/" + first_id + "/" + last_label + "/")) {
     return;
   }
   readdirSync("db/" + first_label + "/" + first_id + "/" + last_label + "/")
