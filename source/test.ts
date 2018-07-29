@@ -128,7 +128,11 @@ it(
               100,
               0,
             ],
-            "metadata": {},
+            "metadata": {
+              "G": {
+                "id": [false, false],
+              },
+            },
           },
           "pronouns": {
             "id": [
@@ -136,14 +140,22 @@ it(
               "them",
               "their",
             ],
-            "metadata": {},
+            "metadata": {
+              "H": {
+                "id": [1, 4, 9],
+              },
+            },
           },
           "thoughts": {
             "id": [
               true,
               false,
             ],
-            "metadata": {},
+            "metadata": {
+              "I": {
+                "id": ["hello", "world"],
+              },
+            },
           },
         },
       },
