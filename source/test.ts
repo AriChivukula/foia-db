@@ -80,7 +80,7 @@ it(
         "properties": {
           "controls": {
             "id": [3, 2],
-            {
+            "metadata": {
               "B": {
                 "id": "test2",
               },
@@ -88,7 +88,7 @@ it(
           },
           "permissions": {
             "id": ["five", "four"],
-            {
+            "metadata": {
               "C": {
                 "id": 43,
               },
@@ -222,7 +222,7 @@ it(
         "properties": {
           "controls": {
             "id": [3, 2],
-            {
+            "metadata": {
               "B": {
                 "id": "test2",
               },
@@ -230,7 +230,7 @@ it(
           },
           "permissions": {
             "id": ["five", "four"],
-            {
+            "metadata": {
               "C": {
                 "id": 43,
               },
