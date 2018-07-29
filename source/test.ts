@@ -148,9 +148,18 @@ it(
          "ari",
         ],
         "properties": {
-          "controls": [2, 3],
-          "permissions": ["four", "five"],
-          "thoughts": [false, true],
+          "controls": {
+            "id": [2, 3],
+            "metadata": {},
+          },
+          "permissions": {
+            "id": ["four", "five"],
+            "metadata": {},
+          },
+          "thoughts": {
+            "id": [false, true],
+            "metadata": {},
+          },
         },
       },
       {
@@ -163,9 +172,18 @@ it(
          "ari",
         ],
         "properties": {
-          "controls": [3, 2],
-          "permissions": ["five", "four"],
-          "thoughts": [true, false],
+          "controls": {
+            "id": [3, 2],
+            "metadata": {},
+          },
+          "permissions": {
+            "id": ["five", "four"],
+            "metadata": {},
+          },
+          "thoughts": {
+            "id": [true, false],
+            "metadata": {},
+          },
         },
       },
     ]);
