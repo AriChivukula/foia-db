@@ -80,7 +80,7 @@ function validateVertex(
 ): void {
   const breadcrumbs: any[] = [vertex_label, vertex_id];
   printBreadcrumbs(breadcrumbs);
-  graph.addV(vertex_label, vertex_id);
+  graph.addVertex(vertex_label, vertex_id);
   Object.keys(config[vertex_label].properties).forEach((property_label: PropertyLabel) => {
     validateVertexProperty(
       graph,
@@ -200,19 +200,14 @@ function validateEdge(
 ): void {
   const breadcrumbs: any[] = [thread_0_label, edge_label, thread_1_label, thread_0_id, thread_1_id];
   printBreadcrumbs(breadcrumbs);
-  graph.addE(
-    edge_label,
+  graph.addEdge(
     [
-      {
-        id: thread_0_id,
-        label: thread_0_label,
-        properties: {},
-      },
-      {
-        id: thread_1_id,
-        label: thread_1_label,
-        properties: {},
-      },
+      thread_0_id,
+      thread_0_label,
+    ],
+    [
+      thread_1_id,
+      thread_1_label,
     ],
   );
 }
