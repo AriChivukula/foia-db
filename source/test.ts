@@ -41,7 +41,11 @@ it(
          "user",
          "ari",
         ],
-        "properties": {},
+        "properties": {
+          "controls": [2, 3],
+          "permissions": ["four", "five"],
+          "thoughts": [false, true],
+        },
       },
       {
         "first": [
@@ -52,7 +56,11 @@ it(
          "user",
          "ari",
         ],
-        "properties": {},
+        "properties": {
+          "controls": [3, 2],
+          "permissions": ["five", "four"],
+          "thoughts": [true, false],
+        },
       },
     ]);
   },
