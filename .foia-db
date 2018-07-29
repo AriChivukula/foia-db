@@ -3,9 +3,15 @@
     "edges": {
       "user": {
         "properties": {
-          "thoughts": "boolean[]",
-          "controls": "number[]",
-          "permissions": "string[]"
+          "thoughts": {
+            "type": "boolean[]"
+          },
+          "controls": {
+            "type": "number[]"
+          },
+          "permissions": {
+            "type": "string[]"
+          }
         }
       }
     },
@@ -25,9 +31,15 @@
     "edges": {
       "project": {
         "properties": {
-          "woulda": "boolean",
-          "shoulda": "string",
-          "coulda": "number"
+          "woulda": {
+            "type": "boolean"
+          },
+          "shoulda": {
+            "type": "string"
+          },
+          "coulda": {
+            "type": "number"
+          }
         }
       }
     },
