@@ -234,6 +234,13 @@ function validateEdgePropertyMetadata(
   property_label: PropertyLabel,
   metadata_label: MetadataLabel,
 ): void {
+  const breadcrumb: any[] = [first_label, first_id, last_label, last_id, property_label, metadata_label];
+  printBreadcrumbs(breadcrumb);
+  const doc: any = JSON.parse(readFileSync("db/" + first_label + "/" + first_id + "/" + last_label + "/" + last_id + "/" + property_label + ".json", "ascii"));
+  const metadata_id: MetadataID = doc[metadata_label];
+  const metadata_type: string = config[vertex_label].properties[property_label].metadata[metadata_label].type;
+  validateID(metadata_type, metadata_id, breadcrumb);
+  graph.addMetadata(metadata_label, metadata_id);
 }
 
 function validateID(
