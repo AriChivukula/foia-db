@@ -1,6 +1,6 @@
 {
   "name": "foia-db",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Freedom Oriented Information Automation DB",
   "main": "build/read.js",
   "types": "build/read.d.ts",
