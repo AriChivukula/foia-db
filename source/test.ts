@@ -4,21 +4,20 @@ import * as chai from "chai";
 
 import {
   Graph,
-  el,
   vl,
 } from "./read";
 
 it(
   "E#countV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(el("created")).outVertex(vl("project")).countVertices()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(vl("user")).outVertex(vl("project")).countVertices()).to.equal(2);
   },
 );
 
 it(
   "E#listV",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(el("creator")).outVertex(vl("user")).listVertices()).to.deep.equal([
+    chai.expect(Graph.read().Edges().outEdge(vl("project")).outVertex(vl("user")).listVertices()).to.deep.equal([
       {
         "id": "ari",
         "label": "VL-user",
@@ -45,14 +44,14 @@ it(
 it(
   "E#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(el("created")).countEdges()).to.equal(2);
+    chai.expect(Graph.read().Edges().outEdge(vl("project")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "E#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Edges().outEdge(el("creator")).listEdges()).to.deep.equal([
+    chai.expect(Graph.read().Edges().outEdge(vl("user")).listEdges()).to.deep.equal([
       {
         "label": "EL-creator",
         "thread": [
@@ -124,14 +123,14 @@ it(
 it(
   "V#countE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Vertices().outVertex(vl("user")).outEdge(el("created")).countEdges()).to.equal(2);
+    chai.expect(Graph.read().Vertices().outVertex(vl("user")).outEdge(vl("project")).countEdges()).to.equal(2);
   },
 );
 
 it(
   "V#listE",
   async (): Promise<void> => {
-    chai.expect(Graph.read().Vertices().outVertex(vl("project")).outEdge(el("creator")).listEdges()).to.deep.equal([
+    chai.expect(Graph.read().Vertices().outVertex(vl("project")).outEdge(vl("user")).listEdges()).to.deep.equal([
       {
         "label": "EL-creator",
         "thread": [
