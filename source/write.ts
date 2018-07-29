@@ -175,15 +175,16 @@ function validateEdges(
   }
   readdirSync("db/" + first_label + "/" + first_id + "/" + last_label + "/")
     .map((target_path: string) => {
-      const last_id: VertexID = vi(target_path.replace(".json", ""));
-      validateEdge(
-        graph,
-        config,
-        first_label,
-        first_id,
-        last_label,
-        last_id,
-      );
+      if (target_path.endsWith(".json")) {
+        validateEdge(
+          graph,
+          config,
+          first_label,
+          first_id,
+          last_label,
+          vi(target_path.replace(".json", "")),
+        );
+      }
     });
 }
 
