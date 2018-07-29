@@ -44,7 +44,7 @@ export interface IProperty {
   "id": PropertyID;
   "metadata": {[idx: string]: {
     "id": MetadataID;
-  },
+  };
 }
 
 export interface IVertex {
