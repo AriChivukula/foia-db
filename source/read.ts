@@ -4,16 +4,20 @@ import {
   writeFileSync,
 } from "fs";
 
-export type VertexLabel = string;
+export type MetadataLabel = string;
 
-export function vl(label: string): VertexLabel {
+export function ml(label: string): MetadataLabel {
   return label;
 }
 
-export type VertexID = string;
+export type MetadataID = any;
 
-export function vi(id: string): VertexID {
+export function mi(id: any): MetadataID {
   return id;
+}
+
+export interface IMetadata {
+  id: MetadataID;
 }
 
 export type PropertyLabel = string;
@@ -28,21 +32,21 @@ export function pi(id: any): PropertyID {
   return id;
 }
 
-export type MetadataLabel = string;
+export interface IProperty {
+  id: PropertyID;
+  metadata: {[idx: string]: IMetadata};
+}
 
-export function ml(label: string): MetadataLabel {
+export type VertexLabel = string;
+
+export function vl(label: string): VertexLabel {
   return label;
 }
 
-export type MetadataID = any;
+export type VertexID = string;
 
-export function mi(id: any): MetadataID {
+export function vi(id: string): VertexID {
   return id;
-}
-
-export interface IProperty {
-  id: PropertyID;
-  metadata: {[idx: string]: MetadataID};
 }
 
 export interface IVertex {
