@@ -44,15 +44,27 @@ it(
         "properties": {
           "controls": {
             "id": [2, 3],
-            "metadata": {},
+            "metadata": {
+              "B": {
+                "id": "test",
+              },
+            },
           },
           "permissions": {
             "id": ["four", "five"],
-            "metadata": {},
+            "metadata": {
+              "C": {
+                "id": 42,
+              },
+            },
           },
           "thoughts": {
             "id": [false, true],
-            "metadata": {},
+            "metadata": {
+              "A": {
+                "id": true,
+              },
+            },
           },
         },
       },
@@ -68,15 +80,27 @@ it(
         "properties": {
           "controls": {
             "id": [3, 2],
-            "metadata": {},
+            {
+              "B": {
+                "id": "test2",
+              },
+            },
           },
           "permissions": {
             "id": ["five", "four"],
-            "metadata": {},
+            {
+              "C": {
+                "id": 43,
+              },
+            },
           },
           "thoughts": {
             "id": [true, false],
-            "metadata": {},
+            "metadata": {
+              "A": {
+                "id": false,
+              },
+            },
           },
         },
       },
