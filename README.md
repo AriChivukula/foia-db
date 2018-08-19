@@ -54,11 +54,15 @@
 
 `getKinds(): KindReference[]`
 
+### Point
+
 ### Link
 
 `getLink(fromKind: KindReference, toKind: KindReference): LinkReference`
 
 `getLinks(fromKind: KindReference): LinkReference[]`
+
+### Line
 
 ### Property
 
@@ -66,8 +70,12 @@
 
 `getProperties(anchor: KindReference | LinkReference): PropertyReference[]`
 
+### Data
+
 ### Metaproperty
 
 `getMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
 
 `getMetaproperty(property: PropertyReference): MetapropertyReference[]`
+
+### Metadata
