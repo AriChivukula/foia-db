@@ -50,40 +50,48 @@
 
 ### Kind
 
-`getKind(kind: string): KindReference`
+`oneKind(kind: string): KindReference`
 
-`getKinds(): KindReference[]`
+`allKinds(): KindReference[]`
 
 ### Point
 
-`getPoint(kind: KindReference, name: string): PointReference`
+`onePoint(kind: KindReference, name: string): PointReference`
 
-`getPoints(kind: KindReference): PointReference[]`
+`allPoints(kind: KindReference): PointReference[]`
 
 ### Link
 
-`getLink(fromKind: KindReference, toKind: KindReference): LinkReference`
+`oneLink(fromKind: KindReference, toKind: KindReference): LinkReference`
 
-`getLinks(fromKind: KindReference): LinkReference[]`
+`allLinks(fromKind: KindReference): LinkReference[]`
 
 ### Line
 
-`getLine(fromPoint: PointReference, toPoint: PointReference): LineReference`
+`oneLine(fromPoint: PointReference, toPoint: PointReference): LineReference`
 
-`getLines(fromPoint: PointReference): LineReference[]`
+`allLines(fromPoint: PointReference): LineReference[]`
 
 ### Property
 
-`getProperty(anchor: KindReference | LinkReference, name: string, type: TypeReference): PropertyReference`
+`oneProperty(anchor: KindReference | LinkReference, name: string): PropertyReference`
 
-`getProperties(anchor: KindReference | LinkReference): PropertyReference[]`
+`allProperties(anchor: KindReference | LinkReference): PropertyReference[]`
 
 ### Data
 
+`oneDatum(anchor: PointReference | LineReference, name: string): DataReference`
+
+`allData(anchor: PointReference | LineReference): DataReference[]`
+
 ### Metaproperty
 
-`getMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+`oneMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
 
-`getMetaproperty(property: PropertyReference): MetapropertyReference[]`
+`allMetaproperties(property: PropertyReference): MetapropertyReference[]`
 
 ### Metadata
+
+`oneMetadatum(property: PropertyReference, name: string): MetadataReference`
+
+`allMetadata(property: PropertyReference): MetadataReference[]`
