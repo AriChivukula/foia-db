@@ -36,7 +36,7 @@
 
 ### Data
 
-`setData(point: PointReference, name: string, data: any): DataReference`
+`setData(anchor: PointReference | LineReference, name: string, data: any): DataReference`
 
 `unsetData(data: DataReference): void`
 
@@ -48,7 +48,26 @@
 
 ## Query
 
-### 
+### Kind
 
-### 
+`getKind(kind: string): KindReference`
 
+`getKinds(): KindReference[]`
+
+### Link
+
+`getLink(fromKind: KindReference, toKind: KindReference): LinkReference`
+
+`getLinks(fromKind: KindReference): LinkReference[]`
+
+### Property
+
+`getProperty(anchor: KindReference | LinkReference, name: string, type: TypeReference): PropertyReference`
+
+`getProperties(anchor: KindReference | LinkReference): PropertyReference[]`
+
+### Metaproperty
+
+`getMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+
+`getMetaproperty(property: PropertyReference): MetapropertyReference[]`
