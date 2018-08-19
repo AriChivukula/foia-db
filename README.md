@@ -56,6 +56,10 @@
 
 ### Point
 
+`getPoint(kind: KindReference, name: string): PointReference`
+
+`getPoints(kind: KindReference): PointReference[]`
+
 ### Link
 
 `getLink(fromKind: KindReference, toKind: KindReference): LinkReference`
@@ -63,6 +67,10 @@
 `getLinks(fromKind: KindReference): LinkReference[]`
 
 ### Line
+
+`getLine(fromPoint: PointReference, toPoint: PointReference): LineReference`
+
+`getLines(fromPoint: PointReference): LineReference[]`
 
 ### Property
 
