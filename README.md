@@ -20,8 +20,23 @@
 
 `removeProperty(property: PropertyReference): void`
 
+### Metaproperty
+
+`addMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+
+`removeMetaproperty(metaproperty: MetapropertyReference): void`
+
+## Populate
+
+### Point
+
+### Data
+
 ### Metadata
 
-`addMetadata(property: PropertyReference, name: string, type: TypeReference): MetadataReference`
+## Query
 
-`removeMetadata(metadata: MetadataReference): void`
+### 
+
+### 
+
