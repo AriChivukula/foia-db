@@ -4,17 +4,47 @@
 
 ### TypeReference
 
+`getName(): string`
+
 ### KindReference
+
+`getName(): string`
 
 ### PointReference
 
+`getKind(): KindReference`
+
+`getName(): string`
+
 ### LinkReference
+
+`getFromKind(): KindReference`
+
+`getToKind(): KindReference`
 
 ### LineReference
 
+`getFromPoint(): PointReference`
+
+`getToPoint(): PointReference`
+
 ### PropertyReference
 
+`getAnchor(): KindReference | LinkReference`
+
+`getName(): string`
+
+`getType(): TypeReference`
+
 ### DataReference
+
+`getAnchor(): PointReference | LineReference`
+
+`getName(): string`
+
+`getType(): TypeReference`
+
+`getValue(): any`
 
 ### MetapropertyReference
 
@@ -56,13 +86,13 @@
 
 ### Data
 
-`setData(anchor: PointReference | LineReference, name: string, data: any): DataReference`
+`setData(anchor: PointReference | LineReference, name: string, value: any): DataReference`
 
 `unsetData(data: DataReference): void`
 
 ### Metadata
 
-`setMetadata(data: DataReference, name: string, data: any): MetadataReference`
+`setMetadata(data: DataReference, name: string, value: any): MetadataReference`
 
 `unsetMetadata(metadata: MetadataReference): void`
 
