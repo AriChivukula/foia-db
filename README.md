@@ -48,7 +48,21 @@
 
 ### MetapropertyReference
 
+`getMetaproperty(): PropertyReference`
+
+`getName(): string`
+
+`getType(): TypeReference`
+
 ### MetadataReference
+
+`getMetaproperty(): PropertyReference`
+
+`getName(): string`
+
+`getType(): TypeReference`
+
+`getValue(): any`
 
 ## Define
 
