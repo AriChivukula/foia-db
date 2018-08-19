@@ -1,10 +1,30 @@
 # Freedom Oriented Information Automation Database
 
+## Classes
+
+### TypeReference
+
+### KindReference
+
+### PointReference
+
+### LinkReference
+
+### LineReference
+
+### PropertyReference
+
+### DataReference
+
+### MetapropertyReference
+
+### MetadataReference
+
 ## Define
 
 ### Kind
 
-`addKind(kind: string): KindReference`
+`addKind(name: string): KindReference`
 
 `removeKind(kind: KindReference): void`
 
@@ -50,7 +70,7 @@
 
 ### Kind
 
-`oneKind(kind: string): KindReference`
+`oneKind(name: string): KindReference`
 
 `allKinds(): KindReference[]`
 
