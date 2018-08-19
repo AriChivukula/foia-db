@@ -30,9 +30,21 @@
 
 ### Point
 
+`setPoint(kind: KindReference, name: string): PointReference`
+
+`unsetPoint(point: PointReference): void`
+
 ### Data
 
+`setData(point: PointReference, name: string, data: any): DataReference`
+
+`unsetData(data: DataReference): void`
+
 ### Metadata
+
+`setMetadata(data: DataReference, name: string, data: any): MetadataReference`
+
+`unsetMetadata(metadata: MetadataReference): void`
 
 ## Query
 
