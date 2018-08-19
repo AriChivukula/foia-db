@@ -1,13 +1,27 @@
 # Freedom Oriented Information Automation Database
 
-## Interfaces
+## Define
 
-## API
+### Kind
 
-### Write
+`addKind(kind: string): KindReference`
 
-`addType(type: string): TypeReference`
+`removeKind(kind: KindReference): void`
 
-`addPoint(type: TypeReference, id: string): TypeReference`
+### Link
 
-`AddLine(sourceType: TypeReference, destinationType: TypeReference): LineReference`
+`addLink(fromKind: KindReference, toKind: KindReference): LinkReference`
+
+`removeLink(link: LinkReference): void`
+
+### Property
+
+`addProperty(anchor: KindReference | LinkReference, name: string, type: TypeReference): PropertyReference`
+
+`removeProperty(property: PropertyReference): void`
+
+### Metadata
+
+`addMetadata(property: PropertyReference, name: string, type: TypeReference): MetadataReference`
+
+`removeMetadata(metadata: MetadataReference): void`
