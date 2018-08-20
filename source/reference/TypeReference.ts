@@ -14,7 +14,7 @@ export class TypeReference {
   
   public static booleanArray(): TypeReference {
     return new TypeReference({
-      name: "boolean",
+      typeName: "boolean",
       isList: true,
     });
   }
@@ -28,7 +28,7 @@ export class TypeReference {
   
   public static numberArray(): TypeReference {
     return new TypeReference({
-      name: "number",
+      typeName: "number",
       isList: true,
     });
   }
@@ -42,7 +42,7 @@ export class TypeReference {
   
   public static stringArray(): TypeReference {
     return new TypeReference({
-      name: "string",
+      typeName: "string",
       isList: true,
     });
   }
@@ -50,7 +50,6 @@ export class TypeReference {
   private constructor(
     private readonly props: ITypeReference,
   ) {
-    super();
   }
   
   public name(): string {
