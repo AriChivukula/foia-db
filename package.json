@@ -10,7 +10,8 @@
   "nyc": {
     "all": true,
     "include": [
-      "source/*.ts"
+      "source/*.ts",
+      "source/**/*.ts"
     ],
     "instrument": true,
     "extension": [
@@ -40,7 +41,8 @@
     "typescript": "3.0.1"
   },
   "include": [
-    "source/*"
+    "source/*",
+    "source/**/*"
   ],
   "bin": {
     "foia-db": "build/write.js"
