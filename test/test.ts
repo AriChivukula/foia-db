@@ -5,7 +5,7 @@ import * as chai from "chai";
 import {
   Graph,
   vl,
-} from "../source/read";
+} from "../source/index";
 
 it(
   "E#countV",
