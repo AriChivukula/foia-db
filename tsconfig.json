@@ -41,7 +41,7 @@
     "target": "ES3"
   },
   "files": [
-    "source/read.ts",
+    "source/index.ts",
     "source/write.ts"
   ]
 }
