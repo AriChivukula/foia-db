@@ -1,6 +1,6 @@
 {
   "name": "foia-db",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Freedom Oriented Information Automation DB",
   "main": "build/read.js",
   "types": "build/read.d.ts",
@@ -24,19 +24,19 @@
     ]
   },
   "dependencies": {
-    "@babel/polyfill": "7.0.0-beta.55",
+    "@babel/polyfill": "7.0.0-rc.1",
     "yargs": "12.0.1"
   },
   "devDependencies": {
     "@types/chai": "4.1.4",
     "@types/mocha": "5.2.5",
-    "@types/node": "10.5.4",
+    "@types/node": "10.7.1",
     "@types/yargs": "11.1.1",
     "picaresque": "0.0.0",
     "chai": "4.1.2",
     "mocha": "5.2.0",
     "nyc": "12.0.2",
-    "ts-node": "7.0.0",
+    "ts-node": "7.0.1",
     "typescript": "3.0.1"
   },
   "include": [
