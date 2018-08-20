@@ -11,7 +11,7 @@ it(
   "TypeReference",
   async (): Promise<void> => {
     chai.expect(TypeReference.string().name()).to.equal("string");
-    chai.expect(TypeReference.numberList().name()).to.equal("number[]");
-    chai.expect(TypeReference.booleanList().name()).to.not.equal(TypeReference.boolean().name());
+    chai.expect(TypeReference.numberArray().name()).to.equal("number[]");
+    chai.expect(TypeReference.booleanArray().name()).to.not.equal(TypeReference.boolean().name());
   },
 );
