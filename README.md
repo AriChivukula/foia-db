@@ -2,9 +2,7 @@
 
 ## References
 
-### TypeReference
-
-`getName(): string`
+### [TypeReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
 
 ### KindReference
 
