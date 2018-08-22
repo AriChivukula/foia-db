@@ -4,8 +4,8 @@ import "mocha";
 import * as chai from "chai";
 
 import {
-  KindReference,
   TypeReference,
+  KindReference,
 } from "../source/index";
 
 it(
@@ -21,6 +21,7 @@ it(
   "KindReference",
   async (): Promise<void> => {
     chai.expect(KindReference.get("test").name()).to.equal("test");
-    chai.expect(KindReference.get("test").name()).to.not.equal(KindReference.get("test").name());
+    chai.expect(KindReference.get("test").name()).to.equal(KindReference.get("test").name());
+    chai.expect(KindReference.get("test").name()).to.not.equal(KindReference.get("test2").name());
   },
 );
