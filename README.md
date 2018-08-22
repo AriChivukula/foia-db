@@ -4,9 +4,7 @@
 
 ### [TypeReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
 
-### KindReference
-
-`getName(): string`
+### [KindReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)
 
 ### PointReference
 
