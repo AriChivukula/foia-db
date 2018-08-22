@@ -6,11 +6,7 @@
 
 ### [KindReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)
 
-### PointReference
-
-`getKind(): KindReference`
-
-`getName(): string`
+### [PointReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
 
 ### LinkReference
 
