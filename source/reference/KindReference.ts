@@ -4,9 +4,9 @@ export interface IKindReference {
 
 export class KindReference {
 
-  public static get(name: string): KindReference {
+  public static get(kindName: string): KindReference {
     return new KindReference({
-      kindName: name,
+      kindName,
     });
   }
 
