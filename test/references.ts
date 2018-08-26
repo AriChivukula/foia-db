@@ -36,58 +36,40 @@ it(
 it(
   "KindReference",
   async (): Promise<void> => {
-    chai.expect(
-      KindReference.get("test").name(),
-    )
+    let kind = KindReference.get("test");
+    chai.expect(kind.name())
       .to
       .equal("test");
-    chai.expect(
-      KindReference.get("test").name(),
-    )
-      .to
-      .equal(KindReference.get("test").name());
   },
 );
 
 it(
   "PointReference",
   async (): Promise<void> => {
-    chai.expect(
-      PointReference.get(
-        "test2",
-        KindReference.get("test")
-      ).name(),
-    )
+    let point = PointReference.get(
+      "test1",
+      KindReference.get("test2")
+    );
+    chai.expect(point.name())
+      .to
+      .equal("test1");
+    chai.expect(point.kind().name())
       .to
       .equal("test2");
-    chai.expect(
-      PointReference.get(
-        "test2",
-        KindReference.get("test"),
-      ).kind().name(),
-    )
-      .to
-      .equal("test");
   },
 );
 
 it(
   "LinkReference",
   async (): Promise<void> => {
-    chai.expect(
-      LinkReference.get(
-        KindReference.get("test"),
-        KindReference.get("test2"),
-      ).fromKind().name(),
-    )
+    let link = LinkReference.get(
+      KindReference.get("test1"),
+      KindReference.get("test2"),
+    );
+    chai.expect(link.fromKind().name())
       .to
-      .equal("test");
-    chai.expect(
-      LinkReference.get(
-        KindReference.get("test"),
-        KindReference.get("test2"),
-      ).toKind().name(),
-    )
+      .equal("test1");
+    chai.expect(link.toKind().name())
       .to
       .equal("test2");
   },
@@ -96,20 +78,14 @@ it(
 it(
   "LineReference",
   async (): Promise<void> => {
-    chai.expect(
-      LineReference.get(
-        PointReference.get("test1", KindReference.get("test2")),
-        PointReference.get("test3", KindReference.get("test4")),
-      ).fromPoint().name(),
-    )
+    let line = LineReference.get(
+      PointReference.get("test1", KindReference.get("test2")),
+      PointReference.get("test3", KindReference.get("test4")),
+    );
+    chai.expect(line.fromPoint().name())
       .to
       .equal("test1");
-    chai.expect(
-      LineReference.get(
-        PointReference.get("test1", KindReference.get("test2")),
-        PointReference.get("test3", KindReference.get("test4")),
-      ).toPoint().kind.name(),
-    )
+    chai.expect(line.toPoint().kind().name())
       .to
       .equal("test4");
   },
