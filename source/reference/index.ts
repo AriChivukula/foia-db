@@ -7,3 +7,4 @@ export * from "./MetapropertyReference";
 export * from "./PointReference";
 export * from "./PropertyReference";
 export * from "./TypeReference";
+export * from "./ValueReference";
