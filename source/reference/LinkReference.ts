@@ -21,11 +21,11 @@ export class LinkReference {
   ) {
   }
 
-  public toKind(): KindReference {
+  public fromKind(): KindReference {
     return this.props.fromKindReference;
   }
   
-  public fromKind(): KindReference {
+  public toKind(): KindReference {
     return this.props.toKindReference;
   }
 }
