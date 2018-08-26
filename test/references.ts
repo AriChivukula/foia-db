@@ -5,6 +5,7 @@ import * as chai from "chai";
 
 import {
   TypeReference,
+  ValueReference,
   KindReference,
   PointReference,
   LinkReference,
@@ -30,6 +31,22 @@ it(
       .to
       .not
       .equal(TypeReference.boolean().name());
+  },
+);
+
+it(
+  "ValueReference",
+  async (): Promise<void> => {
+    let value = ValueReference.get(
+      TypeReference.string(),
+      "test",
+    );
+    chai.expect(value.type().name())
+      .to
+      .equal("string");
+    chai.expect(value.value())
+      .to
+      .equal("test");
   },
 );
 
