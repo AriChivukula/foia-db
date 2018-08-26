@@ -7,6 +7,7 @@ import {
   TypeReference,
   KindReference,
   PointReference,
+  LinkReference,
 } from "../source/index";
 
 it(
@@ -31,5 +32,13 @@ it(
   async (): Promise<void> => {
     chai.expect(PointReference.get("test2", KindReference.get("test")).name()).to.equal("test2");
     chai.expect(PointReference.get("test2", KindReference.get("test")).kind().name()).to.equal("test");
+  },
+);
+
+it(
+  "LinkReference",
+  async (): Promise<void> => {
+    chai.expect(LinkReference.get(KindReference.get("test"), KindReference.get("test2")).fromKind().name()).to.equal("test");
+    chai.expect(LinkReference.get(KindReference.get("test"), KindReference.get("test2")).toKind().name()).to.equal("test2");
   },
 );
