@@ -8,11 +8,7 @@
 
 ### [PointReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
 
-### LinkReference
-
-`getFromKind(): KindReference`
-
-`getToKind(): KindReference`
+### [LinkReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts)
 
 ### LineReference
 
