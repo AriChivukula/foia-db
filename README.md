@@ -10,11 +10,7 @@
 
 ### [LinkReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts)
 
-### LineReference
-
-`getFromPoint(): PointReference`
-
-`getToPoint(): PointReference`
+### [LineReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts)
 
 ### PropertyReference
 
