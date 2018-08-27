@@ -20,47 +20,31 @@
 
 ### [MetadatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
 
-## Define
-
-### Kind
+## Ledger
 
 `addKind(name: string): KindReference`
 
 `removeKind(kind: KindReference): void`
 
-### Link
+`setPoint(kind: KindReference, name: string): PointReference`
+
+`unsetPoint(point: PointReference): void`
 
 `addLink(fromKind: KindReference, toKind: KindReference): LinkReference`
 
 `removeLink(link: LinkReference): void`
 
-### Property
-
 `addProperty(name: string, schema: SchemaReference, type: TypeReference): PropertyReference`
 
 `removeProperty(property: PropertyReference): void`
-
-### Metaproperty
-
-`addMetaproperty(name: string, property: PropertyReference, type: TypeReference): MetapropertyReference`
-
-`removeMetaproperty(metaproperty: MetapropertyReference): void`
-
-## Populate
-
-### Point
-
-`setPoint(kind: KindReference, name: string): PointReference`
-
-`unsetPoint(point: PointReference): void`
-
-### Datum
 
 `setDatum(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DatumReference`
 
 `unsetDatum(datum: DatumReference): void`
 
-### Metadatum
+`addMetaproperty(name: string, property: PropertyReference, type: TypeReference): MetapropertyReference`
+
+`removeMetaproperty(metaproperty: MetapropertyReference): void`
 
 `setMetadatum(datum: DatumReference, metapropertyReference: MetapropertyReference, value: any): MetadatumReference`
 
