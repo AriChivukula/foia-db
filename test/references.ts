@@ -4,6 +4,8 @@ import "mocha";
 import * as chai from "chai";
 
 import {
+  Type,
+  Count,
   TypeReference,
   KindReference,
   PointReference,
@@ -18,22 +20,13 @@ import {
 it(
   "TypeReference",
   async (): Promise<void> => {
-    chai.expect(
-      TypeReference.string().name(),
-    )
+    let type = TypeReference.one(Type.STRING);
+    chai.expect(type.type())
       .to
-      .equal("string");
-    chai.expect(
-      TypeReference.numberArray().name(),
-    )
+      .equal(Type.STRING);
+    chai.expect(type.count())
       .to
-      .equal("number[]");
-    chai.expect(
-      TypeReference.booleanArray().name(),
-    )
-      .to
-      .not
-      .equal(TypeReference.boolean().name());
+      .equal(Count.ONE);
   },
 );
 
@@ -101,7 +94,7 @@ it(
     let property = PropertyReference.get(
       KindReference.get("test1"),
       "test2",
-      TypeReference.string(),
+      TypeReference.one(Type.STRING),
     );
     chai.expect((property.schema() as KindReference).name())
       .to
@@ -127,7 +120,7 @@ it(
       PropertyReference.get(
         KindReference.get("test3"),
         "test4",
-        TypeReference.string(),
+        TypeReference.one(Type.STRING),
       ),
       "test4",
     );
