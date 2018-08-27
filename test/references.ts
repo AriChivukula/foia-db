@@ -123,12 +123,12 @@ it(
   async (): Promise<void> => {
     let datum = DatumReference.get(
       PointReference.get(
-        "test2",
         KindReference.get("test1"),
+        "test2",
       ),
       PropertyReference.get(
-        KindReference.get("test3"),
-        "test4",
+        "test3",
+        KindReference.get("test1"),
         TypeReference.get(Count.ONE, Format.STRING),
       ),
       "test4",
@@ -139,12 +139,12 @@ it(
     chai.expect((datum.anchor() as PointReference).name())
       .to
       .equal("test2");
-    chai.expect(datum.property().kind().name())
-      .to
-      .equal("test3");
     chai.expect(datum.property().name())
       .to
-      .equal("test4");
+      .equal("test3");
+    chai.expect((datum.property().schema() as KindReference).name())
+      .to
+      .equal("test1");
     chai.expect(datum.property().type().count())
       .to
       .equal(Count.ONE);
