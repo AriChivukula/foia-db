@@ -11,6 +11,8 @@ import {
   LineReference,
   PropertyReference,
   DataReference,
+  MetapropertyReference,
+  MetadataReference,
 } from "../source/index";
 
 it(
