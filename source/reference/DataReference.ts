@@ -35,7 +35,7 @@ export class DataReference {
     return this.props.anchorReference;
   }
   
-  public property(): string {
+  public property(): PropertyReference {
     return this.props.propertyReference;
   }
   
