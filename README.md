@@ -4,8 +4,6 @@
 
 ### [TypeReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
 
-### [ValueReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/ValueReference.ts)
-
 ### [KindReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)
 
 ### [PointReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
