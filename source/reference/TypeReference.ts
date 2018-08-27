@@ -19,7 +19,7 @@ export class TypeReference {
   public static get(count: Count, format: Format): TypeReference {
     return new TypeReference({
       count,
-      type,
+      format,
     });
   }
 
