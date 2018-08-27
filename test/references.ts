@@ -160,7 +160,7 @@ it(
 it(
   "MetapropertyReference",
   async (): Promise<void> => {
-    let metaproperty = MetaProperty.get(
+    let metaproperty = MetapropertyReference.get(
       "test1",
       PropertyReference.get(
         "test2",
