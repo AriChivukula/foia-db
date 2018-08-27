@@ -1,31 +1,24 @@
-export enum Type {
-  BOOLEAN,
-  NUMBER,
-  STRING,
-}
-
 export enum Count {
   ONE,
   MANY,
 }
 
+export enum Format {
+  BOOLEAN,
+  NUMBER,
+  STRING,
+}
+
 export interface ITypeReference {
   readonly count: Count;
-  readonly type: Type;
+  readonly format: Format;
 }
 
 export class TypeReference {
   
-  public static one(type: Type): TypeReference {
+  public static get(count: Count, format: Format): TypeReference {
     return new TypeReference({
-      count: Count.ONE,
-      type,
-    });
-  }
-  
-  public static many(type: Type): TypeReference {
-    return new TypeReference({
-      count: Count.MANY,
+      count,
       type,
     });
   }
@@ -35,11 +28,11 @@ export class TypeReference {
   ) {
   }
   
-  public type(): Type {
-    return this.props.type;
-  }
-  
   public count(): Count {
     return this.props.count;
+  }
+  
+  public format(): Format {
+    return this.props.format;
   }
 }
