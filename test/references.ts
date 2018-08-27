@@ -12,9 +12,9 @@ import {
   LinkReference,
   LineReference,
   PropertyReference,
-  DataReference,
+  DatumReference,
   MetapropertyReference,
-  MetadataReference,
+  MetadatumReference,
 } from "../source/index";
 
 it(
@@ -119,9 +119,9 @@ it(
 
 
 it(
-  "DataReference",
+  "DatumReference",
   async (): Promise<void> => {
-    let data = DataReference.get(
+    let datum = DatumReference.get(
       PointReference.get(
         "test2",
         KindReference.get("test1"),
@@ -133,25 +133,25 @@ it(
       ),
       "test4",
     );
-    chai.expect((data.anchor() as PointReference).kind().name())
+    chai.expect((datum.anchor() as PointReference).kind().name())
       .to
       .equal("test1");
-    chai.expect((data.anchor() as PointReference).name())
+    chai.expect((datum.anchor() as PointReference).name())
       .to
       .equal("test2");
-    chai.expect(data.property().kind().name())
+    chai.expect(datum.property().kind().name())
       .to
       .equal("test3");
-    chai.expect(data.property().name())
+    chai.expect(datum.property().name())
       .to
       .equal("test4");
-    chai.expect(data.property().type().count())
+    chai.expect(datum.property().type().count())
       .to
       .equal(Count.ONE);
-    chai.expect(data.property().type().format())
+    chai.expect(datum.property().type().format())
       .to
       .equal(Format.STRING);
-    chai.expect(data.value())
+    chai.expect(datum.value())
       .to
       .equal("test4");
   },
