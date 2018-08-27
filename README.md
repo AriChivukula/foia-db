@@ -2,23 +2,27 @@
 
 ## References
 
-### [TypeReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
+### [`Count`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts): `ONE, MANY`
 
-### [KindReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)
+### [`Format`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts): `BOOLEAN, NUMBER, STRING`
 
-### [PointReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
+### [`TypeReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts): `Count * Format`
 
-### [LinkReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts)
+### [`KindReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts): `$0`
 
-### [LineReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts)
+### [`PointReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts): `$1 * KindReference`
 
-### [PropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
+### [`LinkReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts): `$2 * KindReference`
 
-### [DatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts)
+### [`LineReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts): `LinkReference * PointReference`
 
-### [MetapropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts)
+### [`PropertyReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts): `$3 * KindReference`
 
-### [MetadatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
+### [`DatumReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts): `PropertyReference * PointReference`
+
+### [`MetapropertyReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts): `$4 * PropertyReference`
+
+### [`MetadatumReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts): `MetapropertyReference * DatumReference`
 
 ## Ledger
 
