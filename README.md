@@ -14,13 +14,7 @@
 
 ### [LineReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts)
 
-### PropertyReference
-
-`getAnchor(): KindReference | LinkReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
+### [PropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
 
 ### DataReference
 
