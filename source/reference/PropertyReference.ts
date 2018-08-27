@@ -11,17 +11,17 @@ import {
 export type SchemaReference = KindReference | LinkReference;
 
 export interface IPropertyReference {
-  readonly schemaReference: SchemaReference;
   readonly name: string;
+  readonly schemaReference: SchemaReference;
   readonly typeReference: TypeReference;
 }
 
 export class PropertyReference {
 
-  public static get(schemaReference: SchemaReference, name: string, typeReference: TypeReference): PropertyReference {
+  public static get(name: string, schemaReference: SchemaReference, typeReference: TypeReference): PropertyReference {
     return new PropertyReference({
-      schemaReference,
       name,
+      schemaReference,
       typeReference,
     });
   }
@@ -31,12 +31,12 @@ export class PropertyReference {
   ) {
   }
 
-  public schema(): SchemaReference {
-    return this.props.schemaReference;
-  }
-  
   public name(): string {
     return this.props.name;
+  }
+
+  public schema(): SchemaReference {
+    return this.props.schemaReference;
   }
   
   public type(): TypeReference {
