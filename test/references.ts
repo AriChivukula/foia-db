@@ -175,16 +175,16 @@ it(
     chai.expect(metaproperty.property().name())
       .to
       .equal("test2");
-    chai.expect(metaproperty.property().kind().name())
+    chai.expect((metaproperty.property().schema() as KindReference).name())
       .to
       .equal("test3");
-    chai.expect(metaproperty.property().type().one())
+    chai.expect(metaproperty.property().type().count())
       .to
       .equal(Count.ONE);
     chai.expect(metaproperty.property().type().format())
       .to
       .equal(Format.STRING);
-    chai.expect(metaproperty.type().one())
+    chai.expect(metaproperty.type().count())
       .to
       .equal(Count.ONE);
     chai.expect(metaproperty.type().format())
