@@ -1,3 +1,4 @@
 --require ts-node/register
 --full-trace
 test/*.ts
+test/**/*.ts

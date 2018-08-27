@@ -2,67 +2,23 @@
 
 ## References
 
-### TypeReference
+### [TypeReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
 
-`getName(): string`
+### [KindReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)
 
-### KindReference
+### [PointReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
 
-`getName(): string`
+### [LinkReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts)
 
-### PointReference
+### [LineReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts)
 
-`getKind(): KindReference`
+### [PropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
 
-`getName(): string`
+### [DatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts)
 
-### LinkReference
+### [MetapropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts)
 
-`getFromKind(): KindReference`
-
-`getToKind(): KindReference`
-
-### LineReference
-
-`getFromPoint(): PointReference`
-
-`getToPoint(): PointReference`
-
-### PropertyReference
-
-`getAnchor(): KindReference | LinkReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
-
-### DataReference
-
-`getAnchor(): PointReference | LineReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
-
-`getValue(): any`
-
-### MetapropertyReference
-
-`getMetaproperty(): PropertyReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
-
-### MetadataReference
-
-`getMetaproperty(): PropertyReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
-
-`getValue(): any`
+### [MetadatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
 
 ## Define
 
@@ -80,13 +36,13 @@
 
 ### Property
 
-`addProperty(anchor: KindReference | LinkReference, name: string, type: TypeReference): PropertyReference`
+`addProperty(name: string, schema: SchemaReference, type: TypeReference): PropertyReference`
 
 `removeProperty(property: PropertyReference): void`
 
 ### Metaproperty
 
-`addMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+`addMetaproperty(name: string, property: PropertyReference, type: TypeReference): MetapropertyReference`
 
 `removeMetaproperty(metaproperty: MetapropertyReference): void`
 
@@ -98,17 +54,17 @@
 
 `unsetPoint(point: PointReference): void`
 
-### Data
+### Datum
 
-`setData(anchor: PointReference | LineReference, name: string, value: any): DataReference`
+`setDatum(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DatumReference`
 
-`unsetData(data: DataReference): void`
+`unsetDatum(datum: DatumReference): void`
 
-### Metadata
+### Metadatum
 
-`setMetadata(data: DataReference, name: string, value: any): MetadataReference`
+`setMetadatum(datum: DatumReference, metapropertyReference: MetapropertyReference, value: any): MetadatumReference`
 
-`unsetMetadata(metadata: MetadataReference): void`
+`unsetMetadatum(metadatum: MetadatumReference): void`
 
 ## Query
 
@@ -138,24 +94,24 @@
 
 ### Property
 
-`oneProperty(anchor: KindReference | LinkReference, name: string): PropertyReference`
+`oneProperty(schema: SchemaReference, name: string): PropertyReference`
 
-`allProperties(anchor: KindReference | LinkReference): PropertyReference[]`
+`allProperties(schema: SchemaReference): PropertyReference[]`
 
-### Data
+### Datum
 
-`oneDatum(anchor: PointReference | LineReference, name: string): DataReference`
+`oneDatum(anchor: AnchorReference, name: string): DatumReference`
 
-`allData(anchor: PointReference | LineReference): DataReference[]`
+`allData(anchor: AnchorReference): DatumReference[]`
 
 ### Metaproperty
 
-`oneMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+`oneMetaproperty(property: PropertyReference, name: string): MetapropertyReference`
 
 `allMetaproperties(property: PropertyReference): MetapropertyReference[]`
 
-### Metadata
+### Metadatum
 
-`oneMetadatum(property: PropertyReference, name: string): MetadataReference`
+`oneMetadatum(datum: DatumReference, name: string): MetadatumReference`
 
-`allMetadata(property: PropertyReference): MetadataReference[]`
+`allMetadata(datum: DatumReference): MetadatumReference[]`
