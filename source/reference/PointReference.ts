@@ -26,6 +26,6 @@ export class PointReference {
   }
 
   public name(): string {
-    return this.props.pointName;
+    return this.props.name;
   }
 }
