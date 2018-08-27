@@ -16,15 +16,7 @@
 
 ### [PropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
 
-### DataReference
-
-`getAnchor(): PointReference | LineReference`
-
-`getName(): string`
-
-`getType(): TypeReference`
-
-`getValue(): any`
+### [DataReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DataReference.ts)
 
 ### MetapropertyReference
 
@@ -40,9 +32,7 @@
 
 `getName(): string`
 
-`getType(): TypeReference`
-
-`getValue(): any`
+`getValue(): ValueReference`
 
 ## Define
 
