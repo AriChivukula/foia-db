@@ -192,3 +192,78 @@ it(
       .equal(Format.STRING);
   },
 );
+
+it(
+  "MetadatumReference",
+  async (): Promise<void> => {
+    let metadatum = MetadatumReference.get(
+      DatumReference.get(
+        PointReference.get(
+          KindReference.get("test1"),
+          "test2",
+        ),
+        PropertyReference.get(
+          "test3",
+          KindReference.get("test1"),
+          TypeReference.get(Count.ONE, Format.STRING),
+        ),
+        "test4",
+      ),
+      MetapropertyReference.get(
+        "test5",
+        PropertyReference.get(
+          "test3",
+          KindReference.get("test1"),
+          TypeReference.get(Count.ONE, Format.STRING),
+        ),
+        TypeReference.get(Count.ONE, Format.STRING),
+      ),
+      "test6",
+    );
+    chai.expect((metadatum.datum().anchor() as PointReference).kind().name())
+      .to
+      .equal("test1");
+    chai.expect((metadatum.datum().anchor() as PointReference).name())
+      .to
+      .equal("test2");
+    chai.expect(metadatum.datum().property().name())
+      .to
+      .equal("test3");
+    chai.expect((metadatum.datum().property().schema() as KindReference).name())
+      .to
+      .equal("test1");
+    chai.expect(metadatum.datum().property().type().count())
+      .to
+      .equal(Count.ONE);
+    chai.expect(metadatum.datum().property().type().format())
+      .to
+      .equal(Format.STRING);
+    chai.expect(metadatum.datum().value())
+      .to
+      .equal("test4");
+    chai.expect(metadatum.metaproperty().name())
+      .to
+      .equal("test5");
+    chai.expect(metadatum.metaproperty().property().name())
+      .to
+      .equal("test3");
+    chai.expect((metadatum.metaproperty().property().schema() as KindReference).name())
+      .to
+      .equal("test1");
+    chai.expect(metadatum.metaproperty().property().type().count())
+      .to
+      .equal(Count.ONE);
+    chai.expect(metadatum.metaproperty().property().type().format())
+      .to
+      .equal(Format.STRING);
+    chai.expect(metadatum.metaproperty().type().count())
+      .to
+      .equal(Count.ONE);
+    chai.expect(metadatum.metaproperty().type().format())
+      .to
+      .equal(Format.STRING);
+    chai.expect(metadatum.value())
+      .to
+      .equal("test6");
+  },
+);
