@@ -10,16 +10,16 @@ import {
 
 export type AnchorReference = PointReference | LineReference;
 
-export interface IDataReference {
+export interface IDatumReference {
   readonly anchorReference: AnchorReference;
   readonly propertyReference: PropertyReference;
   readonly value: any;
 }
 
-export class DataReference {
+export class DatumReference {
 
-  public static get(anchorReference: AnchorReference, propertyReference: PropertyReference, value: any): DataReference {
-    return new DataReference({
+  public static get(anchorReference: AnchorReference, propertyReference: PropertyReference, value: any): DatumReference {
+    return new DatumReference({
       anchorReference,
       propertyReference,
       value,
@@ -27,7 +27,7 @@ export class DataReference {
   }
 
   private constructor(
-    private readonly props: IDataReference,
+    private readonly props: IDatumReference,
   ) {
   }
 
