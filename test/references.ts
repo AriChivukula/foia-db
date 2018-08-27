@@ -4,8 +4,8 @@ import "mocha";
 import * as chai from "chai";
 
 import {
-  Type,
   Count,
+  Format,
   TypeReference,
   KindReference,
   PointReference,
@@ -20,13 +20,13 @@ import {
 it(
   "TypeReference",
   async (): Promise<void> => {
-    let type = TypeReference.one(Type.STRING);
-    chai.expect(type.type())
-      .to
-      .equal(Type.STRING);
+    let type = TypeReference.get(Count.ONE, Format.STRING);
     chai.expect(type.count())
       .to
       .equal(Count.ONE);
+    chai.expect(type.format())
+      .to
+      .equal(Format.STRING);
   },
 );
 
@@ -44,8 +44,8 @@ it(
   "PointReference",
   async (): Promise<void> => {
     let point = PointReference.get(
+      KindReference.get("test2"),
       "test1",
-      KindReference.get("test2")
     );
     chai.expect(point.name())
       .to
@@ -76,13 +76,19 @@ it(
   "LineReference",
   async (): Promise<void> => {
     let line = LineReference.get(
-      PointReference.get("test1", KindReference.get("test2")),
-      PointReference.get("test3", KindReference.get("test4")),
+      PointReference.get(KindReference.get("test1"), "test2"),
+      PointReference.get(KindReference.get("test3"), "test4"),
     );
-    chai.expect(line.fromPoint().name())
+    chai.expect(line.toPoint().kind().name())
       .to
       .equal("test1");
+    chai.expect(line.fromPoint().name())
+      .to
+      .equal("test2");
     chai.expect(line.toPoint().kind().name())
+      .to
+      .equal("test3");
+    chai.expect(line.toPoint().name())
       .to
       .equal("test4");
   },
@@ -92,19 +98,22 @@ it(
   "PropertyReference",
   async (): Promise<void> => {
     let property = PropertyReference.get(
-      KindReference.get("test1"),
-      "test2",
-      TypeReference.one(Type.STRING),
+      "test1",
+      KindReference.get("test2"),
+      TypeReference.get(Count.ONE, Format.STRING),
     );
-    chai.expect((property.schema() as KindReference).name())
-      .to
-      .equal("test1");
     chai.expect(property.name())
       .to
-      .equal("test2");
-    chai.expect(property.type().name())
+      .equal("test1");
+    chai.expect((property.schema() as KindReference).name())
       .to
-      .equal("string");
+      .equal("test2");
+    chai.expect(property.type().count())
+      .to
+      .equal(Count.ONE);
+    chai.expect(property.type().format())
+      .to
+      .equal(Format.STRING);
   },
 );
 
@@ -120,7 +129,7 @@ it(
       PropertyReference.get(
         KindReference.get("test3"),
         "test4",
-        TypeReference.one(Type.STRING),
+        TypeReference.get(Count.ONE, Format.STRING),
       ),
       "test4",
     );
@@ -136,9 +145,12 @@ it(
     chai.expect(data.property().name())
       .to
       .equal("test4");
-    chai.expect(data.property().type().name())
+    chai.expect(data.property().type().count())
       .to
-      .equal("string");
+      .equal(Count.ONE);
+    chai.expect(data.property().type().format())
+      .to
+      .equal(Format.STRING);
     chai.expect(data.value())
       .to
       .equal("test4");
