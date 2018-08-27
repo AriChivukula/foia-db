@@ -1,49 +1,32 @@
+export enum Type {
+  BOOLEAN,
+  NUMBER,
+  STRING,
+}
+
+export enum Count {
+  ONE,
+  MANY,
+}
+
 export interface ITypeReference {
-  readonly list: boolean;
-  readonly name: string;
+  readonly count: Count;
+  readonly type: Type;
 }
 
 export class TypeReference {
   
-  public static boolean(): TypeReference {
+  public static one(type: Type): TypeReference {
     return new TypeReference({
-      list: false,
-      name: "boolean",
+      count: Count.ONE,
+      type,
     });
   }
   
-  public static booleanArray(): TypeReference {
+  public static many(type: Type): TypeReference {
     return new TypeReference({
-      list: true,
-      name: "boolean",
-    });
-  }
-
-  public static number(): TypeReference {
-    return new TypeReference({
-      list: false,
-      name: "number",
-    });
-  }
-  
-  public static numberArray(): TypeReference {
-    return new TypeReference({
-      list: true,
-      name: "number",
-    });
-  }
-  
-  public static string(): TypeReference {
-    return new TypeReference({
-      list: false,
-      name: "string",
-    });
-  }
-  
-  public static stringArray(): TypeReference {
-    return new TypeReference({
-      list: true,
-      name: "string",
+      count: Count.MANY,
+      type,
     });
   }
 
@@ -52,7 +35,11 @@ export class TypeReference {
   ) {
   }
   
-  public name(): string {
-    return this.props.name + (this.props.list ? "[]" : "");
+  public type(): Type {
+    return this.props.type;
+  }
+  
+  public count(): Count {
+    return this.props.count;
   }
 }
