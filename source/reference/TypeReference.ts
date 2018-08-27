@@ -53,6 +53,6 @@ export class TypeReference {
   }
   
   public name(): string {
-    return this.props.typeName + (this.props.isList ? "[]" : "");
+    return this.props.name + (this.props.list ? "[]" : "");
   }
 }
