@@ -4,15 +4,15 @@ import {
 
 export interface IPointReference {
   readonly kindReference: KindReference;
-  readonly pointName: string;
+  readonly name: string;
 }
 
 export class PointReference {
 
-  public static get(pointName: string, kindReference: KindReference): PointReference {
+  public static get(kindReference: KindReference, name: string): PointReference {
     return new PointReference({
-      pointName,
       kindReference,
+      name,
     });
   }
 
@@ -21,11 +21,11 @@ export class PointReference {
   ) {
   }
 
-  public name(): string {
-    return this.props.pointName;
-  }
-  
   public kind(): KindReference {
     return this.props.kindReference;
+  }
+
+  public name(): string {
+    return this.props.pointName;
   }
 }
