@@ -1,12 +1,12 @@
 export interface IKindReference {
-  readonly kindName: string;
+  readonly name: string;
 }
 
 export class KindReference {
 
-  public static get(kindName: string): KindReference {
+  public static get(name: string): KindReference {
     return new KindReference({
-      kindName,
+      name,
     });
   }
 
@@ -16,6 +16,6 @@ export class KindReference {
   }
 
   public name(): string {
-    return this.props.kindName;
+    return this.props.name;
   }
 }
