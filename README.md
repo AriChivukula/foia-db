@@ -16,21 +16,9 @@
 
 ### [DataReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DataReference.ts)
 
-### MetapropertyReference
+### [MetapropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts)
 
-`property(): PropertyReference`
-
-`name(): string`
-
-`getType(): TypeReference`
-
-### MetadataReference
-
-`data(): DataReference`
-
-`metaproperty(): MetapropertyReference`
-
-`getValue(): any`
+### [MetadataReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadataReference.ts)
 
 ## Define
 
