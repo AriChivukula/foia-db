@@ -103,7 +103,7 @@ it(
       "test2",
       TypeReference.string(),
     );
-    chai.expect(property.schema().name())
+    chai.expect((property.schema() as KindReference).name())
       .to
       .equal("test1");
     chai.expect(property.name())
@@ -121,8 +121,8 @@ it(
   async (): Promise<void> => {
     let data = DataReference.get(
       PointReference.get(
-        KindReference.get("test1"),
         "test2",
+        KindReference.get("test1"),
       ),
       PropertyReference.get(
         KindReference.get("test3"),
@@ -131,10 +131,10 @@ it(
       ),
       "test4",
     );
-    chai.expect(data.anchor().kind().name())
+    chai.expect((data.anchor() as PointReference).kind().name())
       .to
       .equal("test1");
-    chai.expect(data.anchor().name())
+    chai.expect((data.anchor() as PointReference).name())
       .to
       .equal("test2");
     chai.expect(data.property().kind().name())
