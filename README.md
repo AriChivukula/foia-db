@@ -18,19 +18,19 @@
 
 ### MetapropertyReference
 
-`getMetaproperty(): PropertyReference`
+`property(): PropertyReference`
 
-`getName(): string`
+`name(): string`
 
 `getType(): TypeReference`
 
 ### MetadataReference
 
-`getMetaproperty(): PropertyReference`
+`data(): DataReference`
 
-`getName(): string`
+`metaproperty(): MetapropertyReference`
 
-`getValue(): ValueReference`
+`getValue(): any`
 
 ## Define
 
