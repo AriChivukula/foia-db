@@ -13,7 +13,7 @@ export interface IMetapropertyReference {
 
 export class MetapropertyReference {
 
-  public static get(propertyReference: PropertyReference, name: string, typeReference: TypeReference): PropertyReference {
+  public static get(propertyReference: PropertyReference, name: string, typeReference: TypeReference): MetapropertyReference {
     return new MetapropertyReference({
       propertyReference,
       name,
