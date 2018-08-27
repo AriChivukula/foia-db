@@ -36,13 +36,13 @@
 
 ### Property
 
-`addProperty(anchor: KindReference | LinkReference, name: string, type: TypeReference): PropertyReference`
+`addProperty(name: string, schema: SchemaReference, type: TypeReference): PropertyReference`
 
 `removeProperty(property: PropertyReference): void`
 
 ### Metaproperty
 
-`addMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+`addMetaproperty(name: string, property: PropertyReference, type: TypeReference): MetapropertyReference`
 
 `removeMetaproperty(metaproperty: MetapropertyReference): void`
 
@@ -56,13 +56,13 @@
 
 ### Data
 
-`setData(anchor: PointReference | LineReference, name: string, value: any): DataReference`
+`setData(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DataReference`
 
 `unsetData(data: DataReference): void`
 
 ### Metadata
 
-`setMetadata(data: DataReference, name: string, value: any): MetadataReference`
+`setMetadata(data: DataReference, metapropertyReference: MetapropertyReference, value: any): MetadataReference`
 
 `unsetMetadata(metadata: MetadataReference): void`
 
@@ -94,24 +94,24 @@
 
 ### Property
 
-`oneProperty(anchor: KindReference | LinkReference, name: string): PropertyReference`
+`oneProperty(schema: SchemaReference, name: string): PropertyReference`
 
-`allProperties(anchor: KindReference | LinkReference): PropertyReference[]`
+`allProperties(schema: SchemaReference): PropertyReference[]`
 
 ### Data
 
-`oneDatum(anchor: PointReference | LineReference, name: string): DataReference`
+`oneDatum(anchor: AnchorReference, name: string): DataReference`
 
-`allData(anchor: PointReference | LineReference): DataReference[]`
+`allData(anchor: AnchorReference): DataReference[]`
 
 ### Metaproperty
 
-`oneMetaproperty(property: PropertyReference, name: string, type: TypeReference): MetapropertyReference`
+`oneMetaproperty(property: PropertyReference, name: string): MetapropertyReference`
 
 `allMetaproperties(property: PropertyReference): MetapropertyReference[]`
 
 ### Metadata
 
-`oneMetadatum(property: PropertyReference, name: string): MetadataReference`
+`oneMetadatum(data: DataReference, name: string): MetadataReference`
 
-`allMetadata(property: PropertyReference): MetadataReference[]`
+`allMetadata(data: DataReference): MetadataReference[]`
