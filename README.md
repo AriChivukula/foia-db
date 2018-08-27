@@ -14,11 +14,11 @@
 
 ### [PropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
 
-### [DataReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DataReference.ts)
+### [DatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts)
 
 ### [MetapropertyReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts)
 
-### [MetadataReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadataReference.ts)
+### [MetadatumReference](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
 
 ## Define
 
@@ -54,17 +54,17 @@
 
 `unsetPoint(point: PointReference): void`
 
-### Data
+### Datum
 
-`setData(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DataReference`
+`setDatum(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DatumReference`
 
-`unsetData(data: DataReference): void`
+`unsetDatum(datum: DatumReference): void`
 
-### Metadata
+### Metadatum
 
-`setMetadata(data: DataReference, metapropertyReference: MetapropertyReference, value: any): MetadataReference`
+`setMetadatum(datum: DatumReference, metapropertyReference: MetapropertyReference, value: any): MetadatumReference`
 
-`unsetMetadata(metadata: MetadataReference): void`
+`unsetMetadatum(metadatum: MetadatumReference): void`
 
 ## Query
 
@@ -98,11 +98,11 @@
 
 `allProperties(schema: SchemaReference): PropertyReference[]`
 
-### Data
+### Datum
 
-`oneDatum(anchor: AnchorReference, name: string): DataReference`
+`oneDatum(anchor: AnchorReference, name: string): DatumReference`
 
-`allData(anchor: AnchorReference): DataReference[]`
+`allData(anchor: AnchorReference): DatumReference[]`
 
 ### Metaproperty
 
@@ -110,8 +110,8 @@
 
 `allMetaproperties(property: PropertyReference): MetapropertyReference[]`
 
-### Metadata
+### Metadatum
 
-`oneMetadatum(data: DataReference, name: string): MetadataReference`
+`oneMetadatum(datum: DatumReference, name: string): MetadatumReference`
 
-`allMetadata(data: DataReference): MetadataReference[]`
+`allMetadata(datum: DatumReference): MetadatumReference[]`
