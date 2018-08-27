@@ -8,19 +8,19 @@ import {
   TypeReference,
 } from "./TypeReference";
 
-export type AnchorReference = KindReference | LinkReference;
+export type SchemaReference = KindReference | LinkReference;
 
 export interface IPropertyReference {
-  readonly anchorReference: AnchorReference;
+  readonly schemaReference: SchemaReference;
   readonly name: string;
   readonly typeReference: TypeReference;
 }
 
 export class PropertyReference {
 
-  public static get(anchorReference: AnchorReference, name: string, typeReference: TypeReference): PropertyReference {
+  public static get(schemaReference: SchemaReference, name: string, typeReference: TypeReference): PropertyReference {
     return new PropertyReference({
-      anchorReference,
+      schemaReference,
       name,
       typeReference,
     });
@@ -31,8 +31,8 @@ export class PropertyReference {
   ) {
   }
 
-  public anchor(): AnchorReference {
-    return this.props.anchorReference;
+  public schema(): SchemaReference {
+    return this.props.schemaReference;
   }
   
   public name(): string {
