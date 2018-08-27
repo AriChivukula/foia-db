@@ -79,7 +79,7 @@ it(
       PointReference.get(KindReference.get("test1"), "test2"),
       PointReference.get(KindReference.get("test3"), "test4"),
     );
-    chai.expect(line.toPoint().kind().name())
+    chai.expect(line.fromPoint().kind().name())
       .to
       .equal("test1");
     chai.expect(line.fromPoint().name())
