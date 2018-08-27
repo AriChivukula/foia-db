@@ -5,7 +5,6 @@ import * as chai from "chai";
 
 import {
   TypeReference,
-  ValueReference,
   KindReference,
   PointReference,
   LinkReference,
@@ -33,22 +32,6 @@ it(
       .to
       .not
       .equal(TypeReference.boolean().name());
-  },
-);
-
-it(
-  "ValueReference",
-  async (): Promise<void> => {
-    let value = ValueReference.get(
-      TypeReference.string(),
-      "test",
-    );
-    chai.expect(value.type().name())
-      .to
-      .equal("string");
-    chai.expect(value.value())
-      .to
-      .equal("test");
   },
 );
 
@@ -139,11 +122,12 @@ it(
         KindReference.get("test1"),
         "test2",
       ),
-      "test3",
-      ValueReference.string(
-        TypeReference.string(),
+      PropertyReference.get(
+        KindReference.get("test3"),
         "test4",
+        TypeReference.string(),
       ),
+      "test4",
     );
     chai.expect(data.anchor().kind().name())
       .to
@@ -151,13 +135,16 @@ it(
     chai.expect(data.anchor().name())
       .to
       .equal("test2");
-    chai.expect(data.name())
+    chai.expect(data.property().kind().name())
       .to
       .equal("test3");
-    chai.expect(data.value().type().name())
+    chai.expect(data.property().name())
+      .to
+      .equal("test4");
+    chai.expect(data.property().type().name())
       .to
       .equal("string");
-    chai.expect(data.value().name())
+    chai.expect(data.value())
       .to
       .equal("test4");
   },
