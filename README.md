@@ -6,7 +6,7 @@
 
 ### [`Format`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts) = `[BOOLEAN, NUMBER, STRING]`
 
-### [`TypeReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts) = `Count * Format`
+### [`TypeReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts): `Count * Format`
 
 ### [`KindReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts)~> `$name`
 
