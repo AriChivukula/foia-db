@@ -10,6 +10,8 @@ import {
   PointReference,
   LinkReference,
   LineReference,
+  PropertyReference,
+  DataReference,
 } from "../source/index";
 
 it(
@@ -103,6 +105,59 @@ it(
       .to
       .equal("test1");
     chai.expect(line.toPoint().kind().name())
+      .to
+      .equal("test4");
+  },
+);
+
+it(
+  "PropertyReference",
+  async (): Promise<void> => {
+    let property = PropertyReference.get(
+      KindReference.get("test1"),
+      "test2",
+      TypeReference.string(),
+    );
+    chai.expect(property.schema().name())
+      .to
+      .equal("test1");
+    chai.expect(property.name())
+      .to
+      .equal("test2");
+    chai.expect(property.type().name())
+      .to
+      .equal("string");
+  },
+);
+
+
+it(
+  "DataReference",
+  async (): Promise<void> => {
+    let data = DataReference.get(
+      PointReference.get(
+        KindReference.get("test1"),
+        "test2",
+      ),
+      "test3",
+      ValueReference.string(
+        TypeReference.string(),
+        "test4",
+      ),
+    );
+    chai.expect(data.anchor().kind().name())
+      .to
+      .equal("test1");
+    chai.expect(data.anchor().name())
+      .to
+      .equal("test2");
+    chai.expect(data.name())
+      .to
+      .equal("test3");
+    chai.expect(data.value().type().name())
+      .to
+      .equal("string");
+    chai.expect(data.value().name())
       .to
       .equal("test4");
   },
