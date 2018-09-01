@@ -14,7 +14,7 @@
 `Count[1] Format[1]`
 
 #### `Value`
-`JSON.stringify(...)`
+`Value[JSON.stringify(...)]`
 
 ### Schema
 
