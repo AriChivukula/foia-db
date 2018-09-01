@@ -5,15 +5,16 @@
 ### Base
 
 #### [`Count`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`ONE`, `MANY`
+`ONE | MANY`
 
 #### [`Format`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`BOOLEAN`, `NUMBER`, `STRING`
+`BOOLEAN | NUMBER | STRING`
 
 #### [`Type`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`Count` * `Format`
+`Count * Format`
 
-#### `Value`: `JSON.stringify($)`
+#### `Value`
+`JSON.stringify($)`
 
 ### Schema
 
@@ -24,24 +25,24 @@
 `Kind[2]`
 
 #### [`Property`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts)
-`Kind[$]`, `Property[1]`, `Type`
+`Kind[$] Property[1] Type`
 
 #### [`Metaproperty`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetapropertyReference.ts)
-`Kind[$]`, `Property[2]`, `Type`
+`Kind[$] Property[2] Type`
 
 ### Anchor
 
 #### [`Point`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts)
-`Kind[1]`, `Point[1]`
+`Kind[1] Point[1]`
 
 #### [`Line`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts)
-`Kind[2]`, `Point[2]`
+`Kind[2] Point[2]`
 
 #### [`Datum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts)
-`Kind[$]`, `Point[$]`, `Property[1]`, `Value`
+`Kind[$] Point[$] Property[1] Value`
 
 #### [`Metadatum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
-`Kind[$]`, `Point[$]`, `Property[2]`, `Value`
+`Kind[$] Point[$] Property[2] Value`
 
 ## [`Ledger`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/Ledger.ts)
 
