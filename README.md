@@ -8,13 +8,13 @@
 
 ### [`TypeReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts) = `Count * Format`
 
-### [`KindReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts) = `$name`
+### [`KindReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/KindReference.ts) = `[$kind],[],[]`
 
-### [`PointReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts) = `$name * KindReference`
+### [`PointReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PointReference.ts) = `[$kind],[$point],[]`
 
-### [`LinkReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts) = `KindReference * KindReference`
+### [`LinkReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LinkReference.ts) = `[$kind,$kind],[],[]`
 
-### [`LineReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts) = `LinkReference * PointReference * PointReference`
+### [`LineReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts) = `[$kind,$kind],[$point,$point],[]`
 
 ### [`PropertyReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/PropertyReference.ts) = `$name * KindReference`
 
