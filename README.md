@@ -5,10 +5,10 @@
 ### Base
 
 #### [`Count`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`ONE | MANY`
+`ONE MANY`
 
 #### [`Format`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`BOOLEAN | NUMBER | STRING`
+`BOOLEAN NUMBER STRING`
 
 #### [`Type`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
 `Count[1] Format[1]`
@@ -49,7 +49,7 @@
 ## [`Query`](https://github.com/AriChivukula/foia-db/blob/master/source/query/Query.ts)
 
 ### Match
-`= | ~ | < | > | ! | & | |`
+`= ~ < > ! & |`
 
 ### Select
 `Kind Property Point Type Value`
