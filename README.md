@@ -39,59 +39,33 @@
 `Kind[2] Point[2]`
 
 #### [`Datum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts)
-`Kind[$] Point[$] Property[1] Value`
+`Kind[$] Property[1] Point[$] Value`
 
 #### [`Metadatum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts)
-`Kind[$] Point[$] Property[2] Value`
+`Kind[$] Property[2] Point[$] Value`
 
-## [`Ledger`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/Ledger.ts)
+## [`Ledger`](https://github.com/AriChivukula/foia-db/blob/master/source/ledger/Ledger.ts)
 
-## Query
+## [`Query`](https://github.com/AriChivukula/foia-db/blob/master/source/query/Query.ts)
 
-### Kind
+### Match
 
-`oneKind(name: string): KindReference`
+#### Equals
 
-`allKinds(): KindReference[]`
+#### Contains
 
-### Point
+#### Less
 
-`onePoint(kind: KindReference, name: string): PointReference`
+#### Greater
 
-`allPoints(kind: KindReference): PointReference[]`
+### Select
 
-### Link
+#### Kind
 
-`oneLink(fromKind: KindReference, toKind: KindReference): LinkReference`
+#### Property
 
-`allLinks(fromKind: KindReference): LinkReference[]`
+#### Point
 
-### Line
+#### Type
 
-`oneLine(fromPoint: PointReference, toPoint: PointReference): LineReference`
-
-`allLines(fromPoint: PointReference): LineReference[]`
-
-### Property
-
-`oneProperty(schema: SchemaReference, name: string): PropertyReference`
-
-`allProperties(schema: SchemaReference): PropertyReference[]`
-
-### Datum
-
-`oneDatum(anchor: AnchorReference, name: string): DatumReference`
-
-`allData(anchor: AnchorReference): DatumReference[]`
-
-### Metaproperty
-
-`oneMetaproperty(property: PropertyReference, name: string): MetapropertyReference`
-
-`allMetaproperties(property: PropertyReference): MetapropertyReference[]`
-
-### Metadatum
-
-`oneMetadatum(datum: DatumReference, name: string): MetadatumReference`
-
-`allMetadata(datum: DatumReference): MetadatumReference[]`
+#### Value
