@@ -24,35 +24,7 @@
 
 ### [`MetadatumReference`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts) = `$value * MetapropertyReference * DatumReference`
 
-## Ledger
-
-`addKind(name: string): KindReference`
-
-`removeKind(kind: KindReference): void`
-
-`setPoint(kind: KindReference, name: string): PointReference`
-
-`unsetPoint(point: PointReference): void`
-
-`addLink(fromKind: KindReference, toKind: KindReference): LinkReference`
-
-`removeLink(link: LinkReference): void`
-
-`addProperty(name: string, schema: SchemaReference, type: TypeReference): PropertyReference`
-
-`removeProperty(property: PropertyReference): void`
-
-`setDatum(anchor: AnchorReference, propertyReference: PropertyReference, value: any): DatumReference`
-
-`unsetDatum(datum: DatumReference): void`
-
-`addMetaproperty(name: string, property: PropertyReference, type: TypeReference): MetapropertyReference`
-
-`removeMetaproperty(metaproperty: MetapropertyReference): void`
-
-`setMetadatum(datum: DatumReference, metapropertyReference: MetapropertyReference, value: any): MetadatumReference`
-
-`unsetMetadatum(metadatum: MetadatumReference): void`
+## [`Ledger`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/Ledger.ts)
 
 ## Query
 
