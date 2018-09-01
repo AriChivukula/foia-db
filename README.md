@@ -49,29 +49,7 @@
 ## [`Query`](https://github.com/AriChivukula/foia-db/blob/master/source/query/Query.ts)
 
 ### Match
-
-#### =
-
-#### ~
-
-#### <
-
-#### >
-
-#### !
-
-#### &
-
-#### |
+`= | ~ | < | > | ! | & | |`
 
 ### Select
-
-#### Kind
-
-#### Property
-
-#### Point
-
-#### Type
-
-#### Value
+`Kind Property Point Type Value`
