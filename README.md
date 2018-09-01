@@ -11,10 +11,10 @@
 `BOOLEAN | NUMBER | STRING`
 
 #### [`Type`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/TypeReference.ts)
-`Count * Format`
+`Count[1] Format[1]`
 
 #### `Value`
-`JSON.stringify($)`
+`JSON.stringify(...)`
 
 ### Schema
 
