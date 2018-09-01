@@ -28,9 +28,9 @@
 
 #### [`Line`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/LineReference.ts): `Kind[2]`, `Point[2]`
 
-#### [`Datum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts): `Kind[$]`, `Point[$]`, `Property[2]`, `Value`
+#### [`Datum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/DatumReference.ts): `Kind[$]`, `Point[$]`, `Property[1]`, `Value`
 
-#### [`Metadatum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts): `Kind[$]`, `Point[$]`, `Property[1]`, `Value`
+#### [`Metadatum`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/MetadatumReference.ts): `Kind[$]`, `Point[$]`, `Property[2]`, `Value`
 
 ## [`Ledger`](https://github.com/AriChivukula/foia-db/blob/master/source/reference/Ledger.ts)
 
