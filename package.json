@@ -45,6 +45,6 @@
     "source/**/*"
   ],
   "bin": {
-    "foia-db": "build/write.js"
+    "foia-db": "build/index.js"
   }
 }
