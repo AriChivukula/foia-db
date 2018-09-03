@@ -19,7 +19,7 @@ jobs:
     - yarn nyc report
     - ./cc-test-reporter after-build
     - yarn tsc
-    - node build/write.js
+    - node build/index.js
   - stage: Release
     if: type = api
     script:
