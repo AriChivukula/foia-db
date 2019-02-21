@@ -18,7 +18,7 @@
     "@types/yargs": "12.0.8",
     "picaresque": "0.0.0",
     "chai": "4.2.0",
-    "mocha": "5.2.0",
+    "mocha": "6.0.0",
     "ts-node": "8.0.2",
     "typescript": "3.3.3"
   },
