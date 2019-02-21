@@ -7,6 +7,12 @@
   "repository": "https://github.com/AriChivukula/foia-db.git",
   "author": "Ari Chivukula <ari@chivuku.la>",
   "license": "MIT",
+  "mocha": {
+    "bail": true,
+    "full-trace": true,
+    "require": ["ts-node/register", "source-map-support/register"],
+    "spec": ["src/test/*.ts"]
+  },
   "dependencies": {
     "@babel/polyfill": "7.2.5",
     "yargs": "13.2.1"
