@@ -14,19 +14,19 @@
     "spec": ["src/test/*.ts", "test/**/*.ts"]
   },
   "dependencies": {
-    "@babel/polyfill": "7.2.5",
-    "yargs": "13.2.1"
+    "@babel/polyfill": "7.4.0",
+    "yargs": "13.2.2"
   },
   "devDependencies": {
     "@types/chai": "4.1.7",
     "@types/mocha": "5.2.6",
-    "@types/node": "11.9.4",
-    "@types/yargs": "12.0.9",
+    "@types/node": "11.11.4",
+    "@types/yargs": "12.0.10",
     "picaresque": "0.0.0",
     "chai": "4.2.0",
-    "mocha": "6.0.0",
-    "ts-node": "8.0.2",
-    "typescript": "3.3.3"
+    "mocha": "6.0.2",
+    "ts-node": "8.0.3",
+    "typescript": "3.3.4000"
   },
   "include": [
     "source/*",
