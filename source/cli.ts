@@ -17,7 +17,7 @@ yargs
   .help()
   .argv;
 
-export function argParse(y: yargs.Argv<any>): yargs.Argv<any> {
+function argParse(y: yargs.Argv<any>): yargs.Argv<any> {
   return y
     .option(
       "directory",
@@ -28,7 +28,7 @@ export function argParse(y: yargs.Argv<any>): yargs.Argv<any> {
     );
 }
 
-export async function entryPoint(argv: yargs.Arguments<any>): Promise<void> {
+async function entryPoint(argv: yargs.Arguments<any>): Promise<void> {
   const mod: { default: DBSchema } = require(`${process.cwd()}/${argv.directory}/schema`);
   await readIndexedDB(mod.default);
 }
