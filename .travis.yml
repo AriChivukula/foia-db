@@ -5,7 +5,6 @@ cache: yarn
 install:
 - npm install --global --upgrade yarn
 - yarn install
-- yarn picaresque
 jobs:
   include:
   - stage: Lint
@@ -15,14 +14,6 @@ jobs:
     - yarn mocha
     - yarn tsc
     - node build/index.js
-  - stage: Release
-    if: type = api
-    script:
-    - yarn ts-node source/write.ts --compile
-    - git remote add target "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
-    - git add -A
-    - git commit -m "ACTUALIZE ${TRAVIS_BUILD_NUMBER}"
-    - git push target HEAD:$TRAVIS_BRANCH
   - stage: Deploy
     if: tag IS present
     script:
