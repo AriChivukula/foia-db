@@ -27,10 +27,10 @@ interface TestDB extends DBSchema {
       timestamps: Date[],
     },
     indexes: {
-      genders: number[],
-      pronouns: string[],
-      thoughts: boolean[],
-      timestamps: Date[],
+      genders: number,
+      pronouns: string,
+      thoughts: boolean,
+      timestamps: Date,
     },
   },
 }
