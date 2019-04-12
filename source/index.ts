@@ -24,15 +24,15 @@ export async function readIndexedDB<T extends DBSchema>(directory: string): Prom
   const data = await promises.readFile(`${directory}/schema.json`, { encoding: "ascii" });
   const schema: JSONSchema = JSON.parse(data);
   const db = await openDB<T>("db", 0);
-  await setupSchema(db, schema);
+  await setupSchema(directory, db, schema);
   return db;
 }
 
-async function setupSchema<T extends DBSchema>(db: IDBPDatabase<T>, schema: JSONSchema): Promise<void> {
+async function setupSchema<T extends DBSchema>(directory: string, db: IDBPDatabase<T>, schema: JSONSchema): Promise<void> {
 }
 
-async function setupCollection<T extends DBSchema>(db: IDBPDatabase<T>, schema: JSONSchema, collection: string): Promise<void> {
+async function setupCollection<T extends DBSchema>(directory: string, db: IDBPDatabase<T>, schema: JSONSchema, collection: string): Promise<void> {
 }
 
-async function setupDocument<T extends DBSchema>(db: IDBPDatabase<T>, schema: JSONSchema, collection: string, document: IDBValidKey): Promise<void> {
+async function setupDocument<T extends DBSchema>(directory: string, db: IDBPDatabase<T>, schema: JSONSchema, collection: string, document: IDBValidKey): Promise<void> {
 }
