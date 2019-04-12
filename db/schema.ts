@@ -34,3 +34,5 @@ interface TestDB extends DBSchema {
     },
   },
 }
+
+export default TestDB;
