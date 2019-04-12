@@ -23,7 +23,7 @@ export async function readIndexedDB<T extends DBSchema>(directory: string): Prom
   const mod: { default: T } = require(`${directory}/schema`);
   const data = await promises.readFile(`${directory}/schema.json`, { encoding: "ascii" });
   const schema: JSONSchema = JSON.parse(data);
-  const db = await openDB<T>("db", 0);
+  const db = await openDB<T>("db", 1);
   await setupSchema(directory, db, schema);
   return db;
 }
