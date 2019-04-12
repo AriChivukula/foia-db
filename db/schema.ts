@@ -3,34 +3,34 @@ import {
 } from 'idb';
  
 interface TestDB extends DBSchema {
-  project: {
+  "project": {
     key: number,
     value: {
-      description: string,
-      days: number,
-      active: boolean,
-      timestamp: Date,
+      "description": string,
+      "days": number,
+      "active": boolean,
+      "timestamp": Date,
     },
     indexes: {
-      description: string,
-      days: number,
-      active: boolean,
-      timestamp: Date,
+      "description": string,
+      "days": number,
+      "active": boolean,
+      "timestamp": Date,
     },
   },
-  user: {
+  "user": {
     key: string,
     value: {
-      genders: number[],
-      pronouns: string[],
-      thoughts: boolean[],
-      timestamps: Date[],
+      "genders": number[],
+      "pronouns": string[],
+      "thoughts": boolean[],
+      "timestamps": Date[],
     },
     indexes: {
-      genders: number,
-      pronouns: string,
-      thoughts: boolean,
-      timestamps: Date,
+      "genders": number,
+      "pronouns": string,
+      "thoughts": boolean,
+      "timestamps": Date,
     },
   },
 }
