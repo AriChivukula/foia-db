@@ -12,6 +12,6 @@ import {
 it(
   "readIndexedDB",
   async (): Promise<void> => {
-    await readIndexedDB<DBSchema>("../db");
+    await readIndexedDB<DBSchema>(`${process.cwd()}/db`);
   },
 );
