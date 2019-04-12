@@ -8,13 +8,11 @@ interface TestDB extends DBSchema {
     value: {
       "description": string,
       "days": number,
-      "active": boolean,
       "timestamp": Date,
     },
     indexes: {
       "description": string,
       "days": number,
-      "active": boolean,
       "timestamp": Date,
     },
   },
@@ -23,13 +21,11 @@ interface TestDB extends DBSchema {
     value: {
       "genders": number[],
       "pronouns": string[],
-      "thoughts": boolean[],
       "timestamps": Date[],
     },
     indexes: {
       "genders": number,
       "pronouns": string,
-      "thoughts": boolean,
       "timestamps": Date,
     },
   },
