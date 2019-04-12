@@ -11,7 +11,7 @@
     "bail": true,
     "full-trace": true,
     "require": ["ts-node/register", "source-map-support/register"],
-    "spec": ["src/test/*.ts", "test/**/*.ts"]
+    "spec": ["src/test/*.ts"]
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
@@ -34,6 +34,6 @@
     "source/**/*"
   ],
   "bin": {
-    "foia-db": "build/index.js"
+    "foia-db": "build/cli.js"
   }
 }
