@@ -9,6 +9,6 @@ import {
 it(
   "readIndexedDB",
   async (): Promise<void> => {
-    await readIndexedDB("../db/schema");
+    await readIndexedDB("../db");
   },
 );
