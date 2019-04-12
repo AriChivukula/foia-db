@@ -14,7 +14,7 @@ export async function readIndexedDB<T extends DBSchema>(directory: string): Prom
   const mod: { default: T } = require(`${directory}/schema`);
   const data = await promises.readFile(`${directory}/schema.json`, { encoding: "ascii" });
   const jsonData = JSON.parse(data);
-  const db = await openDB<T>(
+  return await openDB<T>(
     "db",
     0,
     {
@@ -26,5 +26,10 @@ export async function readIndexedDB<T extends DBSchema>(directory: string): Prom
       }
     },
   );
-  return db;
+}
+
+async function setupCollection(db: IDBPDatabase<T>, collection: string): Promise<void> {
+}
+
+async function setupDocument(db: IDBPDatabase<T>, collection: string, document: IDBValidKey): Promise<void> {
 }
