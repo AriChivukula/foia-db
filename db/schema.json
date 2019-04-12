@@ -1,0 +1,18 @@
+{
+  "project": {
+    "key": "number",
+    "value": {
+      "description": "string",
+      "days": "string",
+      "timestamp": "Date"
+    }
+  },
+  "user": {
+    "key": "string",
+    "value": {
+      "genders": "number[]",
+      "pronouns": "string[]",
+      "timestamps": "Date[]"
+    }
+  }
+}
