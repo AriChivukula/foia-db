@@ -16,7 +16,7 @@ jobs:
     - yarn tsc
     - node build/index.js
   - stage: Deploy
-    if: tag IS present
+    if: branch = master
     script:
     - yarn tsc
     - if [[ "$TRAVIS_TAG =~ ^v[0-9]+\\.[0-9]+\\.[0-9]+-UNSTABLE$" ]] ; then export NPM_TAG="next" ; fi
@@ -27,5 +27,3 @@ jobs:
         api_key: $API_KEY
         skip_cleanup: true
         tag: $NPM_TAG
-        on:
-          tags: true
