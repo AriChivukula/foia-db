@@ -1,10 +1,6 @@
 import * as yargs from "yargs";
 
 import {
-  DBSchema,
-} from "idb";
-
-import {
   readIndexedDB,
 } from "./index";
 
@@ -30,5 +26,5 @@ function argParse(y: yargs.Argv<any>): yargs.Argv<any> {
 }
 
 async function entryPoint(argv: yargs.Arguments<any>): Promise<void> {
-  await readIndexedDB<DBSchema>(`${process.cwd()}/${argv.directory}`);
+  await readIndexedDB(`${process.cwd()}/${argv.directory}`);
 }
