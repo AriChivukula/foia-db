@@ -1,6 +1,9 @@
 import "mocha";
-
 import * as chai from "chai";
+
+import {
+  DBSchema,
+} from "idb";
 
 import {
   readIndexedDB,
@@ -9,6 +12,6 @@ import {
 it(
   "readIndexedDB",
   async (): Promise<void> => {
-    await readIndexedDB("../db");
+    await readIndexedDB<DBSchema>("../db");
   },
 );
