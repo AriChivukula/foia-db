@@ -1,4 +1,5 @@
 import "@babel/polyfill";
+import "fake-indexeddb/auto";
 
-export function noop(): void {
+export async function readIndexedDB(directory: string): Promise<void> {
 }

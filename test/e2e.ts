@@ -1,14 +1,13 @@
 import "mocha";
-
 import * as chai from "chai";
 
 import {
-  noop,
+  readIndexedDB,
 } from "../source/index";
 
 it(
-  "noop",
+  "readIndexedDB",
   async (): Promise<void> => {
-    noop();
+    await readIndexedDB(`${process.cwd()}/db`);
   },
 );

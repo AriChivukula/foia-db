@@ -11,12 +11,11 @@
     "bail": true,
     "full-trace": true,
     "require": ["ts-node/register", "source-map-support/register"],
-    "spec": ["src/test/*.ts", "test/**/*.ts"]
+    "spec": ["test/*.ts"]
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "fake-indexeddb": "2.1.0",
-    "idb": "4.0.3",
     "yargs": "13.2.2"
   },
   "devDependencies": {
@@ -34,6 +33,6 @@
     "source/**/*"
   ],
   "bin": {
-    "foia-db": "build/index.js"
+    "foia-db": "build/cli.js"
   }
 }
